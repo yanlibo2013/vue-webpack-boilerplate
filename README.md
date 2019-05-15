@@ -1,6 +1,6 @@
-# vue-webpack
+# vu2-webpack
 
-> vue2 webpack
+> vue2 vuex webpack scss
 
 ## Build Setup
 
