@@ -14,10 +14,10 @@ export default {
           label: 'module1-1-1',
           children: [
             {
-              label: 'module1-1-1/module1-1-1-1',
+              label: 'module1-1-1-1',
               children: [
                 {
-                  label: 'module1-1-1/module1-1-1-1/module1-1-1-1-1'
+                  label: 'module1-1-1-1-1'
                 }
               ]
             }
@@ -32,10 +32,6 @@ export default {
   },
   methods: {
     handleNodeClick(data) {
-      // console.log(data);
-       console.log("/module1/module1-1/"+data.label);
-       
-
       this.$router.push("/module1/module1-1/"+data.label);
 
     }
