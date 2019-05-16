@@ -16,7 +16,9 @@ export default {
     return {}
   },
   computed: {},
-  mounted() {},
+  mounted() {
+     console.log("module1-1-1-1-1");
+  },
   beforeCreate() {},
   created() {},
   beforeMount() {},

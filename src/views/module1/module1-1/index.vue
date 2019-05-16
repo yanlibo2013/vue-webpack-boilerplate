@@ -1,25 +1,26 @@
 <template>
   <div class="home">
-    <sidebar class="sidebar-container" />
+    <sidebar class="sidebar-container"/>
     <div class="content">
       <!-- <h1>module1-1</h1> -->
       <transition name="fade-transform" mode="out-in">
         <keep-alive>
           <router-view/>
         </keep-alive>
+        <!-- <router-view/> -->
       </transition>
     </div>
   </div>
 </template>
 
 <script>
-import Sidebar from '@/components/SideBar/index'
+import Sidebar from "@/components/SideBar/index";
 export default {
   components: {
     Sidebar
   },
   data: function() {
-    return {}
+    return {};
   },
   computed: {},
   mounted() {},
@@ -29,9 +30,11 @@ export default {
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
-  destroyed: function() {},
+  destroyed() {
+    console.log("destroyed module1-1");
+  },
   methods: {}
-}
+};
 </script>
 
 <style lang="scss">

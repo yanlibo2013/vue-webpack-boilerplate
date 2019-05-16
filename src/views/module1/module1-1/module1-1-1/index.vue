@@ -16,14 +16,36 @@ export default {
     return {}
   },
   computed: {},
-  mounted() {},
-  beforeCreate() {},
-  created() {},
-  beforeMount() {},
-  beforeUpdate() {},
-  updated() {},
-  beforeDestroy() {},
-  destroyed: function() {},
+  mounted() {
+    console.log("module1-1-1");
+  },
+  beforeCreate() {
+    console.log("beforeCreate module1-1-1");
+  },
+  created() {
+    console.log("created module1-1-1");
+  },
+  beforeMount() {
+    console.log("beforeMount module1-1-1");
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate module1-1-1");
+  },
+  updated() {
+     console.log("updated module1-1-1");
+  },
+  beforeDestroy() {
+     console.log("beforeDestroy module1-1-1");
+  },
+  destroyed() {
+     console.log("destroyed module1-1-1");
+  },
+  activated(){
+       console.log("activated module1-1-1");
+  },
+  deactivated(){
+       console.log("deactivated module1-1-1");
+  },
   methods: {}
 }
 </script>
