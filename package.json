@@ -11,12 +11,17 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "mock": "nodemon --watch mock --exec json-server mock/index.js --port 3000 --m mock/post-to-get.js"
   },
   "dependencies": {
     "element-ui": "^2.8.2",
     "js-cookie": "^2.2.0",
+    "json-serve": "^0.1.0",
+    "lodash": "^4.17.11",
+    "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.12.0",
+    "nodemon": "^1.19.0",
     "normalize.css": "^8.0.1",
     "vue": "^2.5.2",
     "vue-i18n": "^8.11.2",
