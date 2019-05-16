@@ -40,7 +40,7 @@ export default new Router({
               },
               children: [
                 {
-                  path: "module1/module1-1/module1-1-1/module1-1-1-1",
+                  path: "module1-1-1-1",
                   component: () =>
                     import(
                       "@/views/module1/module1-1/module1-1-1/module1-1-1-1"
@@ -51,7 +51,23 @@ export default new Router({
                     icon: "module1-1-1-1",
                     noCache: true,
                     affix: true
-                  }
+                  },
+                  children: [
+                    {
+                      path: "module1-1-1-1-1",
+                      component: () =>
+                        import(
+                          "@/views/module1/module1-1/module1-1-1/module1-1-1-1/module1-1-1-1-1"
+                        ),
+                      name: "module1-1-1-1-1",
+                      meta: {
+                        title: "module1-1-1-1",
+                        icon: "module1-1-1-1",
+                        noCache: true,
+                        affix: true
+                      }
+                    }
+                  ]
                 }
               ]
             }
