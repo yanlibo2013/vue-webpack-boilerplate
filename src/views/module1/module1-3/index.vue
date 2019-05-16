@@ -1,19 +1,18 @@
 <template>
-<div>
-  <vheader></vheader>
-    <app-main />
-</div>
+  <div class="home">
+    <div class="content">
+      <h1>module1-3</h1>
+    </div>
+  </div>
 </template>
 
-
 <script>
-import vheader from "@/components/Header/index";
-import AppMain from "./AppMain";
-import { mapGetters, mapActions } from "vuex";
+
 export default {
-  components: {vheader,AppMain},
+  components: {
+  },
   data: function() {
-    return {};
+    return {}
   },
   computed: {},
   mounted() {},
@@ -25,8 +24,21 @@ export default {
   beforeDestroy() {},
   destroyed: function() {},
   methods: {}
-};
+}
 </script>
 
 <style lang="scss">
+.home {
+  // background: red;
+  display: flex;
+  .sidebar-container {
+    flex: none;
+  }
+
+  .content {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
 </style>
