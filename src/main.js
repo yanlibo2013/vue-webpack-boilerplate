@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import i18n from './lang' // Internationalization
 import Cookies from 'js-cookie'
+import vuex from "@/vuex/index";
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 import './styles/element-variables.scss'
@@ -32,4 +33,5 @@ new Vue({
   components: { App },
   template: '<App/>',
   i18n,
+  vuex
 });

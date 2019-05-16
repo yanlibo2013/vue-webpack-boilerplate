@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import { modules1 } from "@/service";
 export default {
   components: {},
@@ -41,15 +42,21 @@ export default {
   },
   activated() {
     console.log("activated module1-1-1");
+    let self=this;
     modules1.list({ name: "ylb" }).then(res => {
       console.log("/////////////////////////////////");
-      console.log("res", res);
+      console.log("res", res.data);
+      //self.getNavData(res.data.content);
     });
+
+    self.getNavData([]);
   },
   deactivated() {
     console.log("deactivated module1-1-1");
   },
-  methods: {}
+  methods: {
+     ...mapActions(["getNavData"]),
+  }
 };
 </script>
 
