@@ -1,6 +1,6 @@
 <template>
   <div class="scrollbar-wrapper">
-    <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick" />
+    <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"  :expand-on-click-node="false"/>
   </div>
 </template>
 

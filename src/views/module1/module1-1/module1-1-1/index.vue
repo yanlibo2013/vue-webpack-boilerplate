@@ -8,7 +8,7 @@
 </template>
 
 <script>
-
+import { modules1 } from "@/service";
 export default {
   components: {
   },
@@ -18,6 +18,7 @@ export default {
   computed: {},
   mounted() {
     console.log("module1-1-1");
+      modules1.list()
   },
   beforeCreate() {
     console.log("beforeCreate module1-1-1");

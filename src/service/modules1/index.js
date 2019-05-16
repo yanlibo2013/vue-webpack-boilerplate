@@ -1,8 +1,8 @@
 import request from "@/utils/request";
 
-export const login = data => {
+export const list = data => {
   return request({
-    url: "/user/login",
+    url: "/list",
     method: "post",
     data
   });
