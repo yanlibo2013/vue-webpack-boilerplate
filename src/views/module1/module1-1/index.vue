@@ -4,10 +4,10 @@
     <div class="content">
       <!-- <h1>module1-1</h1> -->
       <transition name="fade-transform" mode="out-in">
-        <!-- <keep-alive>
+        <keep-alive>
           <router-view/>
-        </keep-alive> -->
-        <router-view/>
+        </keep-alive>
+        <!-- <router-view/> -->
       </transition>
     </div>
   </div>

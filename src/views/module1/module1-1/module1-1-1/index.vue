@@ -10,15 +10,13 @@
 <script>
 import { modules1 } from "@/service";
 export default {
-  components: {
-  },
+  components: {},
   data: function() {
-    return {}
+    return {};
   },
   computed: {},
   mounted() {
     console.log("module1-1-1");
-      modules1.list()
   },
   beforeCreate() {
     console.log("beforeCreate module1-1-1");
@@ -33,22 +31,26 @@ export default {
     console.log("beforeUpdate module1-1-1");
   },
   updated() {
-     console.log("updated module1-1-1");
+    console.log("updated module1-1-1");
   },
   beforeDestroy() {
-     console.log("beforeDestroy module1-1-1");
+    console.log("beforeDestroy module1-1-1");
   },
   destroyed() {
-     console.log("destroyed module1-1-1");
+    console.log("destroyed module1-1-1");
   },
-  activated(){
-       console.log("activated module1-1-1");
+  activated() {
+    console.log("activated module1-1-1");
+    modules1.list({ name: "ylb" }).then(res => {
+      console.log("/////////////////////////////////");
+      console.log("res", res);
+    });
   },
-  deactivated(){
-       console.log("deactivated module1-1-1");
+  deactivated() {
+    console.log("deactivated module1-1-1");
   },
   methods: {}
-}
+};
 </script>
 
 <style lang="scss">

@@ -12,7 +12,7 @@ module.exports = {
     proxyTable: {
       "/mock/": {
         target: "http://localhost:3000",
-        changeOrigin: true,
+        changeOrigin: false,
         pathRewrite: {
           "^/mock": ""
         }
