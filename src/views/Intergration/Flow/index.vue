@@ -6,7 +6,7 @@
       <transition name="fade-transform" mode="out-in">
         <!-- <keep-alive>
           <router-view/>
-        </keep-alive> -->
+        </keep-alive>-->
         <router-view/>
       </transition>
     </div>
@@ -23,9 +23,7 @@ export default {
     return {};
   },
   computed: {},
-  mounted() {
-  
-  },
+  mounted() {},
   beforeCreate() {},
   created() {},
   beforeMount() {},

@@ -87,5 +87,10 @@ export default {
   //   display: flex;
   //   flex-direction: column;
   // }
+
+  .el-tree{
+    min-height: calc(100vh - 50px);
+  }
+ 
 }
 </style>

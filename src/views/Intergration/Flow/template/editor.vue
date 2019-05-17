@@ -1,5 +1,8 @@
 <template>
-<h1>editor</h1>
+  <div class="editor">
+     <h1>editor</h1>
+  </div>
+ 
 </template>
 
 
@@ -24,4 +27,7 @@ export default {
 </script>
 
 <style lang="scss">
+.editor {
+  min-height: calc(100vh - 50px);
+}
 </style>
