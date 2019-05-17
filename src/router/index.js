@@ -29,7 +29,7 @@ export default new Router({
           },
           children:[
             {
-              path:"layout/flow/id",
+              path:"list/:id",
               component: () => import("@/views/Intergration/Flow/children"),
               name: "flowlist",
             }

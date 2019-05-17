@@ -5,6 +5,8 @@
       :props="defaultProps"
       @node-click="handleNodeClick"
       :expand-on-click-node="false"
+      :default-expanded-keys="[1]"
+      node-key="id"
     />
   </div>
 </template>
@@ -30,35 +32,34 @@ export default {
         // }
         {
           label: "根目录",
-          id:"1",
+          id: 1,
           children: [
             {
               label: "子节点1",
-              id:"1-1",
+              id: "1-1",
               children: [
                 {
                   label: "子节点1-1",
-                  id:"1-1-1"
+                  id: "1-1-1"
                 }
               ]
             }
           ]
         },
         {
-          label:"其他用户",
-          id:"2"
+          label: "其他用户",
+          id: 2
         }
       ],
       defaultProps: {
         children: "children",
-        label: "label",
-        
+        label: "label"
       }
     };
   },
   methods: {
     handleNodeClick(data) {
-      this.$router.push("/layout/flow/id");
+      this.$router.push("/layout/flow/list/" + data.id);
     }
   }
 };

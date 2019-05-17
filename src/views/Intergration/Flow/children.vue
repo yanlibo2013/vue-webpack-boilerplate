@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{$route.query.id}}</h1>
+    <h1>{{$route.params.id}}</h1>
   </div>
 </template>
 
@@ -13,15 +13,25 @@ export default {
     return {};
   },
   computed: {},
-  mounted() {},
+  mounted() {
+     console.log("mounted children");
+  },
   beforeCreate() {},
-  created() {},
+  created() {
+    console.log("created children");
+  },
   beforeMount() {},
   beforeUpdate() {},
   updated() {},
   beforeDestroy() {},
   destroyed: function() {},
-  methods: {}
+  methods: {},
+  activated() {
+    console.log("children activated", this.$route.params.id);
+  },
+  deactivated() {
+    console.log("children deactivated", this.$route.params.id);
+  }
 };
 </script>
 
