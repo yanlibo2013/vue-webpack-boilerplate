@@ -1,20 +1,30 @@
 <template>
   <div>
     <h1>{{$route.params.id}}</h1>
+    <component :is="$route.params.id==1?vtable:vform"></component>
   </div>
 </template>
 
 
 <script>
+import vtable from "./template/table";
+import vform from "./template/form";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  components: {},
+  components: {
+    // vtable,
+    // vform
+  },
   data: function() {
-    return {};
+    return {
+      currentView: vtable,
+      vtable: vtable,
+      vform: vform
+    };
   },
   computed: {},
   mounted() {
-     console.log("mounted children");
+    console.log("mounted children");
   },
   beforeCreate() {},
   created() {
