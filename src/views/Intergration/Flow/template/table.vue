@@ -33,6 +33,18 @@ export default {
         }
       ]
     };
-  }
+  },
+  mounted() {
+    console.log("mounted table");
+  },
+  beforeCreate() {},
+  created() {
+    console.log("create table");
+  },
+  beforeMount() {},
+  beforeUpdate() {},
+  updated() {},
+  beforeDestroy() {},
+  destroyed: function() {}
 };
 </script>

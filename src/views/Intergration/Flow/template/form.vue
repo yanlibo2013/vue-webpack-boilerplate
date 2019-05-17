@@ -65,6 +65,18 @@ export default {
     onSubmit() {
       console.log("submit!");
     }
-  }
+  },
+  mounted() {
+      console.log("mounted form");
+  },
+  beforeCreate() {},
+  created() {
+       console.log("create form");
+  },
+  beforeMount() {},
+  beforeUpdate() {},
+  updated() {},
+  beforeDestroy() {},
+  destroyed: function() {}
 };
 </script>
