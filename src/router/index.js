@@ -15,80 +15,48 @@ export default new Router({
     {
       path: "",
       component: Container,
-      redirect: "module1/module1-1",
+      redirect: "layout/flow",
       children: [
         {
-          path: "module1/module1-1",
-          component: () => import("@/views/module1/module1-1"),
-          name: "module1-1",
+          path: "layout/flow",
+          component: () => import("@/views/Intergration/Flow/index"),
+          name: "flow",
           meta: {
-            title: "module1-1",
-            icon: "module1-1",
+            title: "flow",
+            icon: "flow",
             noCache: true,
             affix: true
           },
-          children: [
+          children:[
             {
-              path: "module1-1-1",
-              component: () => import("@/views/module1/module1-1/module1-1-1"),
-              name: "module1-1-1",
-              meta: {
-                title: "module1-1-1",
-                icon: "module1-1-1",
-                noCache: true,
-                affix: true
-              }
-            },
-            {
-              path: "module1-1-1-1",
-              component: () =>
-                import("@/views/module1/module1-1/module1-1-1-1"),
-              name: "module1-1-1-1",
-              meta: {
-                title: "module1-1-1-1",
-                icon: "module1-1-1-1",
-                noCache: true,
-                affix: true
-              }
-            },
-            {
-              path: "module1-1-1-1-1",
-              component: () =>
-                import(
-                  "@/views/module1/module1-1/module1-1-1-1-1"
-                ),
-              name: "module1-1-1-1-1",
-              meta: {
-                title: "module1-1-1-1",
-                icon: "module1-1-1-1",
-                noCache: true,
-                affix: true
-              }
+              path:"layout/flow/id",
+              component: () => import("@/views/Intergration/Flow/children"),
+              name: "flowlist",
             }
           ]
         },
         {
-          path: "module1/module1-2",
-          component: () => import("@/views/module1/module1-2"),
-          name: "module1-2",
+          path: "layout/source",
+          component: () => import("@/views/Analyze/Source"),
+          name: "source",
           meta: {
-            title: "module1-2",
-            icon: "module1-2",
+            title: "source",
+            icon: "source",
             noCache: true,
             affix: true
           }
         },
         {
-          path: "module1/module1-3",
-          component: () => import("@/views/module1/module1-3"),
-          name: "module1-3",
+          path: "layout/file",
+          component: () => import("@/views/Analyze/File"),
+          name: "file",
           meta: {
-            title: "module1-3",
-            icon: "module1-3",
+            title: "file",
+            icon: "file",
             noCache: true,
             affix: true
           }
-        }
+        },
       ]
     }
   ]
