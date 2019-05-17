@@ -88,9 +88,9 @@ export default {
   //   flex-direction: column;
   // }
 
-  .el-tree{
-    min-height: calc(100vh - 50px);
-  }
+  // .el-tree{
+  //   min-height: calc(100vh - 50px);
+  // }
  
 }
 </style>

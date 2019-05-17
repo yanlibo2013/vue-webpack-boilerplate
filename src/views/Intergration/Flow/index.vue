@@ -1,6 +1,6 @@
 <template>
   <el-container class="container">
-    <el-aside width="200px">
+    <el-aside width="200px" class="aside">
       <sidebar class="sidebar-container"/>
     </el-aside>
     <el-main>
@@ -39,17 +39,20 @@ export default {
 </script>
 
 <style lang="scss">
-.el-aside {
-  background-color: #d3dce6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
-}
+// .el-aside {
+//   background-color: #d3dce6;
+//   color: #333;
+//   text-align: center;
+//   line-height: 200px;
+// }
 
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
+// .el-main {
+//   background-color: #e9eef3;
+//   color: #333;
+//   text-align: center;
+//   line-height: 160px;
+// }
+.aside{
+  margin-top: 10px;
 }
 </style>

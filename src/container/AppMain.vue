@@ -30,13 +30,13 @@ export default {
   // width: 100%;
   // position: relative;
   // overflow: hidden;
-  // position: fixed;
-  // top: 55px;
-  // left: 0;
-  // bottom: 0;
-  // width: 100%;
+  position: fixed;
+  top: 55px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   // background:red
-  height: 100%
+  //  height: calc(100vh - 75px);
 }
 </style>
 
