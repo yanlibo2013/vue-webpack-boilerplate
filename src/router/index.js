@@ -42,7 +42,7 @@ export default new Router({
             {
               path: "module1-1-1-1",
               component: () =>
-                import("@/views/module1/module1-1/module1-1-1/module1-1-1-1"),
+                import("@/views/module1/module1-1/module1-1-1-1"),
               name: "module1-1-1-1",
               meta: {
                 title: "module1-1-1-1",
@@ -55,7 +55,7 @@ export default new Router({
               path: "module1-1-1-1-1",
               component: () =>
                 import(
-                  "@/views/module1/module1-1/module1-1-1/module1-1-1-1/module1-1-1-1-1"
+                  "@/views/module1/module1-1/module1-1-1-1-1"
                 ),
               name: "module1-1-1-1-1",
               meta: {
