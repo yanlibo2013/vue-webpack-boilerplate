@@ -2,10 +2,12 @@
   <div class="scrollbar-wrapper">
     <el-tree
       :data="data"
+       show-checkbox
       :props="defaultProps"
       @node-click="handleNodeClick"
       :expand-on-click-node="false"
-      :default-expanded-keys="[1]"
+      :default-expanded-keys="[5]"
+      :default-checked-keys="[5]"
       node-key="id"
     />
   </div>
@@ -36,11 +38,15 @@ export default {
           children: [
             {
               label: "子节点1",
-              id: "1-1",
+              id: 3,
               children: [
                 {
                   label: "子节点1-1",
-                  id: "1-1-1"
+                  id: 4
+                },
+                 {
+                  label: "子节点1-2",
+                  id: 5
                 }
               ]
             }
@@ -49,6 +55,10 @@ export default {
         {
           label: "其他用户",
           id: 2
+        },
+        {
+          label: "flow",
+          id: 6
         }
       ],
       defaultProps: {
@@ -59,7 +69,7 @@ export default {
   },
   methods: {
     handleNodeClick(data) {
-      this.$router.push("/layout/flow/list/" + data.id);
+      this.$router.push(data.id==6?"/layout/flow/editor":"/layout/flow/list/" + data.id);
     }
   }
 };

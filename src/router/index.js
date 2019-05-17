@@ -15,7 +15,7 @@ export default new Router({
     {
       path: "",
       component: Container,
-      redirect: "layout/flow",
+      redirect: "layout/flow/editor",
       children: [
         {
           path: "layout/flow",
@@ -27,16 +27,21 @@ export default new Router({
             noCache: true,
             affix: true
           },
-          children:[
+          children: [
             {
-              path:"list/:id",
+              path: "list/:id",
               component: () => import("@/views/Intergration/Flow/children"),
-              name: "flowlist",
+              name: "flowlist"
             },
             {
-              path:"details",
+              path: "details",
               component: () => import("@/views/Intergration/Flow/children"),
-              name: "flowlist",
+              name: "flowlist"
+            },
+            {
+              path: "editor",
+              component: () => import("@/views/Intergration/Flow/children"),
+              name: "flowlist"
             }
           ]
         },
@@ -61,7 +66,7 @@ export default new Router({
             noCache: true,
             affix: true
           }
-        },
+        }
       ]
     }
   ]

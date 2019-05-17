@@ -2,7 +2,7 @@
   <div>
     <!-- <h1>{{$route.params.id}}</h1> -->
     <transition name="fade-transform" mode="out-in">
-      <component :is="$route.params.id==1?vform:vtable"></component>
+      <component :is="$route.params.id==1?vform:$route.params.id==2?vtable:editor"></component>
     </transition>
   </div>
 </template>
@@ -11,6 +11,7 @@
 <script>
 import vtable from "./template/table";
 import vform from "./template/form";
+import editor from "./template/editor";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
@@ -21,7 +22,8 @@ export default {
     return {
       currentView: vtable,
       vtable: vtable,
-      vform: vform
+      vform: vform,
+      editor: editor
     };
   },
   computed: {},
