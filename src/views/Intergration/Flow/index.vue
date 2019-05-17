@@ -1,16 +1,17 @@
 <template>
-  <div class="home">
-    <sidebar class="sidebar-container"/>
-    <div class="content">
-      <!-- <h1>module1-1</h1> -->
+  <el-container class="container">
+    <el-aside width="200px">
+      <sidebar class="sidebar-container"/>
+    </el-aside>
+    <el-main>
       <transition name="fade-transform" mode="out-in">
         <!-- <keep-alive>
           <router-view/>
         </keep-alive>-->
         <router-view/>
       </transition>
-    </div>
-  </div>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -38,17 +39,17 @@ export default {
 </script>
 
 <style lang="scss">
-.home {
-  // background: red;
-  display: flex;
-  .sidebar-container {
-    flex: none;
-  }
+.el-aside {
+  background-color: #d3dce6;
+  color: #333;
+  text-align: center;
+  line-height: 200px;
+}
 
-  .content {
-    flex: auto;
-    display: flex;
-    flex-direction: column;
-  }
+.el-main {
+  background-color: #e9eef3;
+  color: #333;
+  text-align: center;
+  line-height: 160px;
 }
 </style>

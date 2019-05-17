@@ -1,8 +1,14 @@
 <template>
-<div>
-  <vheader></vheader>
-    <app-main />
-</div>
+  <el-container class="container">
+    <el-header>
+      <vheader></vheader>
+    </el-header>
+    <el-container>
+      <el-main>
+        <app-main/>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 
@@ -11,7 +17,7 @@ import vheader from "@/components/Header/index";
 import AppMain from "./AppMain";
 import { mapGetters, mapActions } from "vuex";
 export default {
-  components: {vheader,AppMain},
+  components: { vheader, AppMain },
   data: function() {
     return {};
   },
@@ -29,4 +35,7 @@ export default {
 </script>
 
 <style lang="scss">
+.container {
+  height: 100%;
+}
 </style>
