@@ -32,6 +32,11 @@ export default new Router({
               path:"list/:id",
               component: () => import("@/views/Intergration/Flow/children"),
               name: "flowlist",
+            },
+            {
+              path:"details",
+              component: () => import("@/views/Intergration/Flow/children"),
+              name: "flowlist",
             }
           ]
         },

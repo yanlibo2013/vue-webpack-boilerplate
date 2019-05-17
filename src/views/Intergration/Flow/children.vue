@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>{{$route.params.id}}</h1>
-    <component :is="$route.params.id==1?vtable:vform"></component>
+    <component :is="$route.params.id==1?vform:vtable"></component>
   </div>
 </template>
 
