@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h1>{{$route.params.id}}</h1>
-    <component :is="$route.params.id==1?vform:vtable"></component>
+    <!-- <h1>{{$route.params.id}}</h1> -->
+    <transition name="fade-transform" mode="out-in">
+      <component :is="$route.params.id==1?vform:vtable"></component>
+    </transition>
   </div>
 </template>
 
