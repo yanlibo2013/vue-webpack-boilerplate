@@ -2,7 +2,7 @@
   <div class="scrollbar-wrapper">
     <el-tree
       :data="data"
-       show-checkbox
+      show-checkbox
       :props="defaultProps"
       @node-click="handleNodeClick"
       :expand-on-click-node="false"
@@ -44,7 +44,7 @@ export default {
                   label: "子节点1-1",
                   id: 4
                 },
-                 {
+                {
                   label: "子节点1-2",
                   id: 5
                 }
@@ -69,7 +69,9 @@ export default {
   },
   methods: {
     handleNodeClick(data) {
-      this.$router.push(data.id==6?"/layout/flow/editor":"/layout/flow/list/" + data.id);
+      this.$router.push(
+        data.id == 6 ? "/layout/flow/editor" : "/layout/flow/list/" + data.id
+      );
     }
   }
 };
@@ -91,6 +93,5 @@ export default {
   // .el-tree{
   //   min-height: calc(100vh - 50px);
   // }
- 
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sub">
     <!-- <h1>{{$route.params.id}}</h1> -->
     <transition name="fade-transform" mode="out-in">
       <component :is="$route.params.id==1?vform:$route.params.id==2?vtable:editor"></component>
@@ -11,7 +11,7 @@
 <script>
 import vtable from "./template/table";
 import vform from "./template/form";
-import editor from "./template/editor";
+import editor from "./template/editor/index";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
@@ -50,4 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
+.sub {
+  padding: 25px;
+}
 </style>
