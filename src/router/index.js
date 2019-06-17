@@ -19,6 +19,7 @@ export default new Router({
       children: [
         {
           path: "layout/flow",
+          // component: () => import("@/views/Intergration/Flow/index"),
           component: () => import("@/views/Intergration/Flow/index"),
           name: "flow",
           meta: {

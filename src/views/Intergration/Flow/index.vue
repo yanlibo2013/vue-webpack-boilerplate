@@ -4,7 +4,7 @@
       <sidebar class="sidebar-container"/>
     </el-aside>
     <el-main>
-      <h1>flow</h1>
+      <!-- <h1>flow</h1> -->
       <transition name="fade-transform" mode="out-in">
         <!-- <keep-alive>
           <router-view/>

@@ -7,6 +7,10 @@ import i18n from "./lang"; // Internationalization
 import Cookies from "js-cookie";
 import store from "@/vuex/index";
 
+import VueDragDrop from 'vue-drag-drop';
+
+Vue.use(VueDragDrop);
+
 import "normalize.css/normalize.css"; // A modern alternative to CSS resets
 import "./styles/element-variables.scss";
 

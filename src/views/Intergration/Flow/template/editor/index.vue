@@ -32,7 +32,7 @@ import dagre from "dagre";
 
 require("jquery.panzoom");
 require("jquery-ui-bundle");
-require("jquery-ui/ui/widgets/draggable");
+// require("jquery-ui/ui/widgets/draggable");
 export default {
   components: {
     rightaside

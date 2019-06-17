@@ -11,7 +11,8 @@
 <script>
 import vtable from "./template/table";
 import vform from "./template/form";
-import editor from "./template/editor/index";
+// import editor from "./template/editor/index";
+import editor from "./template/editor/editor.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
