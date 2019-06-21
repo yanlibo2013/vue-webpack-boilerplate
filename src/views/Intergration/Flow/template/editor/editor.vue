@@ -1,48 +1,52 @@
 <template>
   <div class="editor">
-    <div class="main">
-      <drop class="workplace editor" @drop="handleDrop" id="workplace">
-        <ul class="step-list">
-          <li
-            v-for="(item) in chartData.nodes"
-            :id="item.id"
-            :key="item.id"
-            :addEndpoint="customStep(item.id, item.type)"
-            class="step-item"
-            :style="{
+    <div class="editor-bar"></div>
+    <div class="editor-container">
+      <div class="main">
+        <drop class="workplace editor" @drop="handleDrop" id="workplace">
+          <ul class="step-list">
+            <li
+              v-for="(item) in chartData.nodes"
+              :id="item.id"
+              :key="item.id"
+              :addEndpoint="customStep(item.id, item.type)"
+              class="step-item"
+              :style="{
         left: item.x +'px',
         top: item.y +'px',
         color: returnColorByType(item.type),
         borderColor: returnColorByType(item.type)
       }"
-          >
-            <dl>
-              <dt>
-                <i :class="returnIconByType(item.type)"/>
-              </dt>
-              <dd>
-                <p class="step-name">{{ item.name }}</p>
-                <p class="step-id">ID: {{ item.name }}</p>
-              </dd>
-            </dl>
-            <div class="operation">
-              <span>
-                <i class="el-icon-star-off"/>
-                <i class="el-icon-delete"/>
-              </span>
-            </div>
-          </li>
-        </ul>
-      </drop>
-    </div>
-    <div class="aside">
-      <rightaside></rightaside>
+            >
+              <dl>
+                <dt>
+                  <i :class="returnIconByType(item.type)"/>
+                </dt>
+                <dd>
+                  <p class="step-name">{{ item.name }}</p>
+                  <p class="step-id">ID: {{ item.name }}</p>
+                </dd>
+              </dl>
+              <div class="operation">
+                <span>
+                  <i class="el-icon-star-off"/>
+                  <i class="el-icon-delete"/>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </drop>
+      </div>
+      <div class="aside">
+        <rightaside></rightaside>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import rightaside from "./rightaside/index";
 import { jsPlumb } from "jsplumb";
+
 import { type } from "os";
 export default {
   components: {
@@ -259,23 +263,10 @@ export default {
         y: event.screenY - 200
       };
 
-      // console.log("添加节点");
-      // console.log(data);
-      // console.log(event);
-      // this.customStep(currentItem);
-      // console.log("当前锚点",this.archor);
-      console.log(this.getCurrentObj(currentItem.type, this.step));
-      //return;
-
       this.chartData.nodes.push(currentItem);
-      this.archor = {};
 
       this.$nextTick(() => {
-        //console.log(this.steps);
-        // console.log(this.$refs.flowpanel.nodes);
         this.initNode(currentItem);
-
-        console.log("拖动完成", this.chartData.nodes);
       });
     },
 
@@ -308,19 +299,20 @@ export default {
         },
         stop(params) {
           // 拖动结束
-          /// console.log("拖动介绍");
-          // console.log(params);
-          // let id = params.el.id;
-          // _self.$nextTick(() => {
-          //   let top = params.el.style.top;
-          //   let left = params.el.style.left;
-          //   _self.chartData.nodes.forEach(item => {
-          //     if (item.id === id) {
-          //       item.nodeStyle.left = left;
-          //       item.nodeStyle.top = top;
-          //     }
-          //   });
-          // });
+          //console.log("拖动介绍");
+          //console.log(params);
+          let id = params.el.id;
+          _self.$nextTick(() => {
+            let top = params.el.style.top;
+            let left = params.el.style.left;
+            _self.chartData.nodes.forEach(item => {
+              if (item.id === id) {
+                // console.log("item.nodeStyle", item.nodeStyle);
+                // item.nodeStyle.left = left;
+                // item.nodeStyle.top = top;
+              }
+            });
+          });
         }
       });
     },
@@ -376,9 +368,9 @@ export default {
 
       // 监听拖动connection 事件，判断是否有重复链接
       this.jsplumbInstance.bind("beforeDrop", function(info, event) {
-        console.log("监听拖动connection 事件，判断是否有重复链接");
+        //console.log("监听拖动connection 事件，判断是否有重复链接");
         // info.connection.getOverlay("label").setLabel(info.connection.id);
-        console.log(info);
+        //console.log(info);
         // console.log(event);
         // console.log("节点之间连线变化", _self.chartData.connections);
         _self.chartData.connections.push({
@@ -386,8 +378,8 @@ export default {
           targetId: info.targetId
         });
 
-        console.log(_self.chartData);
-        console.log(JSON.stringify(_self.chartData));
+        // console.log(_self.chartData);
+        // console.log(JSON.stringify(_self.chartData));
 
         // 判断是否已有该连接
         // let isSame = true;
@@ -636,64 +628,75 @@ export default {
   bottom: 0;
   width: calc(100vw - 200px);
   display: flex;
+  flex-direction: column;
 
-  .main {
+  .editor-bar {
+    height: 50px
+  }
+
+  .editor-container {
+    display: flex;
+    width: 100%;
     flex: 1 1 auto;
-    background-image: url("../../../../../assets/editor/designBg.png");
-    .workplace {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      top: 0;
-      left: 0;
-      //   background-image: url("../assets/img/designBg.png");
-      .step-list {
-        line-height: 1;
+    .main {
+      flex: 1 1 auto;
+      background-image: url("../../../../../assets/editor/designBg.png");
+      .workplace {
+        width: 100%;
         height: 100%;
-        //position: relative;
-        li {
-          cursor: pointer;
-          border-width: 2px;
-          border-style: solid;
-          box-shadow: 0 10px 18px -9px rgba(0, 0, 0, 0.5);
-          background: #ffffff;
-          height: 70px;
-          width: 150px;
-          position: absolute;
-          dl {
-            display: flex;
-            padding: 4px;
-            dt {
-              margin-right: 5px;
-              i {
-                font-size: 30px;
+        position: relative;
+        top: 0;
+        left: 0;
+        //   background-image: url("../assets/img/designBg.png");
+        .step-list {
+          // line-height: 1;
+          height: 100%;
+          width: 100%;
+          //position: relative;
+          li {
+            cursor: pointer;
+            border-width: 2px;
+            border-style: solid;
+            box-shadow: 0 10px 18px -9px rgba(0, 0, 0, 0.5);
+            background: #ffffff;
+            height: 70px;
+            width: 150px;
+            position: absolute;
+            dl {
+              display: flex;
+              padding: 4px;
+              dt {
+                margin-right: 5px;
+                i {
+                  font-size: 30px;
+                }
+              }
+              .step-name {
+                font-size: 14px;
+                font-weight: 900;
+                width: 100px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              .step-id {
+                margin-top: 3px;
+                font-size: 10px;
               }
             }
-            .step-name {
-              font-size: 14px;
-              font-weight: 900;
-              width: 100px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-            .step-id {
-              margin-top: 3px;
-              font-size: 10px;
-            }
-          }
-          .operation {
-            padding-right: 10px;
-            span {
-              float: right;
+            .operation {
+              padding-right: 10px;
+              span {
+                float: right;
+              }
             }
           }
         }
       }
     }
-  }
-  .aside {
-    width: 250px;
+    .aside {
+      width: 250px;
+    }
   }
 }
 </style>

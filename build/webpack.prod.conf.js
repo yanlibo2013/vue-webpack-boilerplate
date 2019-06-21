@@ -33,9 +33,9 @@ const webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     new webpack.ProvidePlugin({
       $: "jquery",
+      jQuery: "jquery",
       jquery: "jquery",
-      "window.jQuery": "jquery",
-      jQuery: "jquery"
+      "window.jQuery": "jquery"
     }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
