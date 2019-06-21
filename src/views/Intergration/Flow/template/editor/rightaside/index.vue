@@ -9,7 +9,7 @@
         :name="index"
       >
         <ul class="gquery-item">
-          <li
+          <!-- <li
             v-for="item in val"
             :key="item.id"
             draggable="true"
@@ -18,13 +18,13 @@
           >
             <i class="el-icon-message"/>
             <p>{{ item.name }}</p>
-          </li>
-          <!-- <drag class="drag" :transfer-data="{ item }" v-for="item in val" :key="item.id">
+          </li>-->
+          <drag class="drag" :transfer-data="{ item }" v-for="item in val" :key="item.id">
             <li>
-              <i class="el-icon-circle-check-outline"/>
+              <i class="el-icon-message"/>
               <p>{{ item.name }}</p>
             </li>
-          </drag>-->
+          </drag>
         </ul>
       </el-collapse-item>
     </el-collapse>

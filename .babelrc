@@ -25,7 +25,7 @@
   ],
   "env": {
     "test": {
-      "presets": ["env", "stage-2"],
+      "presets": ["es2015","env", "stage-2"],
       "plugins": [
         "transform-vue-jsx",
         "transform-es2015-modules-commonjs",

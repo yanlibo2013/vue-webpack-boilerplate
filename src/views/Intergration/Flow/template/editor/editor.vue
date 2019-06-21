@@ -32,35 +32,6 @@
               </span>
             </div>
           </li>
-          <!-- <li
-        v-for="(item) in chartData.nodes"
-        :id="item.id"
-        :key="item.id"
-        class="step-item"
-        :addEndpoint="customStep(item.id, item.type)"
-        :style="{
-        left: item.x +'px',
-        top: item.y +'px',
-        color: returnColorByType(item.type),
-        borderColor: returnColorByType(item.type)
-      }"
-      >
-        <dl>
-          <dt>
-            <i :class="returnIconByType(item.type)"/>
-          </dt>
-          <dd>
-            <p class="step-name">{{ item.name }}</p>
-            <p class="step-id">ID: {{ item.name }}</p>
-          </dd>
-        </dl>
-        <div class="operation">
-          <span>
-            <i class="el-icon-star-off"/>
-            <i class="el-icon-delete"/>
-          </span>
-        </div>
-          </li>-->
         </ul>
       </drop>
     </div>
