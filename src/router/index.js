@@ -15,7 +15,7 @@ export default new Router({
     {
       path: "",
       component: Container,
-      redirect: "layout/flow/editor",
+      redirect: "layout/flow/flowchart",
       children: [
         {
           path: "layout/flow",
@@ -37,12 +37,17 @@ export default new Router({
             {
               path: "details",
               component: () => import("@/views/Intergration/Flow/children"),
-              name: "flowlist"
+              name: "details"
             },
             {
               path: "editor",
               component: () => import("@/views/Intergration/Flow/children"),
-              name: "flowlist"
+              name: "editor"
+            },
+            {
+              path: "flowchart",
+              component: () => import("@/views/Intergration/Flow/template/editor/flowchart"),
+              name: "flowchart"
             }
           ]
         },

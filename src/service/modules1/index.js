@@ -7,3 +7,12 @@ export const list = data => {
     data
   });
 };
+
+
+export const flowChart = data => {
+  return request({
+    url: "/flow",
+    method: "post",
+    data
+  });
+};

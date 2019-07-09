@@ -11,6 +11,8 @@ import store from "@/vuex/index";
 
 import "normalize.css/normalize.css"; // A modern alternative to CSS resets
 import "./styles/element-variables.scss";
+import 'font-awesome/css/font-awesome.min.css'
+import './assets/fonts/iconfont.css'
 
 import "./styles/index.scss"; // global css
 

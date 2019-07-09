@@ -46,7 +46,6 @@
 <script>
 import rightaside from "./rightaside/index";
 import { jsPlumb } from "jsplumb";
-
 import { type } from "os";
 export default {
   components: {
@@ -197,7 +196,6 @@ export default {
       ]
     };
   },
-
   //
   created() {
     // console.log("子组件 created");
@@ -262,19 +260,16 @@ export default {
         x: event.screenX - 250,
         y: event.screenY - 200
       };
-
       this.chartData.nodes.push(currentItem);
-
       this.$nextTick(() => {
         this.initNode(currentItem);
       });
     },
-
     // jsplumb初始化
     initJsplump(fn) {
       jsPlumb.ready(() => {
         this.jsplumbInstance = jsPlumb.getInstance();
-        this.jsplumbInstance.setContainer("workplace");
+        // this.jsplumbInstance.setContainer("workplace");
         this.bindEvent();
         fn();
       });
@@ -335,26 +330,21 @@ export default {
         });
       });
     },
-
     initFlow(data) {
       this.chartData = data;
-
       this.$nextTick(() => {
         this.draw(data);
       });
     },
-
     //jsplumb 事件监听
     bindEvent() {
       let _self = this;
-
       // 监听 connection 事件
       this.jsplumbInstance.bind("connection", function(info, event) {
         // info.connection.getOverlay("label").setLabel(info.connection.id);
         // console.log("监听 connection 事件",info);
         // console.log(event);
       });
-
       // 连接线删除时触发
       this.jsplumbInstance.bind("connectionDetached", function(connection) {
         //console.log("连接线删除时触发");
@@ -365,7 +355,6 @@ export default {
         //   }
         // });
       });
-
       // 监听拖动connection 事件，判断是否有重复链接
       this.jsplumbInstance.bind("beforeDrop", function(info, event) {
         //console.log("监听拖动connection 事件，判断是否有重复链接");
@@ -377,10 +366,8 @@ export default {
           sourceId: info.sourceId,
           targetId: info.targetId
         });
-
         // console.log(_self.chartData);
         // console.log(JSON.stringify(_self.chartData));
-
         // 判断是否已有该连接
         // let isSame = true;
         // _self.chartData.connections.forEach(item => {
@@ -400,10 +387,8 @@ export default {
         // } else {
         //   _self.$message.error("不允许重复连接！");
         // }
-
         // console.log(_self.chartData);
         //return isSame;
-
         return true;
       });
     },
@@ -427,7 +412,6 @@ export default {
         return "#4586f3";
       }
     },
-
     // 根据字段是否在数组 返回当前对象
     // 比如 type 是否在 array 数组中 type 中
     // array = [
@@ -558,16 +542,13 @@ export default {
         //     type:value.type,
         //     labels:labels
         //   }
-
         // console.log("=============",{
         //   type:value.type,
         //   labels:labels
         // });
-
         // console.log("current",current);
       }
     },
-
     // 数组对象去重
     duplicateRemoval(arr, _key) {
       let map = new Map();
@@ -629,11 +610,9 @@ export default {
   width: calc(100vw - 200px);
   display: flex;
   flex-direction: column;
-
   .editor-bar {
     height: 50px
   }
-
   .editor-container {
     display: flex;
     width: 100%;
