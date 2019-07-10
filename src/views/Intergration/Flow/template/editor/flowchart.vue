@@ -1,6 +1,7 @@
 <template>
   <div class="editor">
     <div class="editor-bar">
+      <el-button type="info" @click="initData">流程</el-button>
       <el-button type="info" @click="reset">清空</el-button>
     </div>
     <div class="editor-container">
@@ -12,7 +13,7 @@
             :key="index"
             :class="'designIconBig '+setClass(nodeClass(data.type))"
             :data-sign="data.name"
-            :data-index="addEndpoint(data.type,data.id)"
+            :data-index="addEndpointToNode(data.type,data.id,jsplumbInstance, self,links)"
             :data-type="data.type"
             :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
           >
@@ -43,7 +44,8 @@ import {
   nodeIcon,
   specialNodeClass,
   origin,
-  destination
+  destination,
+  addEndpointToNode
 } from "@/utils/flowchart";
 import { modules1 } from "@/service";
 
@@ -58,20 +60,19 @@ export default {
       flowData: {},
       nodeClass: nodeClass,
       nodeIcon: nodeIcon,
-      links: []
+      links: [],
+      addEndpointToNode: addEndpointToNode,
+      self: this
     };
   },
 
   //
   created() {
     this.jsplumbInstance = getInstance("workplace");
-     this.jsplumbInstance.setContainer("workplace");
+    //this.jsplumbInstance.setContainer("workplace");
   },
   mounted() {
-    modules1.flowChart({ name: "ylb" }).then(res => {
-      this.flowData = res.data.steps;
-      this.links = res.data.links;
-    });
+    this.initData();
   },
   updated() {
     // this.$nextTick(() => {
@@ -79,12 +80,15 @@ export default {
     // });
   },
   methods: {
+    initData() {
+      modules1.flowChart({ name: "ylb" }).then(res => {
+        this.flowData = res.data.steps;
+        this.links = res.data.links;
+      });
+    },
     reset() {
-      this.chartData = {
-        nodes: [],
-        connections: [],
-        props: {}
-      };
+      this.flowData = [];
+      this.jsplumbInstance.deleteEveryEndpoint("workplace");
     },
     handleDrop(data, event) {},
     setClass(type) {
@@ -98,228 +102,6 @@ export default {
       }
 
       return result;
-    },
-    addEndpoint(drawType, dataIndex) {
-      this.$nextTick(() => {
-        //节点锚点添加
-        //左侧无，右侧一个起点
-        if (nodeClass(drawType) == "classD_A") {
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "RightMiddle", maxConnections: 100 },
-            { uuid: dataIndex + "output" + "origin", ...origin }
-          );
-        } else if (nodeClass(drawType) == "classD_B") {
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "LeftMiddle" },
-            { uuid: dataIndex + "input" + "destination", ...destination }
-          );
-        } else if (
-          nodeClass(drawType) == "classD_C" ||
-          nodeClass(type) == "classW_C"
-        ) {
-          //左侧一个终点（多），右侧起点(多)
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "LeftMiddle", maxConnections: -1 },
-            { uuid: dataIndex + "input" + "destination", ...destination }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "RightMiddle", maxConnections: -1 },
-            { uuid: dataIndex + "output" + "origin", ...origin }
-          );
-        } else if (specialNodeClass(drawType) == "classD_D1") {
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            {
-              anchors: [1, 0.3, 0, 0],
-              maxConnections: -1,
-              overlays: [
-                [
-                  "Label",
-                  {
-                    location: [1.5, -0.5],
-                    label: "yes",
-                    cssClass: "endpointSourceLabel"
-                  }
-                ]
-              ]
-            },
-            { uuid: dataIndex + "yes" + "origin", ...origin }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            {
-              anchors: [1, 0.7, 0, 0],
-              maxConnections: -1,
-              overlays: [
-                [
-                  "Label",
-                  {
-                    location: [1.5, 1.3],
-                    label: "no",
-                    cssClass: "endpointSourceLabel"
-                  }
-                ]
-              ]
-            },
-            { uuid: dataIndex + "no" + "origin", ...origin }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "LeftMiddle" },
-            { uuid: dataIndex + "input" + "destination" },
-            ...destination
-          );
-        } else if (specialNodeClass(drawType) == "classD_D2") {
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            {
-              anchors: [1, 0.3, 0, 0],
-              maxConnections: -1,
-              overlays: [
-                [
-                  "Label",
-                  {
-                    location: [1.5, -0.5],
-                    label: "ok",
-                    cssClass: "endpointSourceLabel"
-                  }
-                ]
-              ]
-            },
-            { uuid: dataIndex + "ok" + "origin", ...origin }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            {
-              anchors: [1, 0.7, 0, 0],
-              maxConnections: -1,
-              overlays: [
-                [
-                  "Label",
-                  {
-                    location: [1.5, 1.3],
-                    label: "error",
-                    cssClass: "endpointSourceLabel"
-                  }
-                ]
-              ]
-            },
-            { uuid: dataIndex + "error" + "origin", ...origin }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "LeftMiddle" },
-            { uuid: dataIndex + "input" + "destination", ...destination }
-          );
-        } else if (specialNodeClass(drawType) == "classD_E1") {
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "RightMiddle", maxConnections: -1 },
-            { uuid: dataIndex + "output" + "origin", ...origin }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            {
-              anchors: [0, 0.3, 0, 0],
-              overlays: [
-                [
-                  "Label",
-                  {
-                    location: [-1, -0.5],
-                    label: "left",
-                    cssClass: "endpointSourceLabel"
-                  }
-                ]
-              ]
-            },
-            { uuid: dataIndex + "left" + "destination", ...destination }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            {
-              anchors: [0, 0.7, 0, 0],
-              overlays: [
-                [
-                  "Label",
-                  {
-                    location: [-1, 1.5],
-                    label: "right",
-                    cssClass: "endpointSourceLabel"
-                  }
-                ]
-              ]
-            },
-            { uuid: dataIndex + "right" + "destination", ...destination }
-          );
-        } else if (specialNodeClass(drawType) == "classD_E2") {
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "RightMiddle", maxConnections: -1 },
-            { uuid: dataIndex + "output" + "origin", ...origin }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            {
-              anchors: [0, 0.3, 0, 0],
-              overlays: [
-                [
-                  "Label",
-                  {
-                    location: [-1, -0.5],
-                    label: "input1",
-                    cssClass: "endpointSourceLabel"
-                  }
-                ]
-              ]
-            },
-            { uuid: dataIndex + "input1" + "destination", ...destination }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            {
-              anchors: [0, 0.7, 0, 0],
-              overlays: [
-                [
-                  "Label",
-                  {
-                    location: [-1, 1.5],
-                    label: "input2",
-                    cssClass: "endpointSourceLabel"
-                  }
-                ]
-              ]
-            },
-            { uuid: dataIndex + "input2" + "destination" },
-            ...destination
-          );
-        } else {
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "RightMiddle", maxConnections: -1 },
-            { uuid: dataIndex + "output" + "origin", ...origin }
-          );
-          this.jsplumbInstance.addEndpoint(
-            dataIndex,
-            { anchors: "LeftMiddle" },
-            { uuid: dataIndex + "input" + "destination", ...destination }
-          );
-        }
-        this.jsplumbInstance.draggable(dataIndex); //节点拖动
-        //节点之间连线
-        this.links.forEach((item, index) => {
-          this.jsplumbInstance.connect({
-            uuids: [
-              item.source + item.sourceOutput + "origin",
-              item.target + item.input + "destination"
-            ]
-          });
-        });
-        return dataIndex;
-      });
     }
   }
 };

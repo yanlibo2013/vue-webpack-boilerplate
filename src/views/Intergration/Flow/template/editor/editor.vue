@@ -20,7 +20,7 @@
             >
               <dl>
                 <dt>
-                  <i :class="returnIconByType(item.type)"/>
+                  <i :class="returnIconByType(item.type)" />
                 </dt>
                 <dd>
                   <p class="step-name">{{ item.name }}</p>
@@ -29,8 +29,8 @@
               </dl>
               <div class="operation">
                 <span>
-                  <i class="el-icon-star-off"/>
-                  <i class="el-icon-delete"/>
+                  <i class="el-icon-star-off" />
+                  <i class="el-icon-delete" />
                 </span>
               </div>
             </li>
@@ -611,7 +611,7 @@ export default {
   display: flex;
   flex-direction: column;
   .editor-bar {
-    height: 50px
+    height: 50px;
   }
   .editor-container {
     display: flex;
