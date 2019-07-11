@@ -1,18 +1,19 @@
-module.exports = function () {
+module.exports = function() {
   var Mockjs = require("Mockjs");
-  var Random = Mockjs.Random
+  var Random = Mockjs.Random;
   var _ = require("lodash");
   var db1 = require("./db.json");
-  var db2 = {  
+  var db2 = {
     category: require("./view/categoryArr.json"),
     analytics_login: require("./view/analytics_login.json"),
     analytics_dashboard: require("./view/analytics_dashboard.json")
-  }
+  };
   var profession = require("./view/saveProfession.json");
 
   return {
     list: require("./modules/setting/userlist.json"),
     flow: require("./modules/flowchart/index.json"),
+    stepdata: require("./modules/steps/index.json")
     // traderPicList: {
     //   "status": 1,
     //   "message": "ok!",
@@ -46,5 +47,5 @@ module.exports = function () {
     // ...db1,
     // ...db2,
     // profession
-  }
-}
+  };
+};

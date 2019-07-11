@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: "/",
     proxyTable: {
       "/mock/": {
-        target: "http://localhost:3000",
+        target: "http://localhost:7000",
         changeOrigin: false,
         pathRewrite: {
           "^/mock": ""

@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import rightaside from "./rightaside/index";
+import rightaside from "./rightaside/aside";
 import { jsPlumb } from "jsplumb";
 import { type } from "os";
 export default {

@@ -16,3 +16,12 @@ export const flowChart = data => {
     data
   });
 };
+
+
+export const stepData = data => {
+  return request({
+    url: "/stepdata",
+    method: "post",
+    data
+  });
+};
