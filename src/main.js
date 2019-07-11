@@ -7,12 +7,12 @@ import router from "./router";
 import i18n from "./lang"; // Internationalization
 import Cookies from "js-cookie";
 import store from "@/vuex/index";
-
+import "@/utils/dialogDrag";
 
 import "normalize.css/normalize.css"; // A modern alternative to CSS resets
 import "./styles/element-variables.scss";
-import 'font-awesome/css/font-awesome.min.css'
-import './assets/fonts/iconfont.css'
+import "font-awesome/css/font-awesome.min.css";
+import "./assets/fonts/iconfont.css";
 
 import "./styles/index.scss"; // global css
 
@@ -20,7 +20,7 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import "./icons"; // icon
 
-import VueDragDrop from 'vue-drag-drop';//https://github.com/cameronhimself/vue-drag-drop
+import VueDragDrop from "vue-drag-drop"; //https://github.com/cameronhimself/vue-drag-drop
 
 Vue.use(VueDragDrop);
 

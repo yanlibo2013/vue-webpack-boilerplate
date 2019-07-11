@@ -16,6 +16,7 @@
             :data-index="addEndpointToNode(data.type,data.id,jsplumbInstance, self,links)"
             :data-type="data.type"
             :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
+            @dblclick="showStepDialog"
           >
             <i class="icon iconfont icon-ir-designIconBg designIconBg"></i>
             <i
@@ -34,6 +35,21 @@
         <rightaside></rightaside>
       </div>
     </div>
+
+    <el-dialog
+      title="设置"
+      :visible.sync="dialogVisible"
+      :before-close="handleClose"
+      :close-on-click-modal="false"
+      :modal-append-to-body="false"
+      v-dialog-drag
+    >
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -50,6 +66,7 @@ import {
 import { modules1 } from "@/service";
 
 import { type } from "os";
+import { fips } from "crypto";
 export default {
   components: {
     rightaside
@@ -62,7 +79,8 @@ export default {
       nodeIcon: nodeIcon,
       links: [],
       addEndpointToNode: addEndpointToNode,
-      self: this
+      self: this,
+      dialogVisible: false
     };
   },
 
@@ -80,6 +98,16 @@ export default {
     // });
   },
   methods: {
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    },
+    showStepDialog() {
+      this.dialogVisible = true;
+    },
     initData() {
       this.reset();
       modules1.flowChart({ name: "ylb" }).then(res => {
