@@ -9,8 +9,7 @@
             class="iconNavNub"
           >({{drawNav.thisIcon.length}})</span>
         </template>
-        <div
-          class="designIcon"
+        <drag class="drag designIcon" :transfer-data="{ drawIcon }" 
           v-for="(drawIcon,key,index) in drawNav.thisIcon"
           :key="index"
           :data-index="index"
@@ -23,7 +22,7 @@
               <h4>{{drawIcon.name | step}}</h4>
             </div>
           </el-tooltip>
-        </div>
+        </drag>
       </el-collapse-item>
     </el-collapse>
   </div>

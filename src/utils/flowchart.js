@@ -95,24 +95,19 @@ export function specialNodeClass(type) {
     case "decision":
     case "split":
       return "classD_D1";
-      break;
     //dataflow 左1 右2 ok -1 error -1
     case "validate":
       return "classD_D2";
-      break;
     //dataflow 左2 left 1 right 1 右-1
     case "join":
     case "productjoin":
       return "classD_E1";
-      break;
     //dataflow 左2 input1 1 input2 1 right 1 右-1
     case "minus":
       return "classD_E2";
-      break;
     //worflow 特殊节点 左-1 右-1
     case "dataflow":
       return "classW_A";
-      break;
   }
 }
 
@@ -173,7 +168,13 @@ export var destination = {
   connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
 };
 
-export const addEndpointToNode = (drawType, dataIndex, jsplumbInstance, self,links) => {
+export const addEndpointToNode = (
+  drawType,
+  dataIndex,
+  jsplumbInstance,
+  self,
+  links
+) => {
   self.$nextTick(() => {
     //节点锚点添加
     //左侧无，右侧一个起点
@@ -191,7 +192,7 @@ export const addEndpointToNode = (drawType, dataIndex, jsplumbInstance, self,lin
       );
     } else if (
       nodeClass(drawType) == "classD_C" ||
-      nodeClass(type) == "classW_C"
+      nodeClass(drawType) == "classW_C"
     ) {
       //左侧一个终点（多），右侧起点(多)
       jsplumbInstance.addEndpoint(
@@ -244,8 +245,7 @@ export const addEndpointToNode = (drawType, dataIndex, jsplumbInstance, self,lin
       jsplumbInstance.addEndpoint(
         dataIndex,
         { anchors: "LeftMiddle" },
-        { uuid: dataIndex + "input" + "destination" },
-        ...destination
+        { uuid: dataIndex + "input" + "destination", ...destination }
       );
     } else if (specialNodeClass(drawType) == "classD_D2") {
       jsplumbInstance.addEndpoint(
@@ -367,8 +367,7 @@ export const addEndpointToNode = (drawType, dataIndex, jsplumbInstance, self,lin
             ]
           ]
         },
-        { uuid: dataIndex + "input2" + "destination" },
-        ...destination
+        { uuid: dataIndex + "input2" + "destination", ...destination }
       );
     } else {
       jsplumbInstance.addEndpoint(
@@ -382,7 +381,7 @@ export const addEndpointToNode = (drawType, dataIndex, jsplumbInstance, self,lin
         { uuid: dataIndex + "input" + "destination", ...destination }
       );
     }
-    jsplumbInstance.draggable(dataIndex, {containment: 'parent'}); //节点拖动
+    jsplumbInstance.draggable(dataIndex, { containment: "parent" }); //节点拖动
     //节点之间连线
     links.forEach((item, index) => {
       jsplumbInstance.connect({

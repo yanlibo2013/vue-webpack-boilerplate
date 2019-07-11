@@ -252,6 +252,8 @@ export default {
       this.jsplumbInstance.deleteEveryEndpoint("workplace");
     },
     handleDrop(data, event) {
+      console.log(data);
+      console.log(event);
       let id = jsPlumbUtil.uuid();
       let currentItem = {
         id,

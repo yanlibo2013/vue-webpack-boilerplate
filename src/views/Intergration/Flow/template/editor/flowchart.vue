@@ -90,7 +90,25 @@ export default {
       this.flowData = [];
       this.jsplumbInstance.deleteEveryEndpoint("workplace");
     },
-    handleDrop(data, event) {},
+    handleDrop(data, event) {
+      // console.log * "handleDrop";
+      console.log(data);
+      console.log(event);
+      // console.log(JSON.stringify(this.flowData[0]));
+
+      let node = {
+        id: data.drawIcon.id + "_" + (this.flowData.length + 1),
+        name: data.drawIcon.name,
+        type: data.drawIcon.type,
+        x: event.offsetX,
+        y: event.offsetY,
+        otherConfigurations: data.drawIcon.otherConfigurations,
+        inputConfigurations: data.drawIcon.inputConfigurations,
+        outputConfigurations: data.drawIcon.outputConfigurations
+      };
+      this.flowData.push(node);
+      console.log(this.flowData);
+    },
     setClass(type) {
       let result = "";
       if (type == "classD_A") {
@@ -236,11 +254,14 @@ export default {
           padding: 0px;
         }
 
-      
-
         .t1Style {
           border: 2px solid #48c038;
           color: #48c038;
+          border-radius: 2px;
+        }
+        .t2Style {
+          border: 2px solid #4586f3;
+          color: #4586f3;
           border-radius: 2px;
         }
         .t3Style {
