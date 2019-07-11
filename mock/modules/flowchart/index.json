@@ -1,50 +1,169 @@
 {
-    "id": "262879aa-42c2-45e1-94d7-0570b2d1bb95",
-    "name": "010203",
-    "flowType": "dataflow",
+    "id": "3de25a2c-620b-46b3-b732-5f689cc4a926",
+    "name": "tc_sf_0708",
+    "flowType": "streamflow",
     "steps": [
         {
-            "id": "source_1",
-            "name": "source_1",
-            "type": "source",
-            "x": 140,
-            "y": 176,
+            "id": "streaming_source_1",
+            "name": "streaming_source_1",
+            "type": "streaming_source",
+            "x": 128,
+            "y": 388,
             "otherConfigurations": {
-                "schema": "id_name_age_gender",
-                "schemaId": "e71c6915-78df-4da9-b239-b771f5a74514",
-                "sessionCache": "",
+                "startingOffsets": "earliest",
+                "schema": "kafka_sch",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "brokers": "info4:9092",
+                "watermark": {
+                    "watermarkColumn": "",
+                    "watermarkInterval": ""
+                },
+                "format": "csv",
+                "earliest": "earliest",
+                "engine": "KAFKA",
+                "delimiter": ",",
+                "schemaId": "8b8f4b7b-b943-4f45-941c-5a25dab51e20",
+                "topic": "kafka_0708",
                 "ignoreMissingPath": false,
-                "datasetId": "5a71f9a5-c1fc-403e-aaaa-4ba4dde0669b",
-                "interceptor": "",
-                "dataset": "01"
+                "datasetId": "dc1b61a6-c00d-4c56-b408-c543c8b73956",
+                "dataset": "kafka_0708"
             },
             "outputConfigurations": [
                 {
                     "id": "output",
                     "fields": [
                         {
-                            "type": "int",
+                            "type": "string",
                             "alias": "",
                             "description": "",
-                            "column": "id"
+                            "column": "Name"
                         },
                         {
                             "type": "string",
                             "alias": "",
                             "description": "",
-                            "column": "name"
+                            "column": "Sex"
                         },
                         {
                             "type": "int",
                             "alias": "",
                             "description": "",
-                            "column": "age"
+                            "column": "Age"
                         },
                         {
                             "type": "string",
                             "alias": "",
                             "description": "",
-                            "column": "gender"
+                            "column": "Identity"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "Current_time"
+                        },
+                        {
+                            "type": "bigint",
+                            "alias": "",
+                            "description": "",
+                            "column": "Data_long"
+                        },
+                        {
+                            "type": "double",
+                            "alias": "",
+                            "description": "",
+                            "column": "Data_double"
+                        },
+                        {
+                            "type": "boolean",
+                            "alias": "",
+                            "description": "",
+                            "column": "Data_boolean"
+                        },
+                        {
+                            "type": "timestamp",
+                            "alias": "",
+                            "description": "",
+                            "column": "Timestamp"
+                        },
+                        {
+                            "type": "bigint",
+                            "alias": "",
+                            "description": "",
+                            "column": "Str_time"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "Salary"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "Null_data"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "City"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data1"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data2"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data3"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data4"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data5"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data6"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data7"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data8"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data9"
                         }
                     ]
                 }
@@ -54,18 +173,26 @@
             "id": "sink_2",
             "name": "sink_2",
             "type": "sink",
-            "x": 842,
-            "y": 80,
+            "x": 516,
+            "y": 387,
             "otherConfigurations": {
-                "schema": "id_name_age_gender",
+                "schema": "kafka_0708_sink1",
+                "brokers": "",
+                "columns": "",
+                "groupId": "",
                 "description": "",
                 "sessionCache": "",
                 "interceptor": "",
-                "type": "HDFS",
+                "outputMode": "update",
+                "DBType": "Mysql",
+                "type": "JDBC",
                 "nullValue": "",
                 "mode": "append",
-                "path": "/test_wac/a_81_0531/02",
-                "datasetId": "818313d5-d8b7-4843-9ae5-f8da8f5ea09a",
+                "scheduler": "1 HOURS",
+                "path": "",
+                "password": "merce",
+                "countWrittenRecord": "true",
+                "table": "kafka_0708_sink1",
                 "schemaResourceId": "",
                 "dataResource": "",
                 "quoteChar": "\"",
@@ -73,14 +200,24 @@
                 "schemaResource": "",
                 "datasetResourceId": "",
                 "sliceTimeColumn": "",
+                "partitionColumns": "",
+                "jarPath": "/tmp/jarUploadPath/save/8350d5f9-ff59-43db-b8a6-8ccfe60e62ca_mysql-connector-java-5.1.38.jar",
                 "format": "csv",
+                "trigger": "Schedule",
                 "maxFileSize": "",
                 "maxFileNumber": "",
                 "separator": ",",
+                "url": "jdbc:mysql://192.168.1.75:3306/merce",
                 "expiredTime": "0",
-                "schemaId": "e71c6915-78df-4da9-b239-b771f5a74514",
-                "dataset": "02",
-                "sliceType": "H",
+                "driver": "com.mysql.jdbc.Driver",
+                "checkpointLocation": "/tmp/checkpoint/kafka_0708_sink1",
+                "schemaId": "27d2c0e3-6ed8-495a-8f80-57c5ba4fa5b0",
+                "namespace": "",
+                "name": "mysql0625",
+                "topic": "",
+                "dataset": "kafka_0708_sink1",
+                "user": "merce",
+                "sliceType": "",
                 "specifiedStringColumnTypes": []
             },
             "inputConfigurations": [
@@ -88,164 +225,136 @@
                     "id": "input",
                     "fields": [
                         {
-                            "column": "id",
-                            "alias": ""
-                        },
-                        {
-                            "column": "name",
-                            "alias": ""
-                        },
-                        {
-                            "column": "age",
-                            "alias": ""
-                        },
-                        {
-                            "column": "gender",
-                            "alias": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "sink_3",
-            "name": "sink_3",
-            "type": "sink",
-            "x": 883,
-            "y": 346,
-            "otherConfigurations": {
-                "schema": "id_name_age_gender",
-                "description": "",
-                "sessionCache": "",
-                "interceptor": "",
-                "type": "HDFS",
-                "nullValue": "",
-                "mode": "append",
-                "path": "/test_wac/a_81_0531/03",
-                "datasetId": "21997b8f-9db3-4dca-a54d-571fc0366727",
-                "schemaResourceId": "",
-                "dataResource": "",
-                "quoteChar": "\"",
-                "escapeChar": "\\",
-                "schemaResource": "",
-                "datasetResourceId": "",
-                "sliceTimeColumn": "",
-                "format": "csv",
-                "maxFileSize": "",
-                "maxFileNumber": "",
-                "separator": ",",
-                "expiredTime": "0",
-                "schemaId": "e71c6915-78df-4da9-b239-b771f5a74514",
-                "dataset": "03",
-                "sliceType": "H",
-                "specifiedStringColumnTypes": []
-            },
-            "inputConfigurations": [
-                {
-                    "id": "input",
-                    "fields": [
-                        {
-                            "column": "id",
-                            "alias": ""
-                        },
-                        {
-                            "column": "name",
-                            "alias": ""
-                        },
-                        {
-                            "column": "age",
-                            "alias": ""
-                        },
-                        {
-                            "column": "gender",
-                            "alias": ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "split_4",
-            "name": "split_4",
-            "type": "split",
-            "x": 455,
-            "y": 185,
-            "otherConfigurations": {
-                "condition": "id>2",
-                "sessionCache": "",
-                "interceptor": ""
-            },
-            "inputConfigurations": [
-                {
-                    "id": "input",
-                    "fields": [
-                        {
-                            "type": "int",
+                            "type": "string",
                             "alias": "",
                             "description": "",
-                            "column": "id"
+                            "column": "Name"
                         },
                         {
                             "type": "string",
                             "alias": "",
                             "description": "",
-                            "column": "name"
+                            "column": "Sex"
                         },
                         {
                             "type": "int",
                             "alias": "",
                             "description": "",
-                            "column": "age"
+                            "column": "Age"
                         },
                         {
                             "type": "string",
                             "alias": "",
                             "description": "",
-                            "column": "gender"
-                        }
-                    ]
-                }
-            ],
-            "outputConfigurations": [
-                {
-                    "id": "yes",
-                    "fields": [
-                        {
-                            "column": "id",
-                            "alias": ""
+                            "column": "Identity"
                         },
                         {
-                            "column": "name",
-                            "alias": ""
+                            "type": "string",
+                            "alias": "test_new",
+                            "description": "",
+                            "column": "Current_time"
                         },
                         {
-                            "column": "age",
-                            "alias": ""
+                            "type": "bigint",
+                            "alias": "",
+                            "description": "",
+                            "column": "Data_long"
                         },
                         {
-                            "column": "gender",
-                            "alias": ""
-                        }
-                    ]
-                },
-                {
-                    "id": "no",
-                    "fields": [
-                        {
-                            "column": "id",
-                            "alias": ""
+                            "type": "double",
+                            "alias": "",
+                            "description": "",
+                            "column": "Data_double"
                         },
                         {
-                            "column": "name",
-                            "alias": ""
+                            "type": "boolean",
+                            "alias": "",
+                            "description": "",
+                            "column": "Data_boolean"
                         },
                         {
-                            "column": "age",
-                            "alias": ""
+                            "type": "timestamp",
+                            "alias": "",
+                            "description": "",
+                            "column": "Timestamp"
                         },
                         {
-                            "column": "gender",
-                            "alias": ""
+                            "type": "bigint",
+                            "alias": "",
+                            "description": "",
+                            "column": "Str_time"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "Salary"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "Null_data"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "City"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data1"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data2"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data3"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data4"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data5"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data6"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data7"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data8"
+                        },
+                        {
+                            "type": "string",
+                            "alias": "",
+                            "description": "",
+                            "column": "data9"
                         }
                     ]
                 }
@@ -254,37 +363,21 @@
     ],
     "links": [
         {
-            "name": "con_154",
-            "source": "source_1",
+            "name": "con_7",
+            "source": "streaming_source_1",
             "sourceOutput": "output",
-            "target": "split_4",
-            "targetInput": "input",
-            "input": "input"
-        },
-        {
-            "name": "con_155",
-            "source": "split_4",
-            "sourceOutput": "yes",
             "target": "sink_2",
-            "targetInput": "input",
-            "input": "input"
-        },
-        {
-            "name": "con_156",
-            "source": "split_4",
-            "sourceOutput": "no",
-            "target": "sink_3",
             "targetInput": "input",
             "input": "input"
         }
     ],
     "oid": "$null",
     "creator": "admin",
-    "createTime": 1559247164000,
+    "createTime": 1562558848000,
     "lastModifier": "admin",
-    "lastModifiedTime": 1559247842000,
+    "lastModifiedTime": 1562560355000,
     "owner": "601a71e6-d6af-491c-ae3c-f70a939385de",
-    "version": 7,
+    "version": 2,
     "enabled": 1,
     "moduleVersion": 0,
     "tenant": {

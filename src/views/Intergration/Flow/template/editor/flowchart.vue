@@ -16,7 +16,7 @@
             :data-index="addEndpointToNode(data.type,data.id,jsplumbInstance, self,links)"
             :data-type="data.type"
             :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
-            @dblclick="showStepDialog"
+            @dblclick="showStepDialog(data.type)"
           >
             <i class="icon iconfont icon-ir-designIconBg designIconBg"></i>
             <i
@@ -37,18 +37,15 @@
     </div>
 
     <el-dialog
-      title="设置"
+      :title="flowType+'设置'"
       :visible.sync="dialogVisible"
       :before-close="handleClose"
       :close-on-click-modal="false"
       :modal-append-to-body="false"
       v-dialog-drag
+      @open="showDailog"
     >
-      <span>这是一段信息</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
+      <component :is="dialogComponent" :nodeType="nodeType"></component>
     </el-dialog>
   </div>
 </template>
@@ -65,8 +62,9 @@ import {
 } from "@/utils/flowchart";
 import { modules1 } from "@/service";
 
-import { type } from "os";
-import { fips } from "crypto";
+import dataflow from "@/components/flowchart/node/dataflow/index";
+import workflow from "@/components/flowchart/node/workflow/index";
+import streamflow from "@/components/flowchart/node/streamflow/index";
 export default {
   components: {
     rightaside
@@ -74,13 +72,16 @@ export default {
   data() {
     return {
       jsplumbInstance: null,
+      flowType: "",
       flowData: {},
       nodeClass: nodeClass,
       nodeIcon: nodeIcon,
       links: [],
       addEndpointToNode: addEndpointToNode,
       self: this,
-      dialogVisible: false
+      dialogVisible: false,
+      dialogComponent: "",
+      nodeType:""
     };
   },
 
@@ -98,21 +99,38 @@ export default {
     // });
   },
   methods: {
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
+    showDailog() {
+      if (this.flowType == "dataflow") {
+        this.dialogComponent = dataflow;
+      }
+      if (this.flowType == "streamflow") {
+        this.dialogComponent = streamflow;
+      }
+      if (this.flowType == "workflow") {
+        this.dialogComponent = workflow;
+      }
     },
-    showStepDialog() {
+    handleClose(done) {
+      done();
+      this.dialogComponent = "";
+      // this.$confirm("确认关闭？")
+      //   .then(_ => {
+      //     done();
+      //   })
+      //   .catch(_ => {});
+    },
+    showStepDialog(val) {
       this.dialogVisible = true;
+      this.nodeType=val;
+      console.log(val);
     },
     initData() {
       this.reset();
       modules1.flowChart({ name: "ylb" }).then(res => {
         this.flowData = res.data.steps;
+        this.flowType = res.data.flowType;
         this.links = res.data.links;
+        console.log("flowData.flowType", this.flowData.flowType);
       });
     },
     reset() {
