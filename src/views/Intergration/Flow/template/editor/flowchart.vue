@@ -81,6 +81,7 @@ export default {
   },
   methods: {
     initData() {
+      this.reset();
       modules1.flowChart({ name: "ylb" }).then(res => {
         this.flowData = res.data.steps;
         this.links = res.data.links;
@@ -91,11 +92,6 @@ export default {
       this.jsplumbInstance.deleteEveryEndpoint("workplace");
     },
     handleDrop(data, event) {
-      // console.log * "handleDrop";
-      console.log(data);
-      console.log(event);
-      // console.log(JSON.stringify(this.flowData[0]));
-
       let node = {
         id: data.drawIcon.id + "_" + (this.flowData.length + 1),
         name: data.drawIcon.name,
@@ -107,7 +103,6 @@ export default {
         outputConfigurations: data.drawIcon.outputConfigurations
       };
       this.flowData.push(node);
-      console.log(this.flowData);
     },
     setClass(type) {
       let result = "";
