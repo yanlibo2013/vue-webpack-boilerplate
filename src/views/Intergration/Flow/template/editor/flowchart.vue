@@ -1,5 +1,5 @@
 <template>
-  <div class="editor">
+  <div class="flowchart">
     <div class="editor-bar">
       <el-button type="info" @click="initData">流程</el-button>
       <el-button type="info" @click="reset">清空</el-button>
@@ -37,15 +37,21 @@
     </div>
 
     <el-dialog
-      :title="flowType+'设置'"
+      :title="nodeType+'设置'"
       :visible.sync="dialogVisible"
       :before-close="handleClose"
       :close-on-click-modal="false"
       :modal-append-to-body="false"
       v-dialog-drag
       @open="showDailog"
+      width="70%"
+      custom-class="custom-class-dialog"
     >
       <component :is="dialogComponent" :nodeType="nodeType"></component>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -81,7 +87,7 @@ export default {
       self: this,
       dialogVisible: false,
       dialogComponent: "",
-      nodeType:""
+      nodeType: ""
     };
   },
 
@@ -121,7 +127,7 @@ export default {
     },
     showStepDialog(val) {
       this.dialogVisible = true;
-      this.nodeType=val;
+      this.nodeType = val;
       console.log(val);
     },
     initData() {
@@ -130,7 +136,8 @@ export default {
         this.flowData = res.data.steps;
         this.flowType = res.data.flowType;
         this.links = res.data.links;
-        console.log("flowData.flowType", this.flowData.flowType);
+        //console.log("flowData.flowType", this.flowData.flowType);
+        //console.log(this.flowData);
       });
     },
     reset() {
@@ -166,7 +173,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.editor {
+.flowchart {
   position: fixed;
   top: 60px;
   left: 200px;

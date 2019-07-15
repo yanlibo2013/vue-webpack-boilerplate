@@ -48,6 +48,11 @@ export default new Router({
               path: "flowchart",
               component: () => import("@/views/Intergration/Flow/template/editor/flowchart"),
               name: "flowchart"
+            },
+            {
+              path: "table",
+              component: () => import("@/views/Intergration/Flow/table/dataflow/index"),
+              name: "table"
             }
           ]
         },

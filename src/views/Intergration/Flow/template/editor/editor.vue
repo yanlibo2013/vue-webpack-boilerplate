@@ -12,10 +12,10 @@
               :addEndpoint="customStep(item.id, item.type)"
               class="step-item"
               :style="{
-        left: item.x +'px',
-        top: item.y +'px',
-        color: returnColorByType(item.type),
-        borderColor: returnColorByType(item.type)
+              left: item.x +'px',
+              top: item.y +'px',
+              color: returnColorByType(item.type),
+              borderColor: returnColorByType(item.type)
       }"
             >
               <dl>
@@ -252,8 +252,8 @@ export default {
       this.jsplumbInstance.deleteEveryEndpoint("workplace");
     },
     handleDrop(data, event) {
-      console.log(data);
-      console.log(event);
+      // console.log(data);
+      // console.log(event);
       let id = jsPlumbUtil.uuid();
       let currentItem = {
         id,

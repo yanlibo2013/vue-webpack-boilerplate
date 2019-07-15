@@ -13,7 +13,8 @@ module.exports = function() {
   return {
     list: require("./modules/setting/userlist.json"),
     flow: require("./modules/flowchart/index.json"),
-    stepdata: require("./modules/steps/index.json")
+    stepdata: require("./modules/steps/index.json"),
+    dataflow:require("./modules/flowchart/table/dataflow/index.json")
     // traderPicList: {
     //   "status": 1,
     //   "message": "ok!",

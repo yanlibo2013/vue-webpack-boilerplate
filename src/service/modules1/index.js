@@ -25,3 +25,12 @@ export const stepData = data => {
     data
   });
 };
+
+export const dataFlow = data => {
+  return request({
+    url: "/dataflow",
+    method: "post",
+    data
+  });
+};
+

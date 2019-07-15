@@ -59,6 +59,10 @@ export default {
         {
           label: "flow",
           id: 6
+        },
+        {
+          label: "list",
+          id: 3
         }
       ],
       defaultProps: {
@@ -69,9 +73,18 @@ export default {
   },
   methods: {
     handleNodeClick(data) {
-      this.$router.push(
-        data.id == 6 ? "/layout/flow/editor" : "/layout/flow/list/" + data.id
-      );
+      // this.$router.push(
+      //   data.id == 6 ? "/layout/flow/editor" : "/layout/flow/list/" + data.id
+      // );
+
+      console.log(data.id);
+
+      if (data.id == 6) {
+        this.$router.push("/layout/flow/editor");
+      }
+      if (data.id == 3) {
+        this.$router.push("/layout/flow/list/" + data.id);
+      }
     }
   }
 };
