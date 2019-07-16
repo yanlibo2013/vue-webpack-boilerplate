@@ -64,7 +64,8 @@ import {
   specialNodeClass,
   origin,
   destination,
-  addEndpointToNode
+  addEndpointToNode,
+  getNodeType
 } from "@/utils/flowchart";
 import { modules1 } from "@/service";
 
@@ -93,6 +94,7 @@ export default {
 
   //
   created() {
+    console.log("created");
     this.jsplumbInstance = getInstance("workplace");
     //this.jsplumbInstance.setContainer("workplace");
   },
@@ -126,9 +128,12 @@ export default {
       //   .catch(_ => {});
     },
     showStepDialog(val) {
-      // this.dialogVisible = true;
-      // this.nodeType = val;
-      console.log(val);
+      this.dialogVisible = true;
+      //this.nodeType = val;
+     // console.log(val);
+     console.log("getNodeType",getNodeType(val.type));
+     console.log(val.type);
+     console.log(val);
     },
     initData() {
       this.reset();

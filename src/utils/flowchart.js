@@ -175,6 +175,7 @@ export const addEndpointToNode = (
   self,
   links
 ) => {
+  console.log("///////////////////////addEndpointToNode////////////////////////////////",links);
   self.$nextTick(() => {
     //节点锚点添加
     //左侧无，右侧一个起点
@@ -393,4 +394,27 @@ export const addEndpointToNode = (
     });
     return dataIndex;
   });
+};
+
+export const getNodeType = drawType => {
+  if (nodeClass(drawType) == "classD_A") {
+    return "RightMiddle1";
+  } else if (nodeClass(drawType) == "classD_B") {
+    return "LeftMiddle1";
+  } else if (
+    nodeClass(drawType) == "classD_C" ||
+    nodeClass(drawType) == "classW_C"
+  ) {
+    return "LeftMiddle1RightMiddle1";
+  } else if (specialNodeClass(drawType) == "classD_D1") {
+    return "LeftMiddle1yesno"
+  } else if (specialNodeClass(drawType) == "classD_D2") {
+    return "LeftMiddle1okerror"
+  } else if (specialNodeClass(drawType) == "classD_E1") {
+    return "leftrightRightMiddle"
+  } else if (specialNodeClass(drawType) == "classD_E2") {
+    return "input1input2RightMiddle"
+  } else {
+    return "LeftMiddle1RightMiddle1";
+  }
 };

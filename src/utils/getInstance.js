@@ -21,6 +21,8 @@ export default function (container) {
     Container: container,
   })
 
+  console.log("instance",instance);
+
   // instance.registerConnectionType("basicConnect", {
   //   paintStyle: {stroke: "${color}"},
   //   overlays:[
