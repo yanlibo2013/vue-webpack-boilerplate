@@ -16,7 +16,7 @@
             :data-index="addEndpointToNode(data.type,data.id,jsplumbInstance, self,links)"
             :data-type="data.type"
             :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
-            @dblclick="showStepDialog(data.type)"
+            @dblclick="showStepDialog(data)"
           >
             <i class="icon iconfont icon-ir-designIconBg designIconBg"></i>
             <i
@@ -126,8 +126,8 @@ export default {
       //   .catch(_ => {});
     },
     showStepDialog(val) {
-      this.dialogVisible = true;
-      this.nodeType = val;
+      // this.dialogVisible = true;
+      // this.nodeType = val;
       console.log(val);
     },
     initData() {
