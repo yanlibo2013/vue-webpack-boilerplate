@@ -13,7 +13,6 @@
             :key="index"
             :class="'designIconBig '+setClass(nodeClass(data.type))"
             :data-sign="data.name"
-            :data-index="addEndpointToNode(data.type,data.id,jsplumbInstance, self,links)"
             :data-type="data.type"
             :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
             @dblclick="showStepDialog(data)"
@@ -56,6 +55,7 @@
   </div>
 </template>
 <script>
+import _ from "lodash";
 import rightaside from "./rightaside/index";
 import getInstance from "@/utils/getInstance";
 import {
@@ -65,7 +65,9 @@ import {
   origin,
   destination,
   addEndpointToNode,
-  getNodeType
+  getNodeType,
+  setClass,
+  connect
 } from "@/utils/flowchart";
 import { modules1 } from "@/service";
 
@@ -84,17 +86,17 @@ export default {
       nodeClass: nodeClass,
       nodeIcon: nodeIcon,
       links: [],
-      addEndpointToNode: addEndpointToNode,
       self: this,
       dialogVisible: false,
       dialogComponent: "",
-      nodeType: ""
+      nodeType: "",
+      setClass: setClass
     };
   },
 
   //
   created() {
-    console.log("created");
+    //console.log("created");
     this.jsplumbInstance = getInstance("workplace");
     //this.jsplumbInstance.setContainer("workplace");
   },
@@ -130,19 +132,110 @@ export default {
     showStepDialog(val) {
       this.dialogVisible = true;
       //this.nodeType = val;
-     // console.log(val);
-     console.log("getNodeType",getNodeType(val.type));
-     console.log(val.type);
-     console.log(val);
+      // console.log(val);
+      // console.log("getNodeType", getNodeType(val.type));
+      // console.log(val.type);
+      // console.log(val);
+    },
+    drawJsplumbChart(data) {
+      addEndpointToNode(data.jsplumbInstance, data.self, data.flowData);
+      connect(
+        data.jsplumbInstance,
+        data.self,
+        data.links
+      );
     },
     initData() {
       this.reset();
+
+      // setTimeout(() => {
+      //   let data = {
+      //     id: "20053ae4-8134-47e4-bdee-d168437d9de5",
+      //     name: "tc_df_oo",
+      //     flowType: "dataflow",
+      //     steps: [
+      //       {
+      //         id: "source_2",
+      //         name: "source_2",
+      //         type: "source",
+      //         x: 84,
+      //         y: 81,
+      //         otherConfigurations: {},
+      //         inputConfigurations: [],
+      //         outputConfigurations: []
+      //       },
+      //       {
+      //         id: "sink_3",
+      //         name: "sink_3",
+      //         type: "sink",
+      //         x: 457,
+      //         y: 98,
+      //         otherConfigurations: {},
+      //         inputConfigurations: [],
+      //         outputConfigurations: []
+      //       }
+      //     ],
+      //     links: [
+      //       {
+      //         name: "con_128",
+      //         source: "source_2",
+      //         sourceOutput: "output",
+      //         target: "sink_3",
+      //         targetInput: "input",
+      //         input: "input"
+      //       }
+      //     ],
+      //     oid: "$null",
+      //     creator: "admin",
+      //     createTime: 1559501740000,
+      //     lastModifier: "admin",
+      //     lastModifiedTime: 1561020270000,
+      //     owner: "601a71e6-d6af-491c-ae3c-f70a939385de",
+      //     version: 2,
+      //     enabled: 0,
+      //     moduleVersion: 0,
+      //     tenant: {
+      //       id: "55f7f910-b1c9-41d2-9771-e734e6b8285f",
+      //       name: "default",
+      //       creator: "root",
+      //       createTime: 1559138723000,
+      //       lastModifier: "root",
+      //       lastModifiedTime: 1559731815000,
+      //       owner: "af9b0954-51ef-40c9-aac6-39390b91bcc9",
+      //       version: 1,
+      //       moduleVersion: 0,
+      //       enabled: 1,
+      //       resourceQueues: ["default", "merce.normal"],
+      //       hdfsSpaceQuota: 0,
+      //       zid: "",
+      //       expiredPeriod: 0
+      //     },
+      //     tableName: "merce_flow",
+      //     isHide: 0,
+      //     expiredPeriod: 0
+      //   };
+
+      //   this.flowData = data.steps;
+      //   this.flowType = data.flowType;
+      //   this.links = data.links;
+      //   this.drawJsplumbChart({
+      //     jsplumbInstance: this.jsplumbInstance,
+      //     self: this,
+      //     flowData: this.flowData,
+      //     links: this.links
+      //   });
+      // }, 100);
+
       modules1.flowChart({ name: "ylb" }).then(res => {
         this.flowData = res.data.steps;
         this.flowType = res.data.flowType;
         this.links = res.data.links;
-        //console.log("flowData.flowType", this.flowData.flowType);
-        //console.log(this.flowData);
+        this.drawJsplumbChart({
+          jsplumbInstance: this.jsplumbInstance,
+          self: this,
+          flowData: this.flowData,
+          links: this.links
+        });
       });
     },
     reset() {
@@ -161,18 +254,7 @@ export default {
         outputConfigurations: data.drawIcon.outputConfigurations
       };
       this.flowData.push(node);
-    },
-    setClass(type) {
-      let result = "";
-      if (type == "classD_A") {
-        result = "t1Style";
-      } else if (type == "classD_B") {
-        result = "t3Style";
-      } else {
-        result = "t2Style";
-      }
-
-      return result;
+      addEndpointToNode(this.jsplumbInstance, this, this.flowData);
     }
   }
 };
