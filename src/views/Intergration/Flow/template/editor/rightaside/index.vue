@@ -1,7 +1,7 @@
 <template>
   <div class="right-aside">
     <el-collapse accordion>
-      <el-collapse-item v-for="(drawNav,index) in gqueryData"  :key="index">
+      <el-collapse-item v-for="(drawNav,index) in gqueryData" :key="index">
         <template slot="title">
           <i class="icon iconfont icon-ir-supply-chain"></i>
           &nbsp;{{drawNav.group | cn}}
@@ -9,13 +9,15 @@
             class="iconNavNub"
           >({{drawNav.thisIcon.length}})</span>
         </template>
-        <drag class="drag designIcon" :transfer-data="{ drawIcon }" 
+        <drag
+          class="drag designIcon"
+          :transfer-data="{ drawIcon }"
           v-for="(drawIcon,key,index) in drawNav.thisIcon"
           :key="index"
           :data-index="index"
           :data-type="drawIcon.type"
         >
-          <el-tooltip  effect="dark" :content="drawIcon.name|step" placement="top">
+          <el-tooltip effect="dark" :content="drawIcon.name|step" placement="top">
             <div>
               <!-- <i class="icon iconfont icon-ir-designIconBg designIconBg"></i> -->
               <i :class="drawIcon.name | iconFilter"></i>
@@ -31,6 +33,7 @@
 <script>
 import { modules1 } from "@/service";
 import { nodeIcon } from "@/utils/flowchart";
+import { stepData } from "mock/data/stepData.js";
 export default {
   filters: {
     step: function(value) {
@@ -76,9 +79,11 @@ export default {
     };
   },
   created() {
-    modules1.stepData({}).then(res => {
-      this.gqueryData = res.data;
-    });
+    // modules1.stepData({}).then(res => {
+    //   this.gqueryData = res.data;
+    // });
+
+    this.gqueryData = stepData;
   },
   mounted() {
     // this.gqueryTree = this.filterGquery(this.flowType);
@@ -128,7 +133,7 @@ export default {
   height: 100%;
   padding: 0 0 0 10px;
 
-  .designIcon{
+  .designIcon {
     text-align: center;
     display: inline-block;
   }

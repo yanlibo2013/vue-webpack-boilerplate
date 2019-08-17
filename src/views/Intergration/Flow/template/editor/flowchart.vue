@@ -74,6 +74,8 @@ import { modules1 } from "@/service";
 import dataflow from "@/components/flowchart/node/dataflow/index";
 import workflow from "@/components/flowchart/node/workflow/index";
 import streamflow from "@/components/flowchart/node/streamflow/index";
+
+import { flowData } from "mock/data/flowData.js";
 export default {
   components: {
     rightaside
@@ -146,7 +148,7 @@ export default {
       );
     },
     initData() {
-      this.reset();
+      //this.reset();
 
       // setTimeout(() => {
       //   let data = {
@@ -226,16 +228,28 @@ export default {
       //   });
       // }, 100);
 
-      modules1.flowChart({ name: "ylb" }).then(res => {
-        this.flowData = res.data.steps;
-        this.flowType = res.data.flowType;
-        this.links = res.data.links;
-        this.drawJsplumbChart({
-          jsplumbInstance: this.jsplumbInstance,
-          self: this,
-          flowData: this.flowData,
-          links: this.links
-        });
+      // modules1.flowChart({ name: "ylb" }).then(res => {
+      //   this.flowData = res.data.steps;
+      //   this.flowType = res.data.flowType;
+      //   this.links = res.data.links;
+      //   this.drawJsplumbChart({
+      //     jsplumbInstance: this.jsplumbInstance,
+      //     self: this,
+      //     flowData: this.flowData,
+      //     links: this.links
+      //   });
+      // });
+
+      let res = flowData;
+
+      this.flowData = res.steps;
+      this.flowType = res.flowType;
+      this.links = res.links;
+      this.drawJsplumbChart({
+        jsplumbInstance: this.jsplumbInstance,
+        self: this,
+        flowData: this.flowData,
+        links: this.links
       });
     },
     reset() {

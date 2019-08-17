@@ -8,7 +8,6 @@ export const list = data => {
   });
 };
 
-
 export const flowChart = data => {
   return request({
     url: "/flow",
@@ -16,7 +15,6 @@ export const flowChart = data => {
     data
   });
 };
-
 
 export const stepData = data => {
   return request({
@@ -33,4 +31,3 @@ export const dataFlow = data => {
     data
   });
 };
-
