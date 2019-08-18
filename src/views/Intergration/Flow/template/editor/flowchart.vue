@@ -9,7 +9,7 @@
         <drop class="workplace editor" @drop="handleDrop" id="workplace">
           <div
             v-for="(data,index) in flowData"
-            :id="data.id"
+            :id="data.id)"
             :key="index"
             :class="'designIconBig '+setClass(nodeClass(data.type))"
             :data-sign="data.name"
@@ -114,11 +114,21 @@ export default {
   },
   mounted() {
     this.initData();
+
+    this.$nextTick(() => {
+      //this.customStep(item.id, item.type)
+      console.log("mounted");
+    });
   },
   updated() {
-    // this.$nextTick(() => {
-    //   this.customStep(item.id, item.type)
-    // });
+    this.$nextTick(() => {
+      this.drawJsplumbChart({
+        jsplumbInstance: this.jsplumbInstance,
+        self: this,
+        flowData: this.flowData,
+        links: this.links
+      });
+    });
   },
   methods: {
     delConnections(val) {
@@ -127,20 +137,20 @@ export default {
       });
     },
     delNode(val) {
-      console.log(
-        "getAllConnections",
-        this.jsplumbInstance.getAllConnections()
-      );
+      // console.log(
+      //   "getAllConnections",
+      //   this.jsplumbInstance.getAllConnections()
+      // );
       console.log(_.cloneDeep(this.flowData));
       console.log(_.cloneDeep(this.links));
 
-      this.jsplumbInstance.getAllConnections().forEach(c => {
-        console.log("connecton", c);
-        this.jsplumbInstance.deleteConnection(c);
-      });
+      // this.jsplumbInstance.getAllConnections().forEach(c => {
+      //   console.log("connecton", c);
+      //   this.jsplumbInstance.deleteConnection(c);
+      // });
 
       //this.jsplumbInstance.deleteEndpoint(val);
-      this.jsplumbInstance.deleteEveryEndpoint();
+      // this.jsplumbInstance.deleteEveryEndpoint();
       //return;
       //his.jsplumbInstance.remove(val);
       //this.jsplumbInstance.reset();
@@ -171,13 +181,6 @@ export default {
       // console.log(_.cloneDeep(this.links));
       this.links = _.filter(this.links, item => {
         return item.source != val && item.target !== val;
-      });
-
-      this.drawJsplumbChart({
-        jsplumbInstance: this.jsplumbInstance,
-        self: this,
-        flowData: this.flowData,
-        links: this.links
       });
 
       // console.log(this.links);
@@ -321,14 +324,14 @@ export default {
       this.flowData = res.steps;
       this.flowType = res.flowType;
       this.links = res.links;
-      this.drawJsplumbChart({
-        jsplumbInstance: this.jsplumbInstance,
-        self: this,
-        flowData: this.flowData,
-        links: this.links
-      });
+      // this.drawJsplumbChart({
+      //   jsplumbInstance: this.jsplumbInstance,
+      //   self: this,
+      //   flowData: this.flowData,
+      //   links: this.links
+      // });
 
-      this.newflowdata = _.cloneDeep(this.flowData);
+      // this.newflowdata = _.cloneDeep(this.flowData);
     },
     reset() {
       this.flowData = [];
@@ -352,12 +355,12 @@ export default {
       console.log("handleDrop", this.flowData);
       // addEndpointToNode(this.jsplumbInstance, this, this.flowData);
 
-      this.drawJsplumbChart({
-        jsplumbInstance: this.jsplumbInstance,
-        self: this,
-        flowData: this.flowData,
-        links: this.links
-      });
+      // this.drawJsplumbChart({
+      //   jsplumbInstance: this.jsplumbInstance,
+      //   self: this,
+      //   flowData: this.flowData,
+      //   links: this.links
+      // });
     }
   }
 };
