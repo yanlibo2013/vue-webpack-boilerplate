@@ -21,8 +21,6 @@ export default function(options) {
     Container: options.container
   });
 
-  console.log("instance", instance);
-
   // instance.registerConnectionType("basicConnect", {
   //   paintStyle: {stroke: "${color}"},
   //   overlays:[
@@ -41,7 +39,6 @@ export default function(options) {
   // })
 
   instance.bind("click", function(c) {
-    console.log("instance.deleteConnection", c);
     instance.deleteConnection(c); //instance
 
     options.delConnections(c);

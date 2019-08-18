@@ -9,7 +9,7 @@
         <drop class="workplace editor" @drop="handleDrop" id="workplace">
           <div
             v-for="(data,index) in flowData"
-            :id="data.id)"
+            :id="data.id"
             :key="index"
             :class="'designIconBig '+setClass(nodeClass(data.type))"
             :data-sign="data.name"
@@ -104,21 +104,12 @@ export default {
       container: "workplace",
       delConnections: this.delConnections
     });
-    //this.jsplumbInstance.setContainer("workplace");
-
-    // this.jsplumbInstance.bind("click", function(c) {
-    //   console.log("instance.deleteConnection", c);
-    //   this.jsplumbInstance.deleteConnection(c);
-    //   //this.jsplumbInstance.detach(c);
-    // });
   },
   mounted() {
     this.initData();
 
-    this.$nextTick(() => {
-      //this.customStep(item.id, item.type)
-      console.log("mounted");
-    });
+    // this.$nextTick(() => {
+    // });
   },
   updated() {
     this.$nextTick(() => {
@@ -137,58 +128,13 @@ export default {
       });
     },
     delNode(val) {
-      // console.log(
-      //   "getAllConnections",
-      //   this.jsplumbInstance.getAllConnections()
-      // );
-      console.log(_.cloneDeep(this.flowData));
-      console.log(_.cloneDeep(this.links));
-
-      // this.jsplumbInstance.getAllConnections().forEach(c => {
-      //   console.log("connecton", c);
-      //   this.jsplumbInstance.deleteConnection(c);
-      // });
-
-      //this.jsplumbInstance.deleteEndpoint(val);
-      // this.jsplumbInstance.deleteEveryEndpoint();
-      //return;
-      //his.jsplumbInstance.remove(val);
-      //this.jsplumbInstance.reset();
-      //this.jsplumbInstance.removeAllEndpoints(val);
-      // this.jsplumbInstance.deleteEndpoint(val);
-      //this.jsplumbInstance.remove(val);
-
-      //this.jsplumbInstance.repaint(val);
-      // this.jsplumbInstance = this.jsplumbInstance.repaintEverything({
-      //   clearEdits: true
-      // });
-      //this.delnodeids.push(val);
-      // console.log(
-      //   "getAllConnections",
-      //   this.jsplumbInstance.getAllConnections()
-      // );
-      // console.log(val);
-      // // return;
-
       this.flowData = _.filter(_.cloneDeep(this.flowData), item => {
         return item.id != val;
       });
 
-      // this.newflowdata = _.filter(this.newflowdata, item => {
-      //   return item.id != val;
-      // });
-
-      // console.log(_.cloneDeep(this.links));
       this.links = _.filter(this.links, item => {
         return item.source != val && item.target !== val;
       });
-
-      // console.log(this.links);
-      // console.log("this.jsplumbInstance ", this.jsplumbInstance);
-      // console.log(this.jsplumbInstance.getAllConnections());
-
-      console.log(this.flowData);
-      console.log(this.links);
     },
     showDailog() {
       if (this.flowType == "dataflow") {
@@ -212,11 +158,6 @@ export default {
     },
     showStepDialog(val) {
       this.dialogVisible = true;
-      //this.nodeType = val;
-      // console.log(val);
-      // console.log("getNodeType", getNodeType(val.type));
-      // console.log(val.type);
-      // console.log(val);
     },
     drawJsplumbChart(data) {
       addEndpointToNode(data.jsplumbInstance, data.self, data.flowData);
@@ -227,119 +168,17 @@ export default {
       );
     },
     initData() {
-      //this.reset();
-
-      // setTimeout(() => {
-      //   let data = {
-      //     id: "20053ae4-8134-47e4-bdee-d168437d9de5",
-      //     name: "tc_df_oo",
-      //     flowType: "dataflow",
-      //     steps: [
-      //       {
-      //         id: "source_2",
-      //         name: "source_2",
-      //         type: "source",
-      //         x: 84,
-      //         y: 81,
-      //         otherConfigurations: {},
-      //         inputConfigurations: [],
-      //         outputConfigurations: []
-      //       },
-      //       {
-      //         id: "sink_3",
-      //         name: "sink_3",
-      //         type: "sink",
-      //         x: 457,
-      //         y: 98,
-      //         otherConfigurations: {},
-      //         inputConfigurations: [],
-      //         outputConfigurations: []
-      //       }
-      //     ],
-      //     links: [
-      //       {
-      //         name: "con_128",
-      //         source: "source_2",
-      //         sourceOutput: "output",
-      //         target: "sink_3",
-      //         targetInput: "input",
-      //         input: "input"
-      //       }
-      //     ],
-      //     oid: "$null",
-      //     creator: "admin",
-      //     createTime: 1559501740000,
-      //     lastModifier: "admin",
-      //     lastModifiedTime: 1561020270000,
-      //     owner: "601a71e6-d6af-491c-ae3c-f70a939385de",
-      //     version: 2,
-      //     enabled: 0,
-      //     moduleVersion: 0,
-      //     tenant: {
-      //       id: "55f7f910-b1c9-41d2-9771-e734e6b8285f",
-      //       name: "default",
-      //       creator: "root",
-      //       createTime: 1559138723000,
-      //       lastModifier: "root",
-      //       lastModifiedTime: 1559731815000,
-      //       owner: "af9b0954-51ef-40c9-aac6-39390b91bcc9",
-      //       version: 1,
-      //       moduleVersion: 0,
-      //       enabled: 1,
-      //       resourceQueues: ["default", "merce.normal"],
-      //       hdfsSpaceQuota: 0,
-      //       zid: "",
-      //       expiredPeriod: 0
-      //     },
-      //     tableName: "merce_flow",
-      //     isHide: 0,
-      //     expiredPeriod: 0
-      //   };
-
-      //   this.flowData = data.steps;
-      //   this.flowType = data.flowType;
-      //   this.links = data.links;
-      //   this.drawJsplumbChart({
-      //     jsplumbInstance: this.jsplumbInstance,
-      //     self: this,
-      //     flowData: this.flowData,
-      //     links: this.links
-      //   });
-      // }, 100);
-
-      // modules1.flowChart({ name: "ylb" }).then(res => {
-      //   this.flowData = res.data.steps;
-      //   this.flowType = res.data.flowType;
-      //   this.links = res.data.links;
-      //   this.drawJsplumbChart({
-      //     jsplumbInstance: this.jsplumbInstance,
-      //     self: this,
-      //     flowData: this.flowData,
-      //     links: this.links
-      //   });
-      // });
-
       let res = flowData;
 
       this.flowData = res.steps;
       this.flowType = res.flowType;
       this.links = res.links;
-      // this.drawJsplumbChart({
-      //   jsplumbInstance: this.jsplumbInstance,
-      //   self: this,
-      //   flowData: this.flowData,
-      //   links: this.links
-      // });
-
-      // this.newflowdata = _.cloneDeep(this.flowData);
     },
     reset() {
       this.flowData = [];
       this.jsplumbInstance.deleteEveryEndpoint("workplace");
     },
     handleDrop(data, event) {
-      //this.flowData = _.cloneDeep(this.newflowdata);
-
       let node = {
         id: data.drawIcon.id + "_" + (this.flowData.length + 1),
         name: data.drawIcon.name,
@@ -350,17 +189,7 @@ export default {
         inputConfigurations: data.drawIcon.inputConfigurations,
         outputConfigurations: data.drawIcon.outputConfigurations
       };
-      console.log("add node", node);
       this.flowData.push(node);
-      console.log("handleDrop", this.flowData);
-      // addEndpointToNode(this.jsplumbInstance, this, this.flowData);
-
-      // this.drawJsplumbChart({
-      //   jsplumbInstance: this.jsplumbInstance,
-      //   self: this,
-      //   flowData: this.flowData,
-      //   links: this.links
-      // });
     }
   }
 };
