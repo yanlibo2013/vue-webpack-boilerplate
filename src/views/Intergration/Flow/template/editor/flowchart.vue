@@ -26,7 +26,7 @@
             <h5>ID:{{data.id}}</h5>
             <em id="pitchOnDes" class="fa fa-square-o" title="选中"></em>
             <em id="copeDes" class="icon iconfont icon-ir-copy" title="复制"></em>
-            <em id="removeDes" class="fa fa-trash-o" title="删除"></em>
+            <em id="removeDes" class="fa fa-trash-o" title="删除" @click="delNode(data.id)"></em>
           </div>
         </drop>
       </div>
@@ -92,15 +92,25 @@ export default {
       dialogVisible: false,
       dialogComponent: "",
       nodeType: "",
-      setClass: setClass
+      setClass: setClass,
+      newflowdata: []
     };
   },
 
   //
   created() {
     //console.log("created");
-    this.jsplumbInstance = getInstance("workplace");
+    this.jsplumbInstance = getInstance({
+      container: "workplace",
+      delConnections: this.delConnections
+    });
     //this.jsplumbInstance.setContainer("workplace");
+
+    // this.jsplumbInstance.bind("click", function(c) {
+    //   console.log("instance.deleteConnection", c);
+    //   this.jsplumbInstance.deleteConnection(c);
+    //   //this.jsplumbInstance.detach(c);
+    // });
   },
   mounted() {
     this.initData();
@@ -111,6 +121,72 @@ export default {
     // });
   },
   methods: {
+    delConnections(val) {
+      this.links = _.filter(this.links, item => {
+        return item.source != val.sourceId && item.target !== val.sourceId;
+      });
+    },
+    delNode(val) {
+      console.log(
+        "getAllConnections",
+        this.jsplumbInstance.getAllConnections()
+      );
+      console.log(_.cloneDeep(this.flowData));
+      console.log(_.cloneDeep(this.links));
+
+      this.jsplumbInstance.getAllConnections().forEach(c => {
+        console.log("connecton", c);
+        this.jsplumbInstance.deleteConnection(c);
+      });
+
+      //this.jsplumbInstance.deleteEndpoint(val);
+      this.jsplumbInstance.deleteEveryEndpoint();
+      //return;
+      //his.jsplumbInstance.remove(val);
+      //this.jsplumbInstance.reset();
+      //this.jsplumbInstance.removeAllEndpoints(val);
+      // this.jsplumbInstance.deleteEndpoint(val);
+      //this.jsplumbInstance.remove(val);
+
+      //this.jsplumbInstance.repaint(val);
+      // this.jsplumbInstance = this.jsplumbInstance.repaintEverything({
+      //   clearEdits: true
+      // });
+      //this.delnodeids.push(val);
+      // console.log(
+      //   "getAllConnections",
+      //   this.jsplumbInstance.getAllConnections()
+      // );
+      // console.log(val);
+      // // return;
+
+      this.flowData = _.filter(_.cloneDeep(this.flowData), item => {
+        return item.id != val;
+      });
+
+      // this.newflowdata = _.filter(this.newflowdata, item => {
+      //   return item.id != val;
+      // });
+
+      // console.log(_.cloneDeep(this.links));
+      this.links = _.filter(this.links, item => {
+        return item.source != val && item.target !== val;
+      });
+
+      this.drawJsplumbChart({
+        jsplumbInstance: this.jsplumbInstance,
+        self: this,
+        flowData: this.flowData,
+        links: this.links
+      });
+
+      // console.log(this.links);
+      // console.log("this.jsplumbInstance ", this.jsplumbInstance);
+      // console.log(this.jsplumbInstance.getAllConnections());
+
+      console.log(this.flowData);
+      console.log(this.links);
+    },
     showDailog() {
       if (this.flowType == "dataflow") {
         this.dialogComponent = dataflow;
@@ -251,12 +327,16 @@ export default {
         flowData: this.flowData,
         links: this.links
       });
+
+      this.newflowdata = _.cloneDeep(this.flowData);
     },
     reset() {
       this.flowData = [];
       this.jsplumbInstance.deleteEveryEndpoint("workplace");
     },
     handleDrop(data, event) {
+      //this.flowData = _.cloneDeep(this.newflowdata);
+
       let node = {
         id: data.drawIcon.id + "_" + (this.flowData.length + 1),
         name: data.drawIcon.name,
@@ -267,8 +347,17 @@ export default {
         inputConfigurations: data.drawIcon.inputConfigurations,
         outputConfigurations: data.drawIcon.outputConfigurations
       };
+      console.log("add node", node);
       this.flowData.push(node);
-      addEndpointToNode(this.jsplumbInstance, this, this.flowData);
+      console.log("handleDrop", this.flowData);
+      // addEndpointToNode(this.jsplumbInstance, this, this.flowData);
+
+      this.drawJsplumbChart({
+        jsplumbInstance: this.jsplumbInstance,
+        self: this,
+        flowData: this.flowData,
+        links: this.links
+      });
     }
   }
 };

@@ -1,3 +1,4 @@
+import plumbGather from "jsplumb";
 //节点类型
 export function nodeClass(type) {
   switch (type) {
@@ -169,7 +170,12 @@ export var destination = {
 };
 
 export const addEndpointToNode = (jsplumbInstance, self, steps) => {
+  console.log(jsplumbInstance);
+  console.log(self);
+  console.log(steps);
+  jsplumbInstance.deleteEveryEndpoint();
   self.$nextTick(() => {
+    console.log(" self.$nextTick(() => {");
     steps.forEach((data, index) => {
       let drawType = data.type,
         dataIndex = data.id;
@@ -177,12 +183,20 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
       //节点锚点添加
       //左侧无，右侧一个起点
       if (nodeClass(drawType) == "classD_A") {
+        console.log('if (nodeClass(drawType) == "classD_A") {');
+        //jsplumbInstance.deleteEndpoint(dataIndex + "output" + "origin");
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "RightMiddle", maxConnections: 100 },
           { uuid: dataIndex + "output" + "origin", ...origin }
         );
       } else if (nodeClass(drawType) == "classD_B") {
+        console.log('if (nodeClass(drawType) == "classD_A") { 222222222');
+        console.log(dataIndex);
+        console.log({
+          uuid: dataIndex + "input" + "destination",
+          ...destination
+        });
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "LeftMiddle" },
@@ -192,6 +206,7 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
         nodeClass(drawType) == "classD_C" ||
         nodeClass(drawType) == "classW_C"
       ) {
+        console.log('if (nodeClass(drawType) == "classD_A") { 333333333333');
         //左侧一个终点（多），右侧起点(多)
         jsplumbInstance.addEndpoint(
           dataIndex,
@@ -204,6 +219,7 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
           { uuid: dataIndex + "output" + "origin", ...origin }
         );
       } else if (specialNodeClass(drawType) == "classD_D1") {
+        console.log('if (nodeClass(drawType) == "classD_A") { 444444444444');
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
@@ -246,6 +262,7 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
           { uuid: dataIndex + "input" + "destination", ...destination }
         );
       } else if (specialNodeClass(drawType) == "classD_D2") {
+        console.log('if (nodeClass(drawType) == "classD_A") { 5555555555555');
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
@@ -288,6 +305,7 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
           { uuid: dataIndex + "input" + "destination", ...destination }
         );
       } else if (specialNodeClass(drawType) == "classD_E1") {
+        console.log('if (nodeClass(drawType) == "classD_A") { 66666666666');
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "RightMiddle", maxConnections: -1 },
@@ -328,6 +346,9 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
           { uuid: dataIndex + "right" + "destination", ...destination }
         );
       } else if (specialNodeClass(drawType) == "classD_E2") {
+        console.log(
+          'if (nodeClass(drawType) == "classD_A") { 77777777777777777'
+        );
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "RightMiddle", maxConnections: -1 },
@@ -368,6 +389,9 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
           { uuid: dataIndex + "input2" + "destination", ...destination }
         );
       } else {
+        console.log(
+          'if (nodeClass(drawType) == "classD_A") { 88888888888888888'
+        );
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "RightMiddle", maxConnections: -1 },
@@ -380,7 +404,12 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
         );
       }
       jsplumbInstance.draggable(dataIndex, { containment: "parent" }); //节点拖动
+      // console.log(
+      //   'jsplumbInstance.draggable(dataIndex, { containment: "parent" }); //节点拖动'
+      // );
     });
+
+    //plumbGather.jsPlumb.fire("jsPlumbDemoLoaded", jsplumbInstance);
   });
 };
 

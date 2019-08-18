@@ -1,6 +1,6 @@
-import plumbGather from 'jsplumb'
+import plumbGather from "jsplumb";
 
-export default function (container) {
+export default function(options) {
   let instance = plumbGather.jsPlumb.getInstance({
     // Endpoint : "Dot",
     // EndpointHoverStyle : null,
@@ -18,10 +18,10 @@ export default function (container) {
     // },
     // // Connector: ["Bezier", { curviness: 100 }],
     // Connector: 'Flowchart',
-    Container: container,
-  })
+    Container: options.container
+  });
 
-  console.log("instance",instance);
+  console.log("instance", instance);
 
   // instance.registerConnectionType("basicConnect", {
   //   paintStyle: {stroke: "${color}"},
@@ -40,5 +40,12 @@ export default function (container) {
   //   ]
   // })
 
-  return instance
+  instance.bind("click", function(c) {
+    console.log("instance.deleteConnection", c);
+    instance.deleteConnection(c); //instance
+
+    options.delConnections(c);
+  });
+
+  return instance;
 }
