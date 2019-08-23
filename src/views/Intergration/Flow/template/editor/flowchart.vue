@@ -6,29 +6,13 @@
     </div>
     <div class="editor-container">
       <div class="main">
-        <drop class="workplace editor" @drop="handleDrop" id="workplace">
-          <div
-            v-for="(data,index) in flowData"
-            :id="data.id"
-            :key="index"
-            :class="'designIconBig '+setClass(nodeClass(data.type))"
-            :data-sign="data.name"
-            :data-type="data.type"
-            :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
-            @dblclick="showStepDialog(data)"
-          >
-            <i class="icon iconfont icon-ir-designIconBg designIconBg"></i>
-            <i
-              id="changeSte"
-              :class="nodeIcon(data.type) == 'iconTrue'?'icon iconfont icon-ir-d-'+data.type:'icon iconfont icon-ir-d-default'"
-            ></i>
-            <h4 :title="data.name">{{data.name}}</h4>
-            <h5>ID:{{data.id}}</h5>
-            <em id="pitchOnDes" class="fa fa-square-o" title="选中"></em>
-            <em id="copeDes" class="icon iconfont icon-ir-copy" title="复制"></em>
-            <em id="removeDes" class="fa fa-trash-o" title="删除" @click="delNode(data.id)"></em>
-          </div>
-        </drop>
+        <jsplumbchart
+          :data="{stepData:flowData,links:this.links}"
+          @modifyChart="modifyChart"
+          @nodedblClick="nodedblClick"
+          @handleDrop="handleDrop"
+          ref="jsplumbchart"
+        ></jsplumbchart>
       </div>
       <div class="aside">
         <rightaside></rightaside>
@@ -57,19 +41,9 @@
 <script>
 import _ from "lodash";
 import rightaside from "./rightaside/index";
-import getInstance from "@/utils/getInstance";
-import {
-  nodeClass,
-  nodeIcon,
-  specialNodeClass,
-  origin,
-  destination,
-  addEndpointToNode,
-  getNodeType,
-  setClass,
-  connect
-} from "@/utils/flowchart";
 import { modules1 } from "@/service";
+
+import jsplumbchart from "@/components/jsplumbchart/index";
 
 import dataflow from "@/components/flowchart/node/dataflow/index";
 import workflow from "@/components/flowchart/node/workflow/index";
@@ -78,64 +52,29 @@ import streamflow from "@/components/flowchart/node/streamflow/index";
 import { flowData } from "mock/data/flowData.js";
 export default {
   components: {
-    rightaside
+    rightaside,
+    jsplumbchart
   },
   data() {
     return {
       jsplumbInstance: null,
       flowType: "",
       flowData: {},
-      nodeClass: nodeClass,
-      nodeIcon: nodeIcon,
       links: [],
       self: this,
       dialogVisible: false,
       dialogComponent: "",
       nodeType: "",
-      setClass: setClass,
       newflowdata: []
     };
   },
 
   //
-  created() {
-    //console.log("created");
-    this.jsplumbInstance = getInstance({
-      container: "workplace",
-      delConnections: this.delConnections
-    });
-  },
+  created() {},
   mounted() {
     this.initData();
-
-    // this.$nextTick(() => {
-    // });
-  },
-  updated() {
-    this.$nextTick(() => {
-      this.drawJsplumbChart({
-        jsplumbInstance: this.jsplumbInstance,
-        self: this,
-        flowData: this.flowData,
-        links: this.links
-      });
-    });
   },
   methods: {
-    delConnections(val) {
-      this.links = _.filter(this.links, item => {
-        return item.source != val.sourceId && item.target !== val.sourceId;
-      });
-    },
-    delNode(val) {
-      this.flowData = _.filter(_.cloneDeep(this.flowData), item => {
-        return item.id != val;
-      });
-
-      this.links = _.filter(this.links, item => {
-        return item.source != val && item.target !== val;
-      });
-    },
     showDailog() {
       if (this.flowType == "dataflow") {
         this.dialogComponent = dataflow;
@@ -159,16 +98,8 @@ export default {
     showStepDialog(val) {
       this.dialogVisible = true;
     },
-    drawJsplumbChart(data) {
-      addEndpointToNode(data.jsplumbInstance, data.self, data.flowData);
-      connect(
-        data.jsplumbInstance,
-        data.self,
-        data.links
-      );
-    },
     initData() {
-      let res = flowData;
+      let res = _.cloneDeep(flowData);
 
       this.flowData = res.steps;
       this.flowType = res.flowType;
@@ -176,21 +107,26 @@ export default {
     },
     reset() {
       this.flowData = [];
-      this.jsplumbInstance.deleteEveryEndpoint("workplace");
+      this.$refs.jsplumbchart.reset();
     },
-    handleDrop(data, event) {
-      let node = {
-        id: data.drawIcon.id + "_" + (this.flowData.length + 1),
+    handleDrop(val) {
+      this.flowData.push(this.getCurrentNode(val.data));
+    },
+    getCurrentNode(data) {
+      return {
+        id: data.drawIcon.id + "_" + (this.flowData.length + +1),
         name: data.drawIcon.name,
         type: data.drawIcon.type,
         x: event.offsetX,
         y: event.offsetY,
-        otherConfigurations: data.drawIcon.otherConfigurations,
-        inputConfigurations: data.drawIcon.inputConfigurations,
-        outputConfigurations: data.drawIcon.outputConfigurations
+        stepSettings: data.drawIcon.stepSettings
       };
-      this.flowData.push(node);
-    }
+    },
+    modifyChart(val) {
+      this.flowData = val.stepData;
+      this.links = val.links;
+    },
+    nodedblClick(val) {}
   }
 };
 </script>

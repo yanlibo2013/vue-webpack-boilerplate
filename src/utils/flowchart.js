@@ -1,4 +1,3 @@
-import plumbGather from "jsplumb";
 //节点类型
 export function nodeClass(type) {
   switch (type) {
@@ -169,7 +168,13 @@ export var destination = {
   connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
 };
 
-export const addEndpointToNode = (jsplumbInstance, self, steps) => {
+export const addEndpointToNode = (
+  jsplumbInstance,
+  self,
+  steps,
+  flowData,
+  _
+) => {
   jsplumbInstance.deleteEveryEndpoint();
   self.$nextTick(() => {
     steps.forEach((data, index) => {
@@ -382,17 +387,33 @@ export const addEndpointToNode = (jsplumbInstance, self, steps) => {
           { uuid: dataIndex + "input" + "destination", ...destination }
         );
       }
-      jsplumbInstance.draggable(dataIndex, { containment: "parent" }); //节点拖动
-      // console.log(
-      //   'jsplumbInstance.draggable(dataIndex, { containment: "parent" }); //节点拖动'
-      // );
+      jsplumbInstance.draggable(dataIndex, {
+        containment: "parent",
+        start(params) {
+          // 拖动开始
+          // console.log(params);
+          //console.log("拖动开始");
+        },
+        drag(params) {
+          // 拖动中
+        },
+        stop(params) {
+          let top = params.el.style.top;
+          let left = params.el.style.left;
+          // 拖动结束
+          // console.log("拖动介绍");
+          flowData({
+            x: parseInt(left.replace("px", "")),
+            y: parseInt(top.replace("px", "")),
+            id: params.el.attributes.id.nodeValue
+          });
+        }
+      });
     });
-
-    //plumbGather.jsPlumb.fire("jsPlumbDemoLoaded", jsplumbInstance);
   });
 };
 
-export const connect = (jsplumbInstance, self, links) => {
+export const connect = (jsplumbInstance, self, links, connectCallback) => {
   self.$nextTick(() => {
     //节点之间连线
     links.forEach(item => {
@@ -403,6 +424,7 @@ export const connect = (jsplumbInstance, self, links) => {
         ]
       });
     });
+    connectCallback();
   });
 };
 
@@ -440,4 +462,75 @@ export const setClass = type => {
   }
 
   return result;
+};
+
+export const filterLinkData = (data, _) => {
+  return _.map(data, value => {
+    //过滤sourceOutput
+    if (value.sourceOutput == "yes") {
+      value.sourceOutput = "yes";
+    } else if (value.sourceOutput == "no") {
+      value.sourceOutput = "no";
+    } else if (value.sourceOutput == "ok") {
+      value.sourceOutput = "ok";
+    } else if (value.sourceOutput == "error") {
+      value.sourceOutput = "error";
+    } else {
+      value.sourceOutput = "output";
+    }
+
+    ////过滤targetInput
+
+    if (nodeClass(value.targetInput) == "classD_C") {
+      value.targetInput = value.source;
+    } else if (value.input == "input1") {
+      value.targetInput = "input1";
+    } else if (value.input == "input2") {
+      value.targetInput = "input2";
+    } else if (value.input == "right") {
+      value.targetInput = "right";
+    } else if (value.input == "left") {
+      value.targetInput = "left";
+    } else {
+      value.targetInput = "input";
+    }
+
+    ////过滤input
+
+    if (value.input == "left") {
+      value.input = "left";
+    } else if (value.input == "right") {
+      value.input = "right";
+    } else if (value.input == "input1") {
+      value.input = "input1";
+    } else if (value.input == "input2") {
+      value.input = "input2";
+    } else {
+      value.input = "input";
+    }
+
+    return value;
+  });
+};
+
+export const message = (message, callback, self) => {
+  self
+    .$confirm(message, "提示", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning"
+    })
+    .then(() => {
+      self.$message({
+        type: "success",
+        message: "删除成功!"
+      });
+      callback();
+    })
+    .catch(() => {
+      self.$message({
+        type: "info",
+        message: "已取消删除"
+      });
+    });
 };
