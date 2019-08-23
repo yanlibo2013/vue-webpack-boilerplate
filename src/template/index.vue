@@ -2,13 +2,25 @@
 
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 export default {
+  watch: {
+    // flowData(val) {
+    // }
+  },
+  props: {
+    // data: {
+    //   type: Object,
+    //   default: false
+    // }
+  },
   components: {},
   data: function() {
     return {};
   },
-  computed: {},
+  computed: {
+    //...mapState([""])
+  },
   mounted() {},
   beforeCreate() {},
   created() {},
@@ -17,7 +29,9 @@ export default {
   updated() {},
   beforeDestroy() {},
   destroyed: function() {},
-  methods: {}
+  methods: {
+    //...mapActions([""]),
+  }
 };
 </script>
 
