@@ -172,21 +172,6 @@ export default {
         stepSettings: data.drawIcon.stepSettings
       };
 
-      // console.log(" data.drawIcon", data.drawIcon);
-
-      // let node = data.drawIcon
-      //   ? {
-      //       id:
-      //         data.drawIcon &&
-      //         data.drawIcon.id + "_" + (this.flowData.length + +1),
-      //       name: data.drawIcon && data.drawIcon.name,
-      //       type: data.drawIcon && data.drawIcon.type,
-      //       x: event.offsetX,
-      //       y: event.offsetY,
-      //       stepSettings: data.drawIcon && data.drawIcon.stepSettings
-      //     }
-      //   : data;
-
       let outputConfigurations = {
         outputConfigurations: {
           output: []

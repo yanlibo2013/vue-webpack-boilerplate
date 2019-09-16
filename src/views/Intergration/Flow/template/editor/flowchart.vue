@@ -6,13 +6,22 @@
     </div>
     <div class="editor-container">
       <div class="main">
-        <jsplumbchart
+        <!-- <jsplumbchart
           :data="{stepData:flowData,links:this.links}"
           @modifyChart="modifyChart"
           @nodedblClick="nodedblClick"
           @handleDrop="handleDrop"
           ref="jsplumbchart"
-        ></jsplumbchart>
+        ></jsplumbchart>-->
+        <drop class="drop-workplace" @drop="handleDrop" id="workplace">
+          <jsplumbchart
+            :data="{stepData:flowData,links:this.links,jsPlumb:jsPlumb}"
+            @modifyChart="modifyChart"
+            @nodedblClick="nodedblClick"
+            @handleDrop="handleDrop"
+            ref="jsplumbchart"
+          ></jsplumbchart>
+        </drop>
       </div>
       <div class="aside">
         <rightaside></rightaside>
@@ -50,6 +59,7 @@ import workflow from "@/components/flowchart/node/workflow/index";
 import streamflow from "@/components/flowchart/node/streamflow/index";
 
 import { flowData } from "mock/data/flowData.js";
+import jsPlumb from "static/jsPlumb/jsPlumb-2.2.3-min";
 export default {
   components: {
     rightaside,
@@ -65,7 +75,8 @@ export default {
       dialogVisible: false,
       dialogComponent: "",
       nodeType: "",
-      newflowdata: []
+      newflowdata: [],
+      jsPlumb: jsPlumb
     };
   },
 
@@ -110,10 +121,11 @@ export default {
       this.$refs.jsplumbchart.reset();
     },
     handleDrop(val) {
-      this.flowData.push(this.getCurrentNode(val.data));
+      console.log("  handleDrop(val) {", val);
+      this.flowData.push(val.drawIcon ? this.getCurrentNode(val) : val);
     },
     getCurrentNode(data) {
-      return {
+      let node = {
         id: data.drawIcon.id + "_" + (this.flowData.length + +1),
         name: data.drawIcon.name,
         type: data.drawIcon.type,
@@ -121,6 +133,68 @@ export default {
         y: event.offsetY,
         stepSettings: data.drawIcon.stepSettings
       };
+
+      let outputConfigurations = {
+        outputConfigurations: {
+          output: []
+        }
+      };
+
+      let inputConfigurations = {
+        inputConfigurations: {
+          input: []
+        }
+      };
+
+      switch (data.drawIcon.type) {
+        case "source":
+          return {
+            ...node,
+            ...outputConfigurations
+          };
+        case "filter":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+
+        case "aggregate":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+        case "transform":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+        case "sql":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+        case "multioutput":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+        case "sink":
+          return {
+            ...node,
+            ...inputConfigurations
+          };
+        default:
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+      }
     },
     modifyChart(val) {
       this.flowData = val.stepData;

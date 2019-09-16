@@ -388,7 +388,7 @@ export const addEndpointToNode = (
       //   );
       // }
 
-      // console.log('specialNodeClass(drawType)',specialNodeClass(drawType));
+      console.log("specialNodeClass(drawType)", specialNodeClass(drawType));
       console.log(" nodeClass(drawType)", nodeClass(drawType));
 
       if (nodeClass(drawType) == "classD_A") {
@@ -619,6 +619,70 @@ export const addEndpointToNode = (
           dataIndex,
           { anchors: "LeftMiddle" },
           { uuid: dataIndex + "input" + "destination", ...destination }
+        );
+
+
+        //  output1
+
+        jsplumbInstance.addEndpoint(
+          dataIndex,
+          {
+            anchors: [1.2, 0, 0, 0],
+            maxConnections: -1,
+            overlays: [
+              [
+                "Label",
+                {
+                  location: [2.5, -0.5],
+                  label: "output1",
+                  cssClass: "endpointSourceLabel"
+                }
+              ]
+            ]
+          },
+          { uuid: dataIndex + "output1" + "origin", ...origin }
+        );
+
+
+           //  output2
+        jsplumbInstance.addEndpoint(
+          dataIndex,
+          {
+            anchors: [1.2, 0.5, 0, 0],
+            maxConnections: -1,
+            overlays: [
+              [
+                "Label",
+                {
+                  location: [2.5, -0.5],
+                  label: "output2",
+                  cssClass: "endpointSourceLabel"
+                }
+              ]
+            ]
+          },
+          { uuid: dataIndex + "output2" + "origin", ...origin }
+        );
+
+
+           //  output3
+        jsplumbInstance.addEndpoint(
+          dataIndex,
+          {
+            anchors: [1.2, 1, 0, 0],
+            maxConnections: -1,
+            overlays: [
+              [
+                "Label",
+                {
+                  location: [2.5, -0.5],
+                  label: "output3",
+                  cssClass: "endpointSourceLabel"
+                }
+              ]
+            ]
+          },
+          { uuid: dataIndex + "output3" + "origin", ...origin }
         );
       }
 
