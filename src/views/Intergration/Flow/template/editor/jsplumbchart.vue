@@ -6,14 +6,6 @@
     </div>
     <div class="editor-container">
       <div class="main">
-        <!-- <jsplumbchart
-          :data="{stepData:flowData,links:this.links}"
-          @modifyChart="modifyChart"
-          @nodedblClick="nodedblClick"
-          @handleDrop="handleDrop"
-          ref="jsplumbchart"
-        ></jsplumbchart>-->
-
         <drop class="drop-workplace" @drop="handleDrop" id="workplace">
           <jsplumbchart
             :data="{stepData:flowData,links:this.links,jsPlumb:jsPlumb}"
@@ -165,6 +157,86 @@ export default {
           return item;
         }
       });
+    },
+    handleDrop(val) {
+      this.flowData.push(val.drawIcon ? this.getCurrentNode(val) : val);
+    },
+    getCurrentNode(data) {
+      let node = {
+        id: data.drawIcon.id + "_" + (this.flowData.length + +1),
+        name: data.drawIcon.name,
+        type: data.drawIcon.type,
+        x: event.offsetX,
+        y: event.offsetY,
+        stepSettings: data.drawIcon.stepSettings
+      };
+
+      // console.log(" data.drawIcon", data.drawIcon);
+
+      // let node = data.drawIcon
+      //   ? {
+      //       id:
+      //         data.drawIcon &&
+      //         data.drawIcon.id + "_" + (this.flowData.length + +1),
+      //       name: data.drawIcon && data.drawIcon.name,
+      //       type: data.drawIcon && data.drawIcon.type,
+      //       x: event.offsetX,
+      //       y: event.offsetY,
+      //       stepSettings: data.drawIcon && data.drawIcon.stepSettings
+      //     }
+      //   : data;
+
+      let outputConfigurations = {
+        outputConfigurations: {
+          output: []
+        }
+      };
+
+      let inputConfigurations = {
+        inputConfigurations: {
+          input: []
+        }
+      };
+
+      switch (data.drawIcon.type) {
+        case "source":
+          return {
+            ...node,
+            ...outputConfigurations
+          };
+        case "filter":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+
+        case "aggregate":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+        case "transform":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+        case "sql":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+        case "sink":
+          return {
+            ...node,
+            ...inputConfigurations
+          };
+        default:
+          "";
+      }
     }
   }
 };
