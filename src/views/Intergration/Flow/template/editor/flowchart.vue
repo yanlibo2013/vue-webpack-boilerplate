@@ -154,6 +154,7 @@ export default {
     width: 100%;
     flex: 1 1 auto;
     .main {
+      position: relative;
       flex: 1 1 auto;
       background-image: url("../../../../../assets/editor/designBg.png");
       .workplace {

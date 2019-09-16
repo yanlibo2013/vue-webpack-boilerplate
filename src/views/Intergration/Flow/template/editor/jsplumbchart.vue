@@ -120,9 +120,6 @@ export default {
       this.flowData = [];
       this.$refs.jsplumbchart.reset();
     },
-    handleDrop(val) {
-      this.flowData.push(this.getCurrentNode(val.data));
-    },
     getCurrentNode(data) {
       return {
         id: data.drawIcon.id + "_" + (this.flowData.length + +1),
@@ -159,6 +156,7 @@ export default {
       });
     },
     handleDrop(val) {
+      console.log('  handleDrop(val) {',val);
       this.flowData.push(val.drawIcon ? this.getCurrentNode(val) : val);
     },
     getCurrentNode(data) {
