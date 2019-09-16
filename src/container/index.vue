@@ -5,7 +5,7 @@
     </el-header>
     <el-container>
       <el-main>
-        <app-main/>
+        <app-main />
       </el-main>
     </el-container>
   </el-container>

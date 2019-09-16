@@ -15,7 +15,8 @@ export default new Router({
     {
       path: "",
       component: Container,
-      redirect: "layout/flow/flowchart",
+      // redirect: "layout/flow/flowchart",
+      redirect: "layout/flow/jsplumbchart",
       children: [
         {
           path: "layout/flow",
@@ -48,6 +49,11 @@ export default new Router({
               path: "flowchart",
               component: () => import("@/views/Intergration/Flow/template/editor/flowchart"),
               name: "flowchart"
+            },
+            {
+              path: "jsplumbchart",
+              component: () => import("@/views/Intergration/Flow/template/editor/jsplumbchart"),
+              name: "jsplumbchart"
             },
             {
               path: "table",
