@@ -168,6 +168,28 @@ export var destination = {
   connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
 };
 
+export var outputorigin = {
+  //起点
+  endpoint: ["Dot", { radius: 8 }], //端点的形状
+  connectorStyle: connectorPaintStyle, //连接线的颜色，大小样式
+  connectorHoverStyle: connectorHoverStyle,
+  paintStyle: {
+    stroke: "#4e5568",
+    fill: "transparent",
+    radius: 6,
+    lineWidth: 6
+  }, //端点的颜色样式
+  //anchor: "AutoDefault",
+  isSource: true, //是否可以拖动（作为连线起点）
+  connector: [
+    "Flowchart",
+    { stub: [5, 5], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }
+  ], //连接线的样式种类有[Bezier],[Flowchart],[StateMachine ],[Straight ]
+  isTarget: true, //是否可以放置（连线终点）
+  maxConnections: 1, // 设置连接点最多可以连接几条线,-1表示无限大
+  connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
+};
+
 export const addEndpointToNode = (
   jsplumbInstance,
   self,
@@ -612,15 +634,15 @@ export const addEndpointToNode = (
       if (nodeClass(drawType) == "multioutput") {
         jsplumbInstance.addEndpoint(
           dataIndex,
-          { anchors: "RightMiddle", maxConnections: -1 },
-          { uuid: dataIndex + "output" + "origin", ...origin }
-        );
-        jsplumbInstance.addEndpoint(
-          dataIndex,
           { anchors: "LeftMiddle" },
           { uuid: dataIndex + "input" + "destination", ...destination }
         );
 
+        jsplumbInstance.addEndpoint(
+          dataIndex,
+          { anchors: "RightMiddle", maxConnections: -1 },
+          { uuid: dataIndex + "output" + "origin", ...origin }
+        );
 
         //  output1
 
@@ -640,11 +662,10 @@ export const addEndpointToNode = (
               ]
             ]
           },
-          { uuid: dataIndex + "output1" + "origin", ...origin }
+          { uuid: dataIndex + "output1" + "outputorigin", ...outputorigin }
         );
 
-
-           //  output2
+        //  output2
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
@@ -661,11 +682,10 @@ export const addEndpointToNode = (
               ]
             ]
           },
-          { uuid: dataIndex + "output2" + "origin", ...origin }
+          { uuid: dataIndex + "output2" + "outputorigin", ...outputorigin }
         );
 
-
-           //  output3
+        //  output3
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
@@ -682,8 +702,10 @@ export const addEndpointToNode = (
               ]
             ]
           },
-          { uuid: dataIndex + "output3" + "origin", ...origin }
+          { uuid: dataIndex + "output3" + "outputorigin", ...outputorigin }
         );
+
+       connectOutPut(jsplumbInstance,self,[{source:dataIndex,target:dataIndex,sourceOutput:"output",input:"output3"}],()=>{})
       }
 
       jsplumbInstance.draggable(dataIndex, {
@@ -720,6 +742,26 @@ export const connect = (jsplumbInstance, self, links, connectCallback) => {
         uuids: [
           item.source + item.sourceOutput + "origin",
           item.target + item.input + "destination"
+        ]
+      });
+    });
+    connectCallback();
+  });
+};
+
+export const connectOutPut = (
+  jsplumbInstance,
+  self,
+  links,
+  connectCallback
+) => {
+  self.$nextTick(() => {
+    //节点之间连线
+    links.forEach(item => {
+      jsplumbInstance.connect({
+        uuids: [
+          item.source + item.sourceOutput + "origin",
+          item.target + item.input + "outputorigin"
         ]
       });
     });
@@ -766,17 +808,17 @@ export const setClass = type => {
 export const filterLinkData = (data, _) => {
   return _.map(data, value => {
     //过滤sourceOutput
-    if (value.sourceOutput == "yes") {
-      value.sourceOutput = "yes";
-    } else if (value.sourceOutput == "no") {
-      value.sourceOutput = "no";
-    } else if (value.sourceOutput == "ok") {
-      value.sourceOutput = "ok";
-    } else if (value.sourceOutput == "error") {
-      value.sourceOutput = "error";
-    } else {
-      value.sourceOutput = "output";
-    }
+    // if (value.sourceOutput == "yes") {
+    //   value.sourceOutput = "yes";
+    // } else if (value.sourceOutput == "no") {
+    //   value.sourceOutput = "no";
+    // } else if (value.sourceOutput == "ok") {
+    //   value.sourceOutput = "ok";
+    // } else if (value.sourceOutput == "error") {
+    //   value.sourceOutput = "error";
+    // } else {
+    //   value.sourceOutput = "output";
+    // }
 
     ////过滤targetInput
 

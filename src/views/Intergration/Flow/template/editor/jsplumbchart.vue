@@ -159,7 +159,6 @@ export default {
       });
     },
     handleDrop(val) {
-      console.log("  handleDrop(val) {", val);
       this.flowData.push(val.drawIcon ? this.getCurrentNode(val) : val);
     },
     getCurrentNode(data) {

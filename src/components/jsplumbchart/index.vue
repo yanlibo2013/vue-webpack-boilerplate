@@ -366,6 +366,14 @@ export default {
     getLinksData() {
       this.links = filterLinkData(
         _.map(this.jsplumbInstance.getAllConnections(), item => {
+          console.log({
+            name: item.id,
+            source: item.sourceId,
+            sourceOutput: item.endpoints[0].canvas.nextSibling.textContent,
+            target: item.targetId,
+            targetInput: item.target.dataset.type,
+            input: item.endpoints[1].canvas.nextSibling.textContent
+          });
           return {
             name: item.id,
             source: item.sourceId,
@@ -377,6 +385,7 @@ export default {
         }),
         _
       );
+      console.log("  getLinksData() {", this.links);
     },
     reset() {
       this.stepData = [];

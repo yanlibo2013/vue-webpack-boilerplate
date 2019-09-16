@@ -6,13 +6,6 @@
     </div>
     <div class="editor-container">
       <div class="main">
-        <!-- <jsplumbchart
-          :data="{stepData:flowData,links:this.links}"
-          @modifyChart="modifyChart"
-          @nodedblClick="nodedblClick"
-          @handleDrop="handleDrop"
-          ref="jsplumbchart"
-        ></jsplumbchart>-->
         <drop class="drop-workplace" @drop="handleDrop" id="workplace">
           <jsplumbchart
             :data="{stepData:flowData,links:this.links,jsPlumb:jsPlumb}"
@@ -121,7 +114,6 @@ export default {
       this.$refs.jsplumbchart.reset();
     },
     handleDrop(val) {
-      console.log("  handleDrop(val) {", val);
       this.flowData.push(val.drawIcon ? this.getCurrentNode(val) : val);
     },
     getCurrentNode(data) {
