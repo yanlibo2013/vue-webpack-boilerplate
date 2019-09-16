@@ -70,5 +70,20 @@ export const stepData = [
     inputConfigurations: {
       input: [{ column: "", type: "", alias: "", description: "" }]
     }
+  },
+  {
+    id: "rtc_multi_output",
+    name: "rtc_multi_output",
+    type: "multioutput",
+    tags: ["MULT", "rtcflow"],
+    stepSettings: {},
+    inputConfigurations: {
+      input: [{ column: "", type: "", alias: "", description: "" }]
+    },
+    outputConfigurations: {
+      output1: [{ column: "", type: "", alias: "", description: "" }],
+      output2: [{ column: "", type: "", alias: "", description: "" }],
+      output3: [{ column: "", type: "", alias: "", description: "" }]
+    }
   }
 ];

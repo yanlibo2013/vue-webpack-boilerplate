@@ -110,11 +110,14 @@ export default {
         _.uniq(this.getGroupData(stepData))
       );
 
-      let res = _.cloneDeep(flowData);
+      // let res = _.cloneDeep(flowData);
 
-      this.flowData = res.steps;
-      this.flowType = res.flowType;
-      this.links = res.links;
+      // this.flowData = res.steps;
+      // this.flowType = res.flowType;
+      // this.links = res.links;
+
+      this.flowData = [];
+      this.links = [];
     },
     reset() {
       this.flowData = [];
@@ -156,7 +159,7 @@ export default {
       });
     },
     handleDrop(val) {
-      console.log('  handleDrop(val) {',val);
+      console.log("  handleDrop(val) {", val);
       this.flowData.push(val.drawIcon ? this.getCurrentNode(val) : val);
     },
     getCurrentNode(data) {
@@ -222,6 +225,12 @@ export default {
             ...outputConfigurations
           };
         case "sql":
+          return {
+            ...node,
+            ...inputConfigurations,
+            ...outputConfigurations
+          };
+        case "multioutput":
           return {
             ...node,
             ...inputConfigurations,

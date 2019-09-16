@@ -28,7 +28,7 @@
           <em id="copeDes" class="icon iconfont icon-ir-copy" title="复制"></em>
           <em id="removeDes" class="fa fa-trash-o" title="删除" @click="delNode(data.id)"></em>
         </div>
-      </div> -->
+      </div>-->
 
       <div
         v-for="(data,index) in stepData"
@@ -323,6 +323,9 @@ export default {
         },
         _
       );
+      if (data.links.length == 0) {
+        return;
+      }
       connect(
         data.jsplumbInstance,
         data.self,

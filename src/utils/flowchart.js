@@ -41,11 +41,10 @@ export function nodeClass(type) {
     case "exclusive":
     case "parallel":
       return "classW_C";
-      break;
-    //other 端点左1，右1
+    case "multioutput":
+      return "multioutput";
     default:
       return "classO";
-      break;
   }
 }
 
@@ -58,6 +57,7 @@ var nodeIconFont = {
   validate: "validate",
   supplement: "supplement",
   sql: "sql",
+  multioutput: "multioutput",
   transform: "transform",
   filter: "filter",
   sample: "sample",
@@ -181,22 +181,233 @@ export const addEndpointToNode = (
       let drawType = data.type,
         dataIndex = data.id;
 
-      //节点锚点添加
-      //左侧无，右侧一个起点
+      // //节点锚点添加
+      // //左侧无，右侧一个起点
+      // if (nodeClass(drawType) == "classD_A") {
+      //   //jsplumbInstance.deleteEndpoint(dataIndex + "output" + "origin");
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "RightMiddle", maxConnections: 100 },
+      //     { uuid: dataIndex + "output" + "origin", ...origin }
+      //   );
+      // } else if (nodeClass(drawType) == "classD_B") {
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "LeftMiddle" },
+      //     { uuid: dataIndex + "input" + "destination", ...destination }
+      //   );
+      // } else if (
+      //   nodeClass(drawType) == "classD_C" ||
+      //   nodeClass(drawType) == "classW_C"
+      // ) {
+      //   //左侧一个终点（多），右侧起点(多)
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "LeftMiddle", maxConnections: -1 },
+      //     { uuid: dataIndex + "input" + "destination", ...destination }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "RightMiddle", maxConnections: -1 },
+      //     { uuid: dataIndex + "output" + "origin", ...origin }
+      //   );
+      // } else if (specialNodeClass(drawType) == "classD_D1") {
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [1, 0.3, 0, 0],
+      //       maxConnections: -1,
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [1.5, -0.5],
+      //             label: "yes",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "yes" + "origin", ...origin }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [1, 0.7, 0, 0],
+      //       maxConnections: -1,
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [1.5, 1.3],
+      //             label: "no",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "no" + "origin", ...origin }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "LeftMiddle" },
+      //     { uuid: dataIndex + "input" + "destination", ...destination }
+      //   );
+      // } else if (specialNodeClass(drawType) == "classD_D2") {
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [1, 0.3, 0, 0],
+      //       maxConnections: -1,
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [1.5, -0.5],
+      //             label: "ok",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "ok" + "origin", ...origin }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [1, 0.7, 0, 0],
+      //       maxConnections: -1,
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [1.5, 1.3],
+      //             label: "error",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "error" + "origin", ...origin }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "LeftMiddle" },
+      //     { uuid: dataIndex + "input" + "destination", ...destination }
+      //   );
+      // } else if (specialNodeClass(drawType) == "classD_E1") {
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "RightMiddle", maxConnections: -1 },
+      //     { uuid: dataIndex + "output" + "origin", ...origin }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [0, 0.3, 0, 0],
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [-1, -0.5],
+      //             label: "left",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "left" + "destination", ...destination }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [0, 0.7, 0, 0],
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [-1, 1.5],
+      //             label: "right",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "right" + "destination", ...destination }
+      //   );
+      // } else if (specialNodeClass(drawType) == "classD_E2") {
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "RightMiddle", maxConnections: -1 },
+      //     { uuid: dataIndex + "output" + "origin", ...origin }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [0, 0.3, 0, 0],
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [-1, -0.5],
+      //             label: "input1",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "input1" + "destination", ...destination }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [0, 0.7, 0, 0],
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [-1, 1.5],
+      //             label: "input2",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "input2" + "destination", ...destination }
+      //   );
+      // } else {
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "RightMiddle", maxConnections: -1 },
+      //     { uuid: dataIndex + "output" + "origin", ...origin }
+      //   );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "LeftMiddle" },
+      //     { uuid: dataIndex + "input" + "destination", ...destination }
+      //   );
+      // }
+
+      // console.log('specialNodeClass(drawType)',specialNodeClass(drawType));
+      console.log(" nodeClass(drawType)", nodeClass(drawType));
+
       if (nodeClass(drawType) == "classD_A") {
-        //jsplumbInstance.deleteEndpoint(dataIndex + "output" + "origin");
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "RightMiddle", maxConnections: 100 },
           { uuid: dataIndex + "output" + "origin", ...origin }
         );
-      } else if (nodeClass(drawType) == "classD_B") {
+      }
+
+      if (nodeClass(drawType) == "classD_B") {
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "LeftMiddle" },
           { uuid: dataIndex + "input" + "destination", ...destination }
         );
-      } else if (
+      }
+
+      if (
         nodeClass(drawType) == "classD_C" ||
         nodeClass(drawType) == "classW_C"
       ) {
@@ -211,7 +422,9 @@ export const addEndpointToNode = (
           { anchors: "RightMiddle", maxConnections: -1 },
           { uuid: dataIndex + "output" + "origin", ...origin }
         );
-      } else if (specialNodeClass(drawType) == "classD_D1") {
+      }
+
+      if (specialNodeClass(drawType) == "classD_D1") {
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
@@ -253,7 +466,9 @@ export const addEndpointToNode = (
           { anchors: "LeftMiddle" },
           { uuid: dataIndex + "input" + "destination", ...destination }
         );
-      } else if (specialNodeClass(drawType) == "classD_D2") {
+      }
+
+      if (specialNodeClass(drawType) == "classD_D2") {
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
@@ -295,7 +510,9 @@ export const addEndpointToNode = (
           { anchors: "LeftMiddle" },
           { uuid: dataIndex + "input" + "destination", ...destination }
         );
-      } else if (specialNodeClass(drawType) == "classD_E1") {
+      }
+
+      if (specialNodeClass(drawType) == "classD_E1") {
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "RightMiddle", maxConnections: -1 },
@@ -335,7 +552,9 @@ export const addEndpointToNode = (
           },
           { uuid: dataIndex + "right" + "destination", ...destination }
         );
-      } else if (specialNodeClass(drawType) == "classD_E2") {
+      }
+
+      if (specialNodeClass(drawType) == "classD_E2") {
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "RightMiddle", maxConnections: -1 },
@@ -375,7 +594,9 @@ export const addEndpointToNode = (
           },
           { uuid: dataIndex + "input2" + "destination", ...destination }
         );
-      } else {
+      }
+
+      if (nodeClass(drawType) == "classO") {
         jsplumbInstance.addEndpoint(
           dataIndex,
           { anchors: "RightMiddle", maxConnections: -1 },
@@ -387,6 +608,20 @@ export const addEndpointToNode = (
           { uuid: dataIndex + "input" + "destination", ...destination }
         );
       }
+
+      if (nodeClass(drawType) == "multioutput") {
+        jsplumbInstance.addEndpoint(
+          dataIndex,
+          { anchors: "RightMiddle", maxConnections: -1 },
+          { uuid: dataIndex + "output" + "origin", ...origin }
+        );
+        jsplumbInstance.addEndpoint(
+          dataIndex,
+          { anchors: "LeftMiddle" },
+          { uuid: dataIndex + "input" + "destination", ...destination }
+        );
+      }
+
       jsplumbInstance.draggable(dataIndex, {
         containment: "parent",
         start(params) {
