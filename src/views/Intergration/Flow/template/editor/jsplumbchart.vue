@@ -110,14 +110,14 @@ export default {
         _.uniq(this.getGroupData(stepData))
       );
 
-      // let res = _.cloneDeep(flowData);
+      let res = _.cloneDeep(flowData);
 
-      // this.flowData = res.steps;
-      // this.flowType = res.flowType;
-      // this.links = res.links;
+      this.flowData = res.steps;
+      this.flowType = res.flowType;
+      this.links = res.links;
 
-      this.flowData = [];
-      this.links = [];
+      // this.flowData = [];
+      // this.links = [];
     },
     reset() {
       this.flowData = [];

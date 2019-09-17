@@ -110,8 +110,6 @@ export default {
   },
   mounted() {
     //this.gqueryTree = this.filterGquery(this.flowType);
-
-    console.log("stepList", this.stepList);
   },
   methods: {
     start() {

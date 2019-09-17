@@ -28,7 +28,7 @@
           <em id="copeDes" class="icon iconfont icon-ir-copy" title="复制"></em>
           <em id="removeDes" class="fa fa-trash-o" title="删除" @click="delNode(data.id)"></em>
         </div>
-      </div>-->
+      </div> -->
 
       <div
         v-for="(data,index) in stepData"
@@ -129,6 +129,9 @@ export default {
   beforeUpdate() {},
   updated() {
     this.$nextTick(() => {
+
+      // console.log("step data",this.stepData);
+      // console.log("links data",this.links);
       this.drawJsplumbChart(
         {
           jsplumbInstance: this.jsplumbInstance,
@@ -323,9 +326,7 @@ export default {
         },
         _
       );
-      if (data.links.length == 0) {
-        return;
-      }
+
       connect(
         data.jsplumbInstance,
         data.self,
@@ -366,14 +367,6 @@ export default {
     getLinksData() {
       this.links = filterLinkData(
         _.map(this.jsplumbInstance.getAllConnections(), item => {
-          console.log({
-            name: item.id,
-            source: item.sourceId,
-            sourceOutput: item.endpoints[0].canvas.nextSibling.textContent,
-            target: item.targetId,
-            targetInput: item.target.dataset.type,
-            input: item.endpoints[1].canvas.nextSibling.textContent
-          });
           return {
             name: item.id,
             source: item.sourceId,

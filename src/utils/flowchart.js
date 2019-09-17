@@ -202,217 +202,6 @@ export const addEndpointToNode = (
     steps.forEach((data, index) => {
       let drawType = data.type,
         dataIndex = data.id;
-
-      // //节点锚点添加
-      // //左侧无，右侧一个起点
-      // if (nodeClass(drawType) == "classD_A") {
-      //   //jsplumbInstance.deleteEndpoint(dataIndex + "output" + "origin");
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "RightMiddle", maxConnections: 100 },
-      //     { uuid: dataIndex + "output" + "origin", ...origin }
-      //   );
-      // } else if (nodeClass(drawType) == "classD_B") {
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "LeftMiddle" },
-      //     { uuid: dataIndex + "input" + "destination", ...destination }
-      //   );
-      // } else if (
-      //   nodeClass(drawType) == "classD_C" ||
-      //   nodeClass(drawType) == "classW_C"
-      // ) {
-      //   //左侧一个终点（多），右侧起点(多)
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "LeftMiddle", maxConnections: -1 },
-      //     { uuid: dataIndex + "input" + "destination", ...destination }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "RightMiddle", maxConnections: -1 },
-      //     { uuid: dataIndex + "output" + "origin", ...origin }
-      //   );
-      // } else if (specialNodeClass(drawType) == "classD_D1") {
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     {
-      //       anchors: [1, 0.3, 0, 0],
-      //       maxConnections: -1,
-      //       overlays: [
-      //         [
-      //           "Label",
-      //           {
-      //             location: [1.5, -0.5],
-      //             label: "yes",
-      //             cssClass: "endpointSourceLabel"
-      //           }
-      //         ]
-      //       ]
-      //     },
-      //     { uuid: dataIndex + "yes" + "origin", ...origin }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     {
-      //       anchors: [1, 0.7, 0, 0],
-      //       maxConnections: -1,
-      //       overlays: [
-      //         [
-      //           "Label",
-      //           {
-      //             location: [1.5, 1.3],
-      //             label: "no",
-      //             cssClass: "endpointSourceLabel"
-      //           }
-      //         ]
-      //       ]
-      //     },
-      //     { uuid: dataIndex + "no" + "origin", ...origin }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "LeftMiddle" },
-      //     { uuid: dataIndex + "input" + "destination", ...destination }
-      //   );
-      // } else if (specialNodeClass(drawType) == "classD_D2") {
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     {
-      //       anchors: [1, 0.3, 0, 0],
-      //       maxConnections: -1,
-      //       overlays: [
-      //         [
-      //           "Label",
-      //           {
-      //             location: [1.5, -0.5],
-      //             label: "ok",
-      //             cssClass: "endpointSourceLabel"
-      //           }
-      //         ]
-      //       ]
-      //     },
-      //     { uuid: dataIndex + "ok" + "origin", ...origin }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     {
-      //       anchors: [1, 0.7, 0, 0],
-      //       maxConnections: -1,
-      //       overlays: [
-      //         [
-      //           "Label",
-      //           {
-      //             location: [1.5, 1.3],
-      //             label: "error",
-      //             cssClass: "endpointSourceLabel"
-      //           }
-      //         ]
-      //       ]
-      //     },
-      //     { uuid: dataIndex + "error" + "origin", ...origin }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "LeftMiddle" },
-      //     { uuid: dataIndex + "input" + "destination", ...destination }
-      //   );
-      // } else if (specialNodeClass(drawType) == "classD_E1") {
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "RightMiddle", maxConnections: -1 },
-      //     { uuid: dataIndex + "output" + "origin", ...origin }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     {
-      //       anchors: [0, 0.3, 0, 0],
-      //       overlays: [
-      //         [
-      //           "Label",
-      //           {
-      //             location: [-1, -0.5],
-      //             label: "left",
-      //             cssClass: "endpointSourceLabel"
-      //           }
-      //         ]
-      //       ]
-      //     },
-      //     { uuid: dataIndex + "left" + "destination", ...destination }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     {
-      //       anchors: [0, 0.7, 0, 0],
-      //       overlays: [
-      //         [
-      //           "Label",
-      //           {
-      //             location: [-1, 1.5],
-      //             label: "right",
-      //             cssClass: "endpointSourceLabel"
-      //           }
-      //         ]
-      //       ]
-      //     },
-      //     { uuid: dataIndex + "right" + "destination", ...destination }
-      //   );
-      // } else if (specialNodeClass(drawType) == "classD_E2") {
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "RightMiddle", maxConnections: -1 },
-      //     { uuid: dataIndex + "output" + "origin", ...origin }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     {
-      //       anchors: [0, 0.3, 0, 0],
-      //       overlays: [
-      //         [
-      //           "Label",
-      //           {
-      //             location: [-1, -0.5],
-      //             label: "input1",
-      //             cssClass: "endpointSourceLabel"
-      //           }
-      //         ]
-      //       ]
-      //     },
-      //     { uuid: dataIndex + "input1" + "destination", ...destination }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     {
-      //       anchors: [0, 0.7, 0, 0],
-      //       overlays: [
-      //         [
-      //           "Label",
-      //           {
-      //             location: [-1, 1.5],
-      //             label: "input2",
-      //             cssClass: "endpointSourceLabel"
-      //           }
-      //         ]
-      //       ]
-      //     },
-      //     { uuid: dataIndex + "input2" + "destination", ...destination }
-      //   );
-      // } else {
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "RightMiddle", maxConnections: -1 },
-      //     { uuid: dataIndex + "output" + "origin", ...origin }
-      //   );
-      //   jsplumbInstance.addEndpoint(
-      //     dataIndex,
-      //     { anchors: "LeftMiddle" },
-      //     { uuid: dataIndex + "input" + "destination", ...destination }
-      //   );
-      // }
-
-      console.log("specialNodeClass(drawType)", specialNodeClass(drawType));
-      console.log(" nodeClass(drawType)", nodeClass(drawType));
-
       if (nodeClass(drawType) == "classD_A") {
         jsplumbInstance.addEndpoint(
           dataIndex,
@@ -631,106 +420,106 @@ export const addEndpointToNode = (
         );
       }
 
-      if (nodeClass(drawType) == "multioutput") {
-        jsplumbInstance.addEndpoint(
-          dataIndex,
-          { anchors: "LeftMiddle" },
-          { uuid: dataIndex + "input" + "destination", ...destination }
-        );
+      // if (nodeClass(drawType) == "multioutput") {
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "LeftMiddle" },
+      //     { uuid: dataIndex + "input" + "destination", ...destination }
+      //   );
 
-        jsplumbInstance.addEndpoint(
-          dataIndex,
-          { anchors: "RightMiddle", maxConnections: -1 },
-          { uuid: dataIndex + "output" + "origin", ...origin }
-        );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     { anchors: "RightMiddle", maxConnections: -1 },
+      //     { uuid: dataIndex + "output" + "origin", ...origin }
+      //   );
 
-        //  output1
+      //   //  output1
 
-        jsplumbInstance.addEndpoint(
-          dataIndex,
-          {
-            anchors: [1.3, 0, 0, 0],
-            maxConnections: -1,
-            overlays: [
-              [
-                "Label",
-                {
-                  location: [2.5, -0.5],
-                  label: "output1",
-                  cssClass: "endpointSourceLabel"
-                }
-              ]
-            ]
-          },
-          { uuid: dataIndex + "output1" + "outputorigin", ...outputorigin }
-        );
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [1.3, 0, 0, 0],
+      //       maxConnections: -1,
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [2.5, -0.5],
+      //             label: "output1",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "output1" + "outputorigin", ...outputorigin }
+      //   );
 
-        //  output2
-        jsplumbInstance.addEndpoint(
-          dataIndex,
-          {
-            anchors: [1.3, 0.5, 0, 0],
-            maxConnections: -1,
-            overlays: [
-              [
-                "Label",
-                {
-                  location: [2.5, -0.5],
-                  label: "output2",
-                  cssClass: "endpointSourceLabel"
-                }
-              ]
-            ]
-          },
-          { uuid: dataIndex + "output2" + "outputorigin", ...outputorigin }
-        );
+      //   //  output2
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [1.3, 0.5, 0, 0],
+      //       maxConnections: -1,
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [2.5, -0.5],
+      //             label: "output2",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "output2" + "outputorigin", ...outputorigin }
+      //   );
 
-        //  output3
-        jsplumbInstance.addEndpoint(
-          dataIndex,
-          {
-            anchors: [1.3, 1, 0, 0],
-            maxConnections: -1,
-            overlays: [
-              [
-                "Label",
-                {
-                  location: [2.5, -0.5],
-                  label: "output3",
-                  cssClass: "endpointSourceLabel"
-                }
-              ]
-            ]
-          },
-          { uuid: dataIndex + "output3" + "outputorigin", ...outputorigin }
-        );
+      //   //  output3
+      //   jsplumbInstance.addEndpoint(
+      //     dataIndex,
+      //     {
+      //       anchors: [1.3, 1, 0, 0],
+      //       maxConnections: -1,
+      //       overlays: [
+      //         [
+      //           "Label",
+      //           {
+      //             location: [2.5, -0.5],
+      //             label: "output3",
+      //             cssClass: "endpointSourceLabel"
+      //           }
+      //         ]
+      //       ]
+      //     },
+      //     { uuid: dataIndex + "output3" + "outputorigin", ...outputorigin }
+      //   );
 
-        connectOutPut(
-          jsplumbInstance,
-          self,
-          [
-            {
-              source: dataIndex,
-              target: dataIndex,
-              sourceOutput: "output",
-              input: "output1"
-            },
-            // {
-            //   source: dataIndex,
-            //   target: dataIndex,
-            //   sourceOutput: "output",
-            //   input: "output2"
-            // },
-            // {
-            //   source: dataIndex,
-            //   target: dataIndex,
-            //   sourceOutput: "output",
-            //   input: "output3"
-            // }
-          ],
-          () => {}
-        );
-      }
+      //   connectOutPut(
+      //     jsplumbInstance,
+      //     self,
+      //     [
+      //       {
+      //         source: dataIndex,
+      //         target: dataIndex,
+      //         sourceOutput: "output",
+      //         input: "output1"
+      //       },
+      //       // {
+      //       //   source: dataIndex,
+      //       //   target: dataIndex,
+      //       //   sourceOutput: "output",
+      //       //   input: "output2"
+      //       // },
+      //       // {
+      //       //   source: dataIndex,
+      //       //   target: dataIndex,
+      //       //   sourceOutput: "output",
+      //       //   input: "output3"
+      //       // }
+      //     ],
+      //     () => {}
+      //   );
+      // }
 
       jsplumbInstance.draggable(dataIndex, {
         containment: "parent",
@@ -832,17 +621,17 @@ export const setClass = type => {
 export const filterLinkData = (data, _) => {
   return _.map(data, value => {
     //过滤sourceOutput
-    // if (value.sourceOutput == "yes") {
-    //   value.sourceOutput = "yes";
-    // } else if (value.sourceOutput == "no") {
-    //   value.sourceOutput = "no";
-    // } else if (value.sourceOutput == "ok") {
-    //   value.sourceOutput = "ok";
-    // } else if (value.sourceOutput == "error") {
-    //   value.sourceOutput = "error";
-    // } else {
-    //   value.sourceOutput = "output";
-    // }
+    if (value.sourceOutput == "yes") {
+      value.sourceOutput = "yes";
+    } else if (value.sourceOutput == "no") {
+      value.sourceOutput = "no";
+    } else if (value.sourceOutput == "ok") {
+      value.sourceOutput = "ok";
+    } else if (value.sourceOutput == "error") {
+      value.sourceOutput = "error";
+    } else {
+      value.sourceOutput = "output";
+    }
 
     ////过滤targetInput
 
