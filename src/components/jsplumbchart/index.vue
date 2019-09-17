@@ -7,29 +7,6 @@
       @mousedown="mousedown"
       @mouseup="mouseup"
     >
-      <!-- <div class="jtk-surface-canvas" id="jtk-surface-canvas">
-        <div
-          v-for="(data,index) in stepData"
-          :id="data.id"
-          :key="index"
-          :class="'designIconBig stepsItem '+setClass(nodeClass(data.type))"
-          :data-sign="data.name"
-          :data-type="data.type"
-          :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
-          @dblclick="dblClick(data)"
-        >
-          <i class="icon iconfont icon-ir-designIconBg designIconBg"></i>
-          <i
-            id="changeSte"
-            :class="nodeIcon(data.type) == 'iconTrue'?'icon iconfont icon-ir-d-'+data.type:'icon iconfont icon-ir-d-default'"
-          ></i>
-          <h4 :title="data.name">{{data.name}}</h4>
-          <h5>ID:{{data.id}}</h5>
-          <em id="copeDes" class="icon iconfont icon-ir-copy" title="复制"></em>
-          <em id="removeDes" class="fa fa-trash-o" title="删除" @click="delNode(data.id)"></em>
-        </div>
-      </div> -->
-
       <div
         v-for="(data,index) in stepData"
         :id="data.id"
@@ -119,9 +96,9 @@ export default {
     //...mapState([""])
   },
   mounted() {
-    // this.$nextTick(() => {
-    //   this.setZoomJsplumbChart();
-    // });
+    this.$nextTick(() => {
+      this.setZoomJsplumbChart("cavans");
+    });
   },
   beforeCreate() {},
   created() {},
@@ -129,9 +106,6 @@ export default {
   beforeUpdate() {},
   updated() {
     this.$nextTick(() => {
-
-      // console.log("step data",this.stepData);
-      // console.log("links data",this.links);
       this.drawJsplumbChart(
         {
           jsplumbInstance: this.jsplumbInstance,
@@ -151,9 +125,9 @@ export default {
     //...mapActions([""]),
     resetJsplumbChart() {
       // document.getElementById("cavans").style = "matrix(1, 0, 0, 1, 0, 0)";
-      //this.setZoomJsplumbChart();
+      this.setZoomJsplumbChart("cavans");
     },
-    setZoomJsplumbChart() {
+    setZoomJsplumbChart(val) {
       // 假设矩阵是：matrix(a,b,c,d,e,f);
       // 如果只是平移translate，只关注最后两个数值就好：
       // e是水平移动距离，f是垂直移动距离
@@ -217,7 +191,7 @@ export default {
 
       // return;
 
-      let canvas = document.getElementById("jtk-surface-canvas");
+      let canvas = document.getElementById(val);
 
       this.instanceZoom = panzoom(canvas, {
         zoomDoubleClickSpeed: 1,
@@ -362,7 +336,7 @@ export default {
       );
     },
     dblClick(val) {
-      this.$emit("nodedblClick", val);
+      //this.$emit("nodedblClick", val);
     },
     getLinksData() {
       this.links = filterLinkData(
@@ -440,31 +414,12 @@ export default {
   position: absolute;
 
   .cavans {
-    // overflow: visible !important;
     height: 100%;
     width: 100%;
     // width: 1000000000000000000000000000000px;
     // height: 1000000000000000000000000000000px;
     position: relative;
     cursor: -webkit-grab;
-
-    .jtk-surface-canvas {
-      // top: 20px;
-      // left: 20px;
-      width: 50px;
-      height: 50px;
-      position: relative;
-      background: red;
-      // transform: scale(1);
-      // transform-origin: 1000px 1000px!important;
-      // transform-origin: bottom right;
-      // overflow: visible !important
-    }
-    // top: 0;
-    // left: 0;
-    // top: -500000000000000000000000000000000000000000000px;
-    // left: -50000000000000000000000000000000000000000000px;
-    //   background-image: url("../assets/img/designBg.png");
 
     // ////////////////////////node style begin///////////////////
     .designIconBig {

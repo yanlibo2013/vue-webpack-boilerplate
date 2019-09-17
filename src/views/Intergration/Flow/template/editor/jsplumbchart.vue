@@ -263,8 +263,8 @@ export default {
         width: 100%;
         height: 100%;
         position: relative;
-        top: 0;
-        left: 0;
+        // top: 0;
+        // left: 0;
         //   background-image: url("../assets/img/designBg.png");
 
         // ////////////////////////node style begin///////////////////

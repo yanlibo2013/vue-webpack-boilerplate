@@ -194,7 +194,7 @@ export const addEndpointToNode = (
   jsplumbInstance,
   self,
   steps,
-  flowData,
+  modifyCurrentNodePosition,
   _
 ) => {
   jsplumbInstance.deleteEveryEndpoint();
@@ -522,11 +522,10 @@ export const addEndpointToNode = (
       // }
 
       jsplumbInstance.draggable(dataIndex, {
-        containment: "parent",
+        // containment: "parent",//cavans
         start(params) {
           // 拖动开始
           // console.log(params);
-          //console.log("拖动开始");
         },
         drag(params) {
           // 拖动中
@@ -534,9 +533,9 @@ export const addEndpointToNode = (
         stop(params) {
           let top = params.el.style.top;
           let left = params.el.style.left;
-          // 拖动结束
-          // console.log("拖动介绍");
-          flowData({
+          // // 拖动结束
+          // // console.log("拖动介绍");
+          modifyCurrentNodePosition({
             x: parseInt(left.replace("px", "")),
             y: parseInt(top.replace("px", "")),
             id: params.el.attributes.id.nodeValue
