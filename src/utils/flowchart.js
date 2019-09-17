@@ -649,7 +649,7 @@ export const addEndpointToNode = (
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
-            anchors: [1.2, 0, 0, 0],
+            anchors: [1.3, 0, 0, 0],
             maxConnections: -1,
             overlays: [
               [
@@ -669,7 +669,7 @@ export const addEndpointToNode = (
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
-            anchors: [1.2, 0.5, 0, 0],
+            anchors: [1.3, 0.5, 0, 0],
             maxConnections: -1,
             overlays: [
               [
@@ -689,7 +689,7 @@ export const addEndpointToNode = (
         jsplumbInstance.addEndpoint(
           dataIndex,
           {
-            anchors: [1.2, 1, 0, 0],
+            anchors: [1.3, 1, 0, 0],
             maxConnections: -1,
             overlays: [
               [
@@ -705,7 +705,31 @@ export const addEndpointToNode = (
           { uuid: dataIndex + "output3" + "outputorigin", ...outputorigin }
         );
 
-       connectOutPut(jsplumbInstance,self,[{source:dataIndex,target:dataIndex,sourceOutput:"output",input:"output3"}],()=>{})
+        connectOutPut(
+          jsplumbInstance,
+          self,
+          [
+            {
+              source: dataIndex,
+              target: dataIndex,
+              sourceOutput: "output",
+              input: "output1"
+            },
+            // {
+            //   source: dataIndex,
+            //   target: dataIndex,
+            //   sourceOutput: "output",
+            //   input: "output2"
+            // },
+            // {
+            //   source: dataIndex,
+            //   target: dataIndex,
+            //   sourceOutput: "output",
+            //   input: "output3"
+            // }
+          ],
+          () => {}
+        );
       }
 
       jsplumbInstance.draggable(dataIndex, {

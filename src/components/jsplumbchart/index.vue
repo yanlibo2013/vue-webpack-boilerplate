@@ -197,7 +197,7 @@ export default {
       // };
 
       // canvas.children.toArray().forEach(function(e, i) {
-      //   console.log(e + "->" + i);
+      //   console.log(e + "->" + i);getLinksData(
       // });
 
       // for (var j = 0; j < canvas.children.length; j++) {
@@ -385,7 +385,7 @@ export default {
         }),
         _
       );
-      console.log("  getLinksData() {", this.links);
+      //console.log("  getLinksData() {", this.links);
     },
     reset() {
       this.stepData = [];

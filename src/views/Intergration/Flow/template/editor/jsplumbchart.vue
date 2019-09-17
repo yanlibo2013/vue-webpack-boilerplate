@@ -121,6 +121,7 @@ export default {
     },
     reset() {
       this.flowData = [];
+      this.links = [];
       this.$refs.jsplumbchart.reset();
     },
     getCurrentNode(data) {
