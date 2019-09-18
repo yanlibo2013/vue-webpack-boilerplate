@@ -6,6 +6,7 @@
       @mousewheel="mousewheelCavans"
       @mousedown="mousedown"
       @mouseup="mouseup"
+      @mousemove="mousemove"
     >
       <div
         v-for="(data,index) in stepData"
@@ -89,25 +90,34 @@ export default {
       nodeClass: nodeClass,
       nodeIcon: nodeIcon,
       setClass: setClass,
-      instanceZoom: ""
+      instanceZoom: "",
+      dragging: false,
+      //鼠标按下时的鼠标所在的X，Y坐标
+      mouseDownX: "",
+      mouseDownY: "",
+      //初始位置的X，Y 坐标
+      initX: "",
+      initY: ""
     };
   },
   computed: {
     //...mapState([""])
   },
   mounted() {
-    this.$nextTick(() => {
-      this.setZoomJsplumbChart("cavans");
-    });
+    let canvas = document.getElementById("cavans");
+    this.initX = canvas.offsetLeft;
+    this.initY = canvas.offsetTop;
+    // console.log(this.initX,this.initY);
+    // this.$nextTick(() => {
+    //   //this.setZoomJsplumbChart("cavans");
+    // });
   },
   beforeCreate() {},
   created() {},
   beforeMount() {},
   beforeUpdate() {},
   updated(p) {
-    console.log('updated(p) {',p);
-    this.$nextTick((t) => {
-      console.log(' this.$nextTick((t) => {',t);
+    this.$nextTick(t => {
       this.drawJsplumbChart(
         {
           jsplumbInstance: this.jsplumbInstance,
@@ -127,7 +137,7 @@ export default {
     //...mapActions([""]),
     resetJsplumbChart() {
       // document.getElementById("cavans").style = "matrix(1, 0, 0, 1, 0, 0)";
-      this.setZoomJsplumbChart("cavans");
+      //this.setZoomJsplumbChart("cavans");
     },
     setZoomJsplumbChart(val) {
       // 假设矩阵是：matrix(a,b,c,d,e,f);
@@ -365,14 +375,43 @@ export default {
       // console.log("mousewheelCavans", event);
     },
     mousedown(event) {
+      // console.log("mousedown");
+      // console.log(event.pageX, event.pageY);
+      this.dragging = true;
+      this.mouseDownX = event.pageX;
+      this.mouseDownY = event.pageY;
       //console.log("mousedown",event);
       // this.addClass(document.body, "jtk-drag-select-defeat");
       // this.addClass(document.getElementById("cavans"), "jtk-surface-panning");
     },
     mouseup(event) {
+      this.dragging = false;
+      this.mouseDownX = 0;
+      this.mouseDownY = 0;
+      this.mouseMoveX = 0;
+      this.mouseMoveY = 0;
       //console.log("mouseup",event);
       // this.removeClass(document.body, "jtk-drag-select-defeat");
       // this.removeClass(document.getElementById("cavans"), "jtk-surface-panning");
+    },
+    mousemove(event) {
+      if (this.dragging) {
+        // console.log(event.x, event.y);
+        this.mouseMoveX = event.pageX;
+        this.mouseMoveY = event.pageY;
+        let distanceX = this.mouseMoveX - this.mouseDownX;
+        let distancey = this.mouseMoveY - this.mouseDownY;
+
+        console.log(distanceX, distancey);
+
+        this.stepData = _.map(_.cloneDeep(this.stepData), item => {
+          return {
+            ...item,
+            x: item.x + distanceX,
+            y: item.y + distancey
+          };
+        });
+      }
     },
     addClass(ele, cls) {
       if (!this.hasClass(ele, cls)) {
