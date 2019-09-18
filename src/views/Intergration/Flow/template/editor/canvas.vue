@@ -122,7 +122,7 @@ export default {
     reset() {
       this.flowData = [];
       this.links = [];
-      this.$refs.jsplumbchart.reset();
+      this.$refs.jsplumbchart.resetJsplumbChart();
     },
     getCurrentNode(data) {
       return {

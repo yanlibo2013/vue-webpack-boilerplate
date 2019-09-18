@@ -1,5 +1,13 @@
 <template>
-  <canvas class="jsplumbcanvas" id="canvas" width="1000" height="700">
+  <canvas
+    class="jsplumbcanvas"
+    id="canvas"
+    width="1000"
+    height="700"
+    @mousedown="mousedown"
+    @mousemove="mousemove"
+    @mouseup="mouseup"
+  >
     <!-- <div
       v-for="(data,index) in stepData"
       :id="data.id"
@@ -80,7 +88,10 @@ export default {
       nodeClass: nodeClass,
       nodeIcon: nodeIcon,
       setClass: setClass,
-      ctx: ""
+      ctx: "",
+      canvas: "",
+      ctxList: [],
+      workplace: ""
     };
   },
   computed: {
@@ -119,13 +130,14 @@ export default {
       this.ctx.beginPath();
       this.ctx.rect(val.x, val.y, val.w, val.h);
       this.ctx.stroke();
+      this.ctxList.push(this.ctx);
     },
     initJsplumbChartCanvas(val) {
       // initialize our canvas
-      let workplace = document.getElementById("workplace");
-      let canvas = document.getElementById(val);
-      canvas.width = workplace.offsetWidth;
-      canvas.height = workplace.offsetHeight;
+      this.workplace = document.getElementById("workplace");
+      this.canvas = document.getElementById(val);
+      this.canvas.width = this.workplace.offsetWidth;
+      this.canvas.height = this.workplace.offsetHeight;
       this.ctx = canvas.getContext("2d");
       this.ctx.strokeStyle = "#000";
       this.ctx.lineWidth = 2;
@@ -147,8 +159,12 @@ export default {
       });
     },
     resetJsplumbChart() {
-      // document.getElementById("cavans").style = "matrix(1, 0, 0, 1, 0, 0)";
-      //this.JsplumbChartCanvas("cavans");
+      this.ctx.clearRect(
+        0,
+        0,
+        this.workplace.offsetWidth,
+        this.workplace.offsetHeight
+      );
     },
 
     drawJsplumbChart(data, connectCallback) {
@@ -258,6 +274,48 @@ export default {
         id: "rtc_" + val.type + "_" + (this.stepData.length + 1)
       };
       this.$emit("handleDrop", node);
+    },
+    mousedown(event) {
+      //console.log(this.ctxList);
+      var point = this.getCanvasPoint(event.pageX, event.pageY);
+      // _.forEach(this.ctxList, val => {
+      //   if (val.isPointInPath(point.x, point.y)) {
+      //     console.log("if");
+      //     // console.log(val);
+      //   } else {
+      //     console.log("else");
+      //   }
+      // });
+
+      _.forEach(this.stepData, (val, index) => {
+        let data = {
+          x: val.x,
+          y: val.y,
+          h: 70,
+          w: 150
+        };
+        this.drawRect(data);
+
+        if (this.ctx.isPointInPath(point.x, point.y)) {
+          console.log("if");
+          // console.log(val);
+        } else {
+          console.log("else");
+        }
+      });
+    },
+    mousemove(event) {
+      //console.log("mousemove", event);
+    },
+    mouseup(event) {
+      //console.log("mouseup", event);
+    },
+    getCanvasPoint(x, y) {
+      console.log(this.canvas.offsetLeft, this.canvas.offsetTop);
+      return {
+        x: x - this.canvas.offsetLeft,
+        y: y - this.canvas.offsetTop
+      };
     }
   }
 };
