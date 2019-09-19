@@ -97,7 +97,9 @@ export default {
       mouseDownY: "",
       //初始位置的X，Y 坐标
       initX: "",
-      initY: ""
+      initY: "",
+      distanceX: 0,
+      distancey: 0
     };
   },
   computed: {
@@ -375,8 +377,7 @@ export default {
       // console.log("mousewheelCavans", event);
     },
     mousedown(event) {
-      // console.log("mousedown");
-      // console.log(event.pageX, event.pageY);
+      console.log('mousedown(event) {');
       this.dragging = true;
       this.mouseDownX = event.pageX;
       this.mouseDownY = event.pageY;
@@ -385,30 +386,36 @@ export default {
       // this.addClass(document.getElementById("cavans"), "jtk-surface-panning");
     },
     mouseup(event) {
+      console.log("mouseup(event) {");
       this.dragging = false;
       this.mouseDownX = 0;
       this.mouseDownY = 0;
       this.mouseMoveX = 0;
       this.mouseMoveY = 0;
+      this.distanceX = 0;
+      this.distancey = 0;
       //console.log("mouseup",event);
       // this.removeClass(document.body, "jtk-drag-select-defeat");
       // this.removeClass(document.getElementById("cavans"), "jtk-surface-panning");
     },
     mousemove(event) {
+      console.log('  mousemove(event) {');
       if (this.dragging) {
         // console.log(event.x, event.y);
         this.mouseMoveX = event.pageX;
         this.mouseMoveY = event.pageY;
-        let distanceX = this.mouseMoveX - this.mouseDownX;
-        let distancey = this.mouseMoveY - this.mouseDownY;
+        let dx = this.mouseMoveX - this.mouseDownX;
+        let dy = this.mouseMoveY - this.mouseDownY;
+        this.distanceX += dx;
+        this.distancey += dy;
 
-        console.log(distanceX, distancey);
+        // console.log(this.distanceX, this.distancey);
 
         this.stepData = _.map(_.cloneDeep(this.stepData), item => {
           return {
             ...item,
-            x: item.x + distanceX,
-            y: item.y + distancey
+            x: item.x + this.distanceX,
+            y: item.y + this.distancey
           };
         });
       }
