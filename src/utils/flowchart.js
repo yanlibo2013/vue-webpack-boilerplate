@@ -687,3 +687,77 @@ export const message = (message, callback, self) => {
       });
     });
 };
+
+export const render_html_to_canvas = (html, ctx, x, y, width, height) => {
+  // console.log(html, ctx, x, y, width, height);
+  // var xml = html_to_xml(html.toString());
+  // xml = xml.replace(/\#/g, "%23");
+  // var data =
+  //   "data:image/svg+xml;charset=utf-8," +
+  //   '<svg xmlns="http://www.w3.org/2000/svg" width="' +
+  //   width +
+  //   '" height="' +
+  //   height +
+  //   '">' +
+  //   '<foreignObject width="100%" height="100%">' +
+  //   xml +
+  //   "</foreignObject>" +
+  //   "</svg>";
+
+  // var img = new Image();
+  // img.onload = function() {
+  //   console.log(" img.onload = function() {");
+  //   ctx.drawImage(img, x, y);
+  // };
+  // img.src = data;
+
+  // var data =
+  //   '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">' +
+  //   '<foreignObject width="100%" height="100%">' +
+  //   '<div xmlns="http://www.w3.org/1999/xhtml" style="font-size:40px">' +
+  //   '<em>I</em> like <span style="color:white; text-shadow:0 0 2px blue;">cheese</span>' +
+  //   "</div>" +
+  //   "</foreignObject>" +
+  //   "</svg>";
+
+  var data =
+    '<svg xmlns="http://www.w3.org/2000/svg">' +
+    '<foreignObject width="100%" height="100%">' +
+    '<div xmlns="http://www.w3.org/1999/xhtml">' +
+    '<div id="rtc_source_1" data-sign="rtc_source" data-type="source" class="designIconBig stepsItem t1Style jtk-endpoint-anchor jtk-draggable jtk-connected" style="left: 12px; top: 53px; position: absolute; margin: 0px;"><i class="icon iconfont icon-ir-designIconBg designIconBg"></i> <i id="changeSte" class="icon iconfont icon-ir-d-source"></i> <h4 title="rtc_source">rtc_source</h4> <h5>ID:rtc_source_1</h5> <em id="copeDes" title="复制" class="icon iconfont icon-ir-copy"></em> <em id="removeDes" title="删除" class="fa fa-trash-o"></em></div>' +
+    "</div>" +
+    "</foreignObject>" +
+    "</svg>";
+
+  // console.log("data", data);
+  // console.log("html", html.toString());
+
+  var DOMURL = window.URL || window.webkitURL || window;
+
+  var img = new Image();
+  var svg = new Blob([data], {
+    type: "image/svg+xml;charset=utf-8"
+  });
+  var url = DOMURL.createObjectURL(svg);
+
+  img.onload = function() {
+    ctx.drawImage(img, 0, 0);
+    DOMURL.revokeObjectURL(url);
+  };
+
+  img.src = url;
+};
+
+export const html_to_xml = html => {
+  var doc = document.implementation.createHTMLDocument("");
+  doc.write(html);
+
+  // You must manually set the xmlns if you intend to immediately serialize
+  // the HTML document to a string as opposed to appending it to a
+  // <foreignObject> in the DOM
+  doc.documentElement.setAttribute("xmlns", doc.documentElement.namespaceURI);
+
+  // Get well-formed markup
+  html = new XMLSerializer().serializeToString(doc.body);
+  return html;
+};

@@ -8,7 +8,7 @@
     @mousemove="mousemove"
     @mouseup="mouseup"
   >
-    <!-- <div
+    <div
       v-for="(data,index) in stepData"
       :id="data.id"
       :key="index"
@@ -32,7 +32,7 @@
         @click.prevent="copyNode(data)"
       ></em>
       <em id="removeDes" class="fa fa-trash-o" title="删除" @click="delNode(data.id)"></em>
-    </div>-->
+    </div>
   </canvas>
 </template>
 
@@ -52,7 +52,8 @@ import {
   addEndpointToNode,
   getNodeType,
   setClass,
-  connect
+  connect,
+  render_html_to_canvas
 } from "@/utils/flowchart";
 // import "@svgdotjs/svg.panzoom.js";
 export default {
@@ -98,9 +99,10 @@ export default {
     //...mapState([""])
   },
   mounted() {
-    this.initJsplumbChartCanvas("canvas");
+    // this.initJsplumbChartCanvas("canvas");
     this.$nextTick(() => {
-      this.appendItemToJsplumbCanvas(this.stepData);
+      //this.appendItemToJsplumbCanvas(this.stepData);
+        this.initJsplumbChartCanvas("canvas");
     });
   },
   beforeCreate() {},
@@ -132,6 +134,16 @@ export default {
       this.ctx.stroke();
       this.ctxList.push(this.ctx);
     },
+    drawHtmlElement(val) {
+      render_html_to_canvas(
+        val.html,
+        val.ctx,
+        val.x,
+        val.y,
+        val.width,
+        val.height
+      );
+    },
     initJsplumbChartCanvas(val) {
       // initialize our canvas
       this.workplace = document.getElementById("workplace");
@@ -139,8 +151,9 @@ export default {
       this.canvas.width = this.workplace.offsetWidth;
       this.canvas.height = this.workplace.offsetHeight;
       this.ctx = canvas.getContext("2d");
-      this.ctx.strokeStyle = "#000";
-      this.ctx.lineWidth = 2;
+      this.appendItemToJsplumbCanvas(this.stepData);
+      // this.ctx.strokeStyle = "#000";
+      // this.ctx.lineWidth = 2;
 
       // this.ctx.clearRect(0, 0, canvas.style.width, canvas.style.height);
 
@@ -149,13 +162,23 @@ export default {
     },
     appendItemToJsplumbCanvas(data) {
       _.forEach(data, (val, index) => {
-        let data = {
+        // let data = {
+        //   x: val.x,
+        //   y: val.y,
+        //   h: 70,
+        //   w: 150
+        // };
+        //(html, ctx, x, y, width, height
+        //this.drawRect(data);
+        this.drawHtmlElement({
+          html: document.getElementById(val.id),
           x: val.x,
           y: val.y,
-          h: 70,
-          w: 150
-        };
-        this.drawRect(data);
+          height: 70,
+          width: 150,
+          ctx: this.ctx
+        });
+        //console.log(document.getElementById(val.id));
       });
     },
     resetJsplumbChart() {
@@ -277,7 +300,7 @@ export default {
     },
     mousedown(event) {
       //console.log(this.ctxList);
-      var point = this.getCanvasPoint(event.pageX, event.pageY);
+      //var point = this.getCanvasPoint(event.pageX, event.pageY);
       // _.forEach(this.ctxList, val => {
       //   if (val.isPointInPath(point.x, point.y)) {
       //     console.log("if");
@@ -286,23 +309,21 @@ export default {
       //     console.log("else");
       //   }
       // });
-
-      _.forEach(this.stepData, (val, index) => {
-        let data = {
-          x: val.x,
-          y: val.y,
-          h: 70,
-          w: 150
-        };
-        this.drawRect(data);
-
-        if (this.ctx.isPointInPath(point.x, point.y)) {
-          console.log("if");
-          // console.log(val);
-        } else {
-          console.log("else");
-        }
-      });
+      // _.forEach(this.stepData, (val, index) => {
+      //   let data = {
+      //     x: val.x,
+      //     y: val.y,
+      //     h: 70,
+      //     w: 150
+      //   };
+      //   this.drawRect(data);
+      //   if (this.ctx.isPointInPath(point.x, point.y)) {
+      //     console.log("if");
+      //     // console.log(val);
+      //   } else {
+      //     console.log("else");
+      //   }
+      // });
     },
     mousemove(event) {
       //console.log("mousemove", event);
