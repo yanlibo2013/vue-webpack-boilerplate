@@ -723,8 +723,10 @@ export const render_html_to_canvas = (html, ctx, x, y, width, height) => {
   var data =
     '<svg xmlns="http://www.w3.org/2000/svg">' +
     '<foreignObject width="100%" height="100%">' +
-    '<div xmlns="http://www.w3.org/1999/xhtml">' +
+    '<div  xmlns="http://www.w3.org/1999/xhtml">' +
+    '<div class="jsplumbcanvas">' +
     '<div id="rtc_source_1" data-sign="rtc_source" data-type="source" class="designIconBig stepsItem t1Style jtk-endpoint-anchor jtk-draggable jtk-connected" style="left: 12px; top: 53px; position: absolute; margin: 0px;"><i class="icon iconfont icon-ir-designIconBg designIconBg"></i> <i id="changeSte" class="icon iconfont icon-ir-d-source"></i> <h4 title="rtc_source">rtc_source</h4> <h5>ID:rtc_source_1</h5> <em id="copeDes" title="复制" class="icon iconfont icon-ir-copy"></em> <em id="removeDes" title="删除" class="fa fa-trash-o"></em></div>' +
+    "</div>" +
     "</div>" +
     "</foreignObject>" +
     "</svg>";

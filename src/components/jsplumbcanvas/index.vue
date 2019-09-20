@@ -102,7 +102,7 @@ export default {
     // this.initJsplumbChartCanvas("canvas");
     this.$nextTick(() => {
       //this.appendItemToJsplumbCanvas(this.stepData);
-        this.initJsplumbChartCanvas("canvas");
+      this.initJsplumbChartCanvas("canvas");
     });
   },
   beforeCreate() {},
