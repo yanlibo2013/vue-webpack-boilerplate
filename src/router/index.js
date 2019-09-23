@@ -65,6 +65,14 @@ export default new Router({
               name: "jsplumbchart"
             },
             {
+              path: "jsplumbhtml2canvas",
+              component: () =>
+                import(
+                  "@/views/Intergration/Flow/template/editor/jsplumbhtml2canvas"
+                ),
+              name: "jsplumbhtml2canvas"
+            },
+            {
               path: "canvas",
               component: () =>
                 import("@/views/Intergration/Flow/template/editor/canvas"),

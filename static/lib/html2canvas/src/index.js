@@ -18,3 +18,6 @@ const VueHtml2Canvas = {
 };
 
 export default VueHtml2Canvas;
+
+
+

@@ -48,9 +48,12 @@ export default {
     //...mapActions([""]),
     async print() {
       const el = this.$refs.printMe;
+     // console.log("el",el);
       // add option type to get the image version
       // if not provided the promise will return
       // the canvas.
+
+      console.log('this.$html2canvas(el, options)',this.$html2canvas(el, options));
       const options = {
         type: "dataURL"
       };
