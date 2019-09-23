@@ -8,6 +8,11 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
+      path: "/html2canvas",
+      name: "html2canvas",
+      component: () => import("@/test/html2canvas/index")
+    },
+    {
       path: "/login",
       name: "Login1",
       component: Login1
@@ -47,22 +52,28 @@ export default new Router({
             },
             {
               path: "flowchart",
-              component: () => import("@/views/Intergration/Flow/template/editor/flowchart"),
+              component: () =>
+                import("@/views/Intergration/Flow/template/editor/flowchart"),
               name: "flowchart"
             },
             {
               path: "jsplumbchart",
-              component: () => import("@/views/Intergration/Flow/template/editor/jsplumbchart"),
+              component: () =>
+                import(
+                  "@/views/Intergration/Flow/template/editor/jsplumbchart"
+                ),
               name: "jsplumbchart"
             },
             {
               path: "canvas",
-              component: () => import("@/views/Intergration/Flow/template/editor/canvas"),
+              component: () =>
+                import("@/views/Intergration/Flow/template/editor/canvas"),
               name: "canvas"
             },
             {
               path: "table",
-              component: () => import("@/views/Intergration/Flow/table/dataflow/index"),
+              component: () =>
+                import("@/views/Intergration/Flow/table/dataflow/index"),
               name: "table"
             }
           ]
