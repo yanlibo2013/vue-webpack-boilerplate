@@ -12,7 +12,7 @@
         v-for="(data,index) in stepData"
         :id="data.id"
         :key="index"
-        :class="'designIconBig stepsItem '+setClass(nodeClass(data.type))"
+        :class="setNodeStyle(data.type)"
         :data-sign="data.name"
         :data-type="data.type"
         :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
@@ -106,9 +106,9 @@ export default {
     //...mapState([""])
   },
   mounted() {
-    let canvas = document.getElementById("cavans");
-    this.initX = canvas.offsetLeft;
-    this.initY = canvas.offsetTop;
+    // let canvas = document.getElementById("cavans");
+    // this.initX = canvas.offsetLeft;
+    // this.initY = canvas.offsetTop;
     // console.log(this.initX,this.initY);
     // this.$nextTick(() => {
     //   //this.setZoomJsplumbChart("cavans");
@@ -377,48 +377,46 @@ export default {
       // console.log("mousewheelCavans", event);
     },
     mousedown(event) {
-      console.log('mousedown(event) {');
-      this.dragging = true;
-      this.mouseDownX = event.pageX;
-      this.mouseDownY = event.pageY;
+      // console.log('mousedown(event) {');
+      // this.dragging = true;
+      // this.mouseDownX = event.pageX;
+      // this.mouseDownY = event.pageY;
       //console.log("mousedown",event);
       // this.addClass(document.body, "jtk-drag-select-defeat");
       // this.addClass(document.getElementById("cavans"), "jtk-surface-panning");
     },
     mouseup(event) {
-      console.log("mouseup(event) {");
-      this.dragging = false;
-      this.mouseDownX = 0;
-      this.mouseDownY = 0;
-      this.mouseMoveX = 0;
-      this.mouseMoveY = 0;
-      this.distanceX = 0;
-      this.distancey = 0;
+      // console.log("mouseup(event) {");
+      // this.dragging = false;
+      // this.mouseDownX = 0;
+      // this.mouseDownY = 0;
+      // this.mouseMoveX = 0;
+      // this.mouseMoveY = 0;
+      // this.distanceX = 0;
+      // this.distancey = 0;
       //console.log("mouseup",event);
       // this.removeClass(document.body, "jtk-drag-select-defeat");
       // this.removeClass(document.getElementById("cavans"), "jtk-surface-panning");
     },
     mousemove(event) {
-      console.log('  mousemove(event) {');
-      if (this.dragging) {
-        // console.log(event.x, event.y);
-        this.mouseMoveX = event.pageX;
-        this.mouseMoveY = event.pageY;
-        let dx = this.mouseMoveX - this.mouseDownX;
-        let dy = this.mouseMoveY - this.mouseDownY;
-        this.distanceX += dx;
-        this.distancey += dy;
-
-        // console.log(this.distanceX, this.distancey);
-
-        this.stepData = _.map(_.cloneDeep(this.stepData), item => {
-          return {
-            ...item,
-            x: item.x + this.distanceX,
-            y: item.y + this.distancey
-          };
-        });
-      }
+      // console.log('  mousemove(event) {');
+      // if (this.dragging) {
+      //   // console.log(event.x, event.y);
+      //   this.mouseMoveX = event.pageX;
+      //   this.mouseMoveY = event.pageY;
+      //   let dx = this.mouseMoveX - this.mouseDownX;
+      //   let dy = this.mouseMoveY - this.mouseDownY;
+      //   this.distanceX += dx;
+      //   this.distancey += dy;
+      //   // console.log(this.distanceX, this.distancey);
+      //   this.stepData = _.map(_.cloneDeep(this.stepData), item => {
+      //     return {
+      //       ...item,
+      //       x: item.x + this.distanceX,
+      //       y: item.y + this.distancey
+      //     };
+      //   });
+      // }
     },
     addClass(ele, cls) {
       if (!this.hasClass(ele, cls)) {
@@ -448,6 +446,14 @@ export default {
         id: "rtc_" + val.type + "_" + (this.stepData.length + 1)
       };
       this.$emit("handleDrop", node);
+    },
+    setNodeStyle(val) {
+      let stepStyle = setClass(nodeClass(val));
+      if (val == "multioutput") {
+        return "designIconBig stepsItem bigrounded " + stepStyle;
+      }
+
+      return "designIconBig stepsItem " + stepStyle;
     }
   }
 };
@@ -602,6 +608,11 @@ export default {
     }
 
     // ////////////////////////node style end///////////////////
+
+    .bigrounded {
+      border-radius: 0 2rem 2rem 0;
+      width: 175px;
+    }
   }
 }
 </style>

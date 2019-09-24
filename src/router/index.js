@@ -21,7 +21,8 @@ export default new Router({
       path: "",
       component: Container,
       // redirect: "layout/flow/flowchart",
-      redirect: "layout/flow/canvas",
+      // redirect: "layout/flow/canvas",
+      redirect: "layout/flow/jsplumbchart",
       children: [
         {
           path: "layout/flow",

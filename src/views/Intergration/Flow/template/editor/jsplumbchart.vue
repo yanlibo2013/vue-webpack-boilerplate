@@ -1,6 +1,7 @@
 <template>
   <div class="jsplumbchart">
     <div class="editor-bar">
+      <el-button type="info" @click="saveData">保存</el-button>
       <el-button type="info" @click="initData">流程</el-button>
       <el-button type="info" @click="reset">清空</el-button>
     </div>
@@ -116,7 +117,32 @@ export default {
       this.flowType = res.flowType;
       this.links = res.links;
 
-      // this.flowData = [];
+      this.flowData = [
+        {
+          id: "rtc_multioutput_1",
+          name: "rtc_multioutput",
+          type: "multioutput",
+          stepSettings: { condition: "aaaa" },
+          inputConfigurations: {
+            input: [
+              {
+                column: "kpi_time",
+                type: "string",
+                alias: "kpi_time",
+                description: ""
+              }
+            ]
+          },
+          outputConfigurations: {
+            output: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ]
+          },
+          x: 307,
+          y: 404
+        },
+        ... this.flowData 
+      ];
       // this.links = [];
     },
     reset() {
@@ -229,6 +255,9 @@ export default {
         default:
           "";
       }
+    },
+    saveData(){
+       console.log(this.links);
     }
   }
 };
