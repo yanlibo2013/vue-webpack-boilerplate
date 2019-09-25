@@ -428,7 +428,9 @@ export const addEndpointToNode = (
       }
 
       if (nodeClass(drawType) == "multioutput") {
-        let anchors = addMultioutput(7);
+        let anchors = addMultioutput(
+          getOutputConfigurations(data.outputConfigurations, _).length
+        );
         _.forEach(anchors, (val, index) => {
           let label = "output" + (index + 1);
           jsplumbInstance.addEndpoint(
@@ -452,7 +454,6 @@ export const addEndpointToNode = (
           );
         });
 
-       
         //left
 
         jsplumbInstance.addEndpoint(
@@ -488,11 +489,22 @@ export const addEndpointToNode = (
   });
 };
 
+export const getOutputConfigurations = (val, _) => {
+  let result = [];
+  _.forEach(val, (value, index) => {
+    result.push(value);
+  });
+  return result;
+};
+
 export const addMultioutput = val => {
   // [1, 0, 0, 0]
 
   if (val == 1) {
     return [[1, 0.5, 0, 0]];
+  }
+  if (val == 2) {
+    return [[1, 0.3, 0, 0], [1, 0.7, 0, 0]];
   }
   let distance = 1 / val;
   let result = [];

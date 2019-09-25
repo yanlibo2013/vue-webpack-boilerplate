@@ -137,14 +137,50 @@ export default {
             ]
           },
           outputConfigurations: {
-            output: [
+            output1: [
               { column: "kpi_time", type: "string", alias: "", description: "" }
-            ]
+            ],
+            output2: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output3: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output4: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output5: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output6: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output7: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output8: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            // output9: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output10: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output11: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output12: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output13: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ]
           },
           x: 307,
           y: 404
         },
-        ... this.flowData 
+        ...this.flowData
       ];
       // this.links = [];
     },
@@ -259,8 +295,8 @@ export default {
           "";
       }
     },
-    saveData(){
-       console.log(this.links);
+    saveData() {
+      console.log(this.links);
     }
   }
 };

@@ -12,7 +12,7 @@
         v-for="(data,index) in stepData"
         :id="data.id"
         :key="index"
-        :class="setNodeStyle(data.type)"
+        :class="setNodeStyle(data)"
         :data-sign="data.name"
         :data-type="data.type"
         :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
@@ -53,7 +53,8 @@ import {
   addEndpointToNode,
   getNodeType,
   setClass,
-  connect
+  connect,
+  getOutputConfigurations
 } from "@/utils/flowchart";
 import panzoom from "panzoom";
 // import "@svgdotjs/svg.panzoom.js";
@@ -448,12 +449,15 @@ export default {
       this.$emit("handleDrop", node);
     },
     setNodeStyle(val) {
-      let stepStyle = setClass(nodeClass(val));
+      let stepStyle = setClass(nodeClass(val.type));
+      let output = val.outputConfigurations
+        ? getOutputConfigurations(val.outputConfigurations, _)
+        : [];
       // if (val == "multioutput") {
       //   return "designIconBig stepsItem bigrounded " + stepStyle;
       // }
 
-      if (val == "multioutput") {
+      if (output.length > 5) {
         return " stepsItem trapezoid ";
       }
       return "designIconBig stepsItem " + stepStyle;
