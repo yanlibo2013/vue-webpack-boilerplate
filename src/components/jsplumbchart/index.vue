@@ -449,10 +449,13 @@ export default {
     },
     setNodeStyle(val) {
       let stepStyle = setClass(nodeClass(val));
-      if (val == "multioutput") {
-        return "designIconBig stepsItem bigrounded " + stepStyle;
-      }
+      // if (val == "multioutput") {
+      //   return "designIconBig stepsItem bigrounded " + stepStyle;
+      // }
 
+      if (val == "multioutput") {
+        return " stepsItem trapezoid ";
+      }
       return "designIconBig stepsItem " + stepStyle;
     }
   }
@@ -480,8 +483,8 @@ export default {
       height: 70px;
       width: 150px;
       margin: 0 auto;
-      padding: 12px;
-      box-sizing: border-box;
+      // padding: 12px;
+      // box-sizing: border-box;
       box-shadow: 0 10px 18px -9px rgba(0, 0, 0, 0.5);
       background: #ffffff;
       text-align: center;
@@ -492,7 +495,8 @@ export default {
       float: left;
     }
 
-    .designIconBig i {
+    .designIconBig i,
+    .trapezoid i {
       float: none !important;
       position: absolute;
       left: 5px;
@@ -503,7 +507,8 @@ export default {
       font-size: 30px !important;
     }
 
-    .designIconBig h4 {
+    .designIconBig h4,
+    .trapezoid h4 {
       position: absolute;
       top: 5px;
       left: 38px;
@@ -518,7 +523,8 @@ export default {
       text-overflow: ellipsis;
     }
 
-    .designIconBig h5 {
+    .designIconBig h5,
+    .trapezoid h5 {
       position: absolute;
       top: 25px;
       left: 38px;
@@ -552,7 +558,28 @@ export default {
       margin: 0px;
       padding: 0px;
     }
-    .designIconBig #pitchOnDes {
+
+    .trapezoid #removeDes {
+      position: absolute;
+      top: 46px;
+      right: -138px;
+      font-size: 14px;
+      color: #b9c0d8;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .trapezoid #copeDes {
+      position: absolute;
+      top: 45px;
+      right: -118px;
+      font-size: 14px;
+      color: #b9c0d8;
+      margin: 0px;
+      padding: 0px;
+    }
+    .designIconBig #pitchOnDes,
+    .trapezoid #pitchOnDes {
       position: absolute;
       top: 47px;
       right: 60px;
@@ -561,7 +588,8 @@ export default {
       margin: 0px;
       padding: 0px;
     }
-    .desingIconBig #markDes {
+    .desingIconBig #markDes,
+    .trapezoid #markDes {
       position: absolute;
       top: 45px;
       right: 20px;
@@ -595,11 +623,13 @@ export default {
       color: #ffffff !important;
     }
 
-    .designIconBig #removeDes:hover {
+    .designIconBig #removeDes:hover,
+    .trapezoid #removeDes:hover {
       color: #ff4e4e;
     }
 
-    .designIconBig #copeDes:hover {
+    .designIconBig #copeDes:hover,
+    .trapezoid #copeDes:hover {
       color: #ff4e4e;
     }
 
@@ -612,6 +642,25 @@ export default {
     .bigrounded {
       border-radius: 0 2rem 2rem 0;
       width: 175px;
+    }
+
+    // .endpointSourceLabelMult {
+    //   transform-origin: bottom left !important;
+    //   transform: rotate(-45deg) !important;
+    // }
+
+    .trapezoid {
+      color: #4586f3;
+      border-right: 150px solid #ffffff;
+      border-top: 50px solid transparent;
+      border-bottom: 50px solid transparent;
+      height: 70px;
+      width: 0px;
+
+      /*边框颜色：上 右 下 左 （从上边框开始 顺时针方向）*/
+      // border-color: transparent transparent #402820 transparent;
+      /*为了兼容IE6，所有设置为透明（transparent）的边，需要设置为dashed；有颜色的边设置为solid*/
+      // border-style: dashed dashed solid dashed;
     }
   }
 }

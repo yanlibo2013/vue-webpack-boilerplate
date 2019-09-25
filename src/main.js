@@ -14,7 +14,7 @@ import "./styles/element-variables.scss";
 import "font-awesome/css/font-awesome.min.css";
 import "./assets/fonts/iconfont.css";
 
-import "./styles/index.scss"; // global css
+// import "./styles/index.scss"; // global css
 
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";

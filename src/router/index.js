@@ -13,6 +13,11 @@ export default new Router({
       component: () => import("@/test/html2canvas/index")
     },
     {
+      path: "/shape",
+      name: "shape",
+      component: () => import("@/test/css3/index")
+    },
+    {
       path: "/login",
       name: "Login1",
       component: Login1

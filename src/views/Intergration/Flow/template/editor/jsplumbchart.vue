@@ -55,6 +55,8 @@ import streamflow from "@/components/flowchart/node/streamflow/index";
 import { flowData } from "mock/data/jsplumbchart/flowData.js";
 import { stepData } from "mock/data/jsplumbchart/stepData.js";
 import jsPlumb from "static/jsPlumb/jsPlumb-2.2.3-min";
+// import plumbGather from "jsplumb";
+
 export default {
   components: {
     rightaside,
@@ -73,6 +75,7 @@ export default {
       newflowdata: [],
       stepList: [],
       jsPlumb: jsPlumb
+      // jsPlumb: plumbGather.jsPlumb
     };
   },
 

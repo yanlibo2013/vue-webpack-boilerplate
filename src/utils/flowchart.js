@@ -132,6 +132,11 @@ export var connectorHoverStyle = {
   outlineWidth: 0
 };
 export var origin = {
+  // anchor:[ "Continuous", { shape:"Rectangle" } ],
+  // anchor: "Static",
+  // anchor: "Dynamic",
+  // anchor: "Perimeter",
+  // anchor: "Continuous",
   //起点
   endpoint: ["Dot", { radius: 8 }], //端点的形状
   connectorStyle: connectorPaintStyle, //连接线的颜色，大小样式
@@ -142,7 +147,7 @@ export var origin = {
     radius: 6,
     lineWidth: 6
   }, //端点的颜色样式
-  //anchor: "AutoDefault",
+  // anchor: "AutoDefault",
   isSource: true, //是否可以拖动（作为连线起点）
   connector: [
     "Flowchart",
@@ -189,6 +194,8 @@ export var outputorigin = {
   maxConnections: 1, // 设置连接点最多可以连接几条线,-1表示无限大
   connectorOverlays: [["Arrow", { width: 10, length: 10, location: 1 }]]
 };
+
+// export const addEndpoint = (jsplumbInstance, anchors) => {};
 
 export const addEndpointToNode = (
   jsplumbInstance,
@@ -421,82 +428,32 @@ export const addEndpointToNode = (
       }
 
       if (nodeClass(drawType) == "multioutput") {
-        // output 1
-        // jsplumbInstance.addEndpoint(
-        //   dataIndex,
-        //   {
-        //     anchors: [1, 0.5, 0, 0],
-        //     maxConnections: -1,
-        //     overlays: [
-        //       [
-        //         "Label",
-        //         {
-        //           location: [1.5, -0.5],
-        //           label: "output1",
-        //           cssClass: "endpointSourceLabel"
-        //         }
-        //       ]
-        //     ]
-        //   },
-        //   { uuid: dataIndex + "output1" + "origin", ...origin }
-        // );
-        //output 2
-        jsplumbInstance.addEndpoint(
-          dataIndex,
-          {
-            anchors: [1, 0.3, 0, 0],
-            maxConnections: -1,
-            overlays: [
-              [
-                "Label",
-                {
-                  location: [1.5, -0.5],
-                  label: "output1",
-                  cssClass: "endpointSourceLabel"
-                }
+        let anchors = addMultioutput(7);
+        _.forEach(anchors, (val, index) => {
+          let label = "output" + (index + 1);
+          jsplumbInstance.addEndpoint(
+            dataIndex,
+            {
+              anchors: val,
+              maxConnections: -1,
+              overlays: [
+                [
+                  "Label",
+                  {
+                    location: [3.5, 0],
+                    // location: index % 2 == 0 ? [3.5, 0] : [-3.5, 0],
+                    label: label,
+                    cssClass: "endpointSourceLabelMult"
+                  }
+                ]
               ]
-            ]
-          },
-          { uuid: dataIndex + "output1" + "origin", ...origin }
-        );
-        jsplumbInstance.addEndpoint(
-          dataIndex,
-          {
-            anchors: [1, 0.7, 0, 0],
-            maxConnections: -1,
-            overlays: [
-              [
-                "Label",
-                {
-                  location: [1.5, 1.3],
-                  label: "output2",
-                  cssClass: "endpointSourceLabel"
-                }
-              ]
-            ]
-          },
-          { uuid: dataIndex + "output2" + "origin", ...origin }
-        );
-        //output >=3
-        // jsplumbInstance.addEndpoint(
-        //   dataIndex,
-        //   {
-        //     anchors: [0.85, 0.02, 0, 0],
-        //     // anchors: [1, 0.3, 0, 0],
-        //     maxConnections: -1,
-        //     overlays: [
-        //       [
-        //         "Label",
-        //         {
-        //           location: [1.5, -0.5],
-        //           label: "output1",
-        //           cssClass: "endpointSourceLabel"
-        //         }
-        //       ]
-        //     ]
-        //   },
-        //   { uuid: dataIndex + "output1" + "origin", ...origin }
-        // );
+            },
+            { uuid: dataIndex + label + "origin", ...origin }
+          );
+        });
+
+       
+        //left
 
         jsplumbInstance.addEndpoint(
           dataIndex,
@@ -506,6 +463,7 @@ export const addEndpointToNode = (
       }
 
       jsplumbInstance.draggable(dataIndex, {
+        // grid: [10, 10],
         // containment: "parent",//cavans
         start(params) {
           // 拖动开始
@@ -530,6 +488,23 @@ export const addEndpointToNode = (
   });
 };
 
+export const addMultioutput = val => {
+  // [1, 0, 0, 0]
+
+  if (val == 1) {
+    return [[1, 0.5, 0, 0]];
+  }
+  let distance = 1 / val;
+  let result = [];
+  let y = 0;
+  for (let j = 0; j < val; j++) {
+    result.push([1, y, 0, 0]);
+    y += distance;
+  }
+
+  return result;
+};
+
 export const connect = (jsplumbInstance, self, links, connectCallback) => {
   self.$nextTick(() => {
     //节点之间连线
@@ -539,6 +514,13 @@ export const connect = (jsplumbInstance, self, links, connectCallback) => {
           item.source + item.sourceOutput + "origin",
           item.target + item.input + "destination"
         ]
+        // paintStyle: { stroke: "lightgray", strokeWidth: 3 },
+        // endpointStyle: {
+        //   fill: "lightgray",
+        //   outlineStroke: "darkgray",
+        //   outlineWidth: 2
+        // },
+        // overlays: [["Arrow", { width: 12, length: 12, location: 0.5 }]]
       });
     });
     connectCallback();
