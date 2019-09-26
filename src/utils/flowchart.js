@@ -519,7 +519,6 @@ export const addDraggable = (jsplumbInstance, dataIndex, callback) => {
 };
 
 export const drawGroup = (jsplumbInstance, data, _, callback) => {
-  
   _.forEach(data, item => {
     addDraggable(jsplumbInstance, item.id, params => {
       let top = params.el.style.top;

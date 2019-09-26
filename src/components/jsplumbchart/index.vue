@@ -10,8 +10,8 @@
     >
       <div
         v-for="(data,index) in stepData"
-        :id="data.id"
         :key="index"
+        :id="data.id"
         :class="setNodeStyle(data)"
         :data-sign="data.name"
         :data-type="data.type"
@@ -134,7 +134,13 @@ export default {
     // });
   },
   beforeCreate() {},
-  created() {},
+  created() {
+    document.onkeydown = e => {
+      if (e.keyCode == 46) {
+        this.delAllselected(this.stepData);
+      }
+    };
+  },
   beforeMount() {},
   beforeUpdate() {},
   updated(p) {
@@ -156,6 +162,11 @@ export default {
   destroyed: function() {},
   methods: {
     //...mapActions([""]),
+    delAllselected(data) {
+      this.stepData = _.filter(data, item => {
+        return !item.isSelected;
+      });
+    },
     deleCopyStepmouseDown() {
       this.isDeleCopyStep = true;
     },
@@ -518,9 +529,9 @@ export default {
       //   return "designIconBig stepsItem bigrounded " + stepStyle;
       // }
 
-      if (output.length > 5) {
-        return " stepsItem trapezoid ";
-      }
+      // if (output.length > 5) {
+      //   return " stepsItem trapezoid ";
+      // }
       return "designIconBig stepsItem " + stepStyle;
     }
   }
