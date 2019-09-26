@@ -81,9 +81,20 @@ export const stepData = [
       input: [{ column: "", type: "", alias: "", description: "" }]
     },
     outputConfigurations: {
-      output1: [{ column: "", type: "", alias: "", description: "" }],
-      output2: [{ column: "", type: "", alias: "", description: "" }],
-      output3: [{ column: "", type: "", alias: "", description: "" }]
+      output1: [{ column: "", type: "", alias: "", description: "" }]
+    }
+  },
+  {
+    id: "rtc_group_chart",
+    name: "rtc_group_chart",
+    type: "group",
+    tags: ["Group", "rtcflow"],
+    stepSettings: {},
+    inputConfigurations: {
+      input: [{ column: "", type: "", alias: "", description: "" }]
+    },
+    outputConfigurations: {
+      output1: [{ column: "", type: "", alias: "", description: "" }]
     }
   }
 ];

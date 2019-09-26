@@ -120,6 +120,9 @@ export default {
       //   console.log(item);
       console.log("元素正在拖动");
     }
+  },
+  updated() {
+    //console.log("rightaside updated");
   }
 };
 </script>
@@ -129,11 +132,10 @@ export default {
   height: 100%;
   padding: 0 10px 10px 10px;
 
-
   .designIcon {
     text-align: center;
     display: inline-block;
-    margin-right: 10px
+    margin-right: 10px;
   }
 
   .designIcon:hover {

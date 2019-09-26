@@ -463,27 +463,71 @@ export const addEndpointToNode = (
         );
       }
 
-      jsplumbInstance.draggable(dataIndex, {
-        // grid: [10, 10],
-        // containment: "parent",//cavans
-        start(params) {
-          // 拖动开始
-          // console.log(params);
-        },
-        drag(params) {
-          // 拖动中
-        },
-        stop(params) {
-          let top = params.el.style.top;
-          let left = params.el.style.left;
-          // // 拖动结束
-          // // console.log("拖动介绍");
-          modifyCurrentNodePosition({
-            x: parseInt(left.replace("px", "")),
-            y: parseInt(top.replace("px", "")),
-            id: params.el.attributes.id.nodeValue
-          });
-        }
+      // jsplumbInstance.draggable(dataIndex, {
+      //   // grid: [10, 10],
+      //   // containment: "parent",//cavans
+      //   start(params) {
+      //     // 拖动开始
+      //     console.log("start");
+      //   },
+      //   drag(params) {
+      //     // 拖动中
+      //     console.log("drag");
+      //   },
+      //   stop(params) {
+      //     console.log("   stop(params) {");
+      //     let top = params.el.style.top;
+      //     let left = params.el.style.left;
+      //     // // 拖动结束
+      //     // // console.log("拖动介绍");
+      //     modifyCurrentNodePosition({
+      //       x: parseInt(left.replace("px", "")),
+      //       y: parseInt(top.replace("px", "")),
+      //       id: params.el.attributes.id.nodeValue
+      //     });
+      //   }
+      // });
+
+      addDraggable(jsplumbInstance, dataIndex, params => {
+        let top = params.el.style.top;
+        let left = params.el.style.left;
+        modifyCurrentNodePosition({
+          x: parseInt(left.replace("px", "")),
+          y: parseInt(top.replace("px", "")),
+          id: params.el.attributes.id.nodeValue
+        });
+      });
+    });
+  });
+};
+
+export const addDraggable = (jsplumbInstance, dataIndex, callback) => {
+  jsplumbInstance.draggable(dataIndex, {
+    // grid: [10, 10],
+    // containment: "parent",//cavans
+    start(params) {
+      // 拖动开始
+      // console.log(params);
+    },
+    drag(params) {
+      // 拖动中
+    },
+    stop(params) {
+      callback(params);
+    }
+  });
+};
+
+export const drawGroup = (jsplumbInstance, data, _, callback) => {
+  
+  _.forEach(data, item => {
+    addDraggable(jsplumbInstance, item.id, params => {
+      let top = params.el.style.top;
+      let left = params.el.style.left;
+      callback({
+        x: left,
+        y: top,
+        id: item.id
       });
     });
   });

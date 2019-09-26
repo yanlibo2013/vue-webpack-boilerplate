@@ -15,6 +15,7 @@
             @handleDrop="handleDrop"
             ref="jsplumbchart"
           ></jsplumbchart>
+          <jsplumbchartgroup :data="{groupData:groupData,jsPlumb:jsPlumb}"></jsplumbchartgroup>
         </drop>
       </div>
       <div class="aside">
@@ -56,11 +57,13 @@ import { flowData } from "mock/data/jsplumbchart/flowData.js";
 import { stepData } from "mock/data/jsplumbchart/stepData.js";
 import jsPlumb from "static/jsPlumb/jsPlumb-2.2.3-min";
 // import plumbGather from "jsplumb";
+import jsplumbchartgroup from "@/components/flowchart/ChartGroup/index";
 
 export default {
   components: {
     rightaside,
-    jsplumbchart
+    jsplumbchart,
+    jsplumbchartgroup
   },
   data() {
     return {
@@ -74,7 +77,8 @@ export default {
       nodeType: "",
       newflowdata: [],
       stepList: [],
-      jsPlumb: jsPlumb
+      jsPlumb: jsPlumb,
+      groupData: []
       // jsPlumb: plumbGather.jsPlumb
     };
   },
@@ -119,6 +123,7 @@ export default {
       this.flowData = res.steps;
       this.flowType = res.flowType;
       this.links = res.links;
+      return;
 
       this.flowData = [
         {
@@ -160,7 +165,7 @@ export default {
             ],
             output8: [
               { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
+            ]
             // output9: [
             //   { column: "kpi_time", type: "string", alias: "", description: "" }
             // ],
@@ -225,7 +230,23 @@ export default {
       });
     },
     handleDrop(val) {
-      this.flowData.push(val.drawIcon ? this.getCurrentNode(val) : val);
+      if (val.drawIcon.type == "group") {
+        let groupItem = val.drawIcon;
+        let groupLabel = groupItem.id + (this.groupData.length + 1);
+        this.groupData.push({
+          //id:jsPlumbUtil.uuid(),
+          id: groupLabel,
+          name: groupLabel,
+          type: groupItem.type,
+          nodeStyle: {
+            top: event.offsetY + "px",
+            left: event.offsetX + "px"
+          }
+        });
+        return;
+      }
+      let item = val.drawIcon ? this.getCurrentNode(val) : val;
+      this.flowData.push(item);
     },
     getCurrentNode(data) {
       let node = {
@@ -296,7 +317,9 @@ export default {
       }
     },
     saveData() {
-      console.log(this.links);
+      console.log("step", this.flowData);
+      console.log("links", this.links);
+      console.log("group", this.groupData);
     }
   }
 };
