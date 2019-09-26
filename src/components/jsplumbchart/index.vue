@@ -387,16 +387,17 @@ export default {
     //   this.$emit("handleDrop", { data: data, event: event });
     // },
     delConnections(val, fn) {
-      fn();
-      this.getLinksData();
-      // message(
-      //   "确定删除当前连线",
-      //   () => {
-      //     fn();
-      //     this.getLinksData();
-      //   },
-      //   this
-      // );
+      console.log(' delConnections(val, fn) {');
+      // fn();
+      //this.getLinksData();
+      message(
+        "确定删除当前连线",
+        () => {
+          fn();
+          this.getLinksData();
+        },
+        this
+      );
     },
     delNode(val) {
       this.stepData = _.filter(_.cloneDeep(this.stepData), item => {

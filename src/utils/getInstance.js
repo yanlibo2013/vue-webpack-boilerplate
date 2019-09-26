@@ -10,6 +10,7 @@ export default function(options) {
   });
 
   instance.bind("click", function(c) {
+    console.log(' instance.bind("click", function(c) {');
     // instance.deleteConnection(c); //instance
     options.delConnections(c, () => {
       //instance.deleteConnection(c); //instance
@@ -18,6 +19,7 @@ export default function(options) {
   });
 
   instance.bind("connection", function(c) {
+    console.log('instance.bind("connection", function(c) {');
     options.completedConnect();
   });
 

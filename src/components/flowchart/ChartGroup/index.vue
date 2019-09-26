@@ -118,10 +118,10 @@ export default {
   },
   updated() {
     this.$nextTick(() => {
-      drawGroup(this.data.jsPlumb, this.data.groupData, _, val => {
-        //console.log(val);
-        this.$emit("modifyGroupData", val);
-      });
+      // drawGroup(this.data.jsPlumb, this.data.groupData, _, val => {
+      //   //console.log(val);
+      //   this.$emit("modifyGroupData", val);
+      // });
     });
   }
 };
