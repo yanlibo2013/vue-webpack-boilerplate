@@ -1,6 +1,7 @@
 <template>
   <div class="jsplumbchart">
     <div class="editor-bar">
+      <el-button type="info" @click="addGroup">add Group</el-button>
       <el-button type="info" @click="saveData">保存</el-button>
       <el-button type="info" @click="initData">流程</el-button>
       <el-button type="info" @click="reset">清空</el-button>
@@ -61,6 +62,7 @@ import { stepData } from "mock/data/jsplumbchart/stepData.js";
 import jsPlumb from "static/jsPlumb/jsPlumb-2.2.3-min";
 // import plumbGather from "jsplumb";
 import jsplumbchartgroup from "@/components/flowchart/ChartGroup/index";
+import { link } from "fs";
 
 export default {
   components: {
@@ -92,6 +94,41 @@ export default {
     this.initData();
   },
   methods: {
+    addGroup() {
+      let selectedStep = this.getSelectedStep(this.flowData);
+      console.log("selectedStep", selectedStep);
+      let selectedlinks = this.getSelectedLinks(selectedStep, this.links);
+      console.log("selectedlinks", selectedlinks);
+    },
+    getSelectedLinks(selectedStep, links) {
+      let result = [];
+      _.forEach(links, link => {
+        if (
+          this.isSource(selectedStep, link.source) &&
+          this.isTarget(selectedStep, link.target)
+        ) {
+          result.push(link);
+        }
+      });
+
+      return result;
+    },
+    find(data, id) {
+      return _.find(data, item => {
+        return item.id == id;
+      });
+    },
+    isSource(selectedStep, sourceId) {
+      return this.find(selectedStep, sourceId);
+    },
+    isTarget(selectedStep, targetId) {
+      return this.find(selectedStep, targetId);
+    },
+    getSelectedStep(val) {
+      return _.filter(val, item => {
+        return item.isSelected;
+      });
+    },
     showDailog() {
       if (this.flowType == "dataflow") {
         this.dialogComponent = dataflow;
