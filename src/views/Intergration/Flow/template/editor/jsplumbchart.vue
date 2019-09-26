@@ -15,7 +15,10 @@
             @handleDrop="handleDrop"
             ref="jsplumbchart"
           ></jsplumbchart>
-          <jsplumbchartgroup :data="{groupData:groupData,jsPlumb:jsPlumb}"></jsplumbchartgroup>
+          <jsplumbchartgroup
+            :data="{groupData:groupData,jsPlumb:jsPlumb}"
+            @modifyGroupData="modifyGroupData"
+          ></jsplumbchartgroup>
         </drop>
       </div>
       <div class="aside">
@@ -208,6 +211,21 @@ export default {
       this.flowData = val.stepData;
       this.links = val.links;
     },
+    modifyGroupData(val) {
+      this.groupData = _.map(this.groupData, item => {
+        if (item.id == val.id) {
+          return {
+            ...item,
+            nodeType: {
+              left: val.x,
+              top: val.y
+            }
+          };
+        } else {
+          return item;
+        }
+      });
+    },
     nodedblClick(val) {},
     getLeftAsideData(data, group) {
       return _.map(group, item => {
@@ -230,7 +248,8 @@ export default {
       });
     },
     handleDrop(val) {
-      if (val.drawIcon.type == "group") {
+      //console.log(" handleDrop(val) {", va);
+      if (val.drawIcon && val.drawIcon.type == "group") {
         let groupItem = val.drawIcon;
         let groupLabel = groupItem.id + (this.groupData.length + 1);
         this.groupData.push({
@@ -245,6 +264,7 @@ export default {
         });
         return;
       }
+
       let item = val.drawIcon ? this.getCurrentNode(val) : val;
       this.flowData.push(item);
     },

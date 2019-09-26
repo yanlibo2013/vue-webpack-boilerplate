@@ -8,7 +8,7 @@
       :group="'g_' + item.id"
       :key="index"
     >
-      <span class="title">{{item.name}}</span>
+      <!-- <span class="title">{{item.name}}</span> -->
       <div class="content"></div>
       <div class="resize top" @mousedown.stop="resize($event, 'top')"></div>
       <div class="resize left" @mousedown.stop="resize($event, 'left')"></div>
@@ -119,7 +119,8 @@ export default {
   updated() {
     this.$nextTick(() => {
       drawGroup(this.data.jsPlumb, this.data.groupData, _, val => {
-        console.log(val);
+        //console.log(val);
+        this.$emit("modifyGroupData", val);
       });
     });
   }

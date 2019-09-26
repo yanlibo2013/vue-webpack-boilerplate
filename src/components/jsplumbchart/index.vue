@@ -17,6 +17,7 @@
         :data-type="data.type"
         :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
         @dblclick="dblClick(data)"
+        @mousedown="selectCurrentStep(data)"
       >
         <i class="icon iconfont icon-ir-designIconBg designIconBg"></i>
         <i
@@ -25,13 +26,13 @@
         ></i>
         <h4 :title="data.name">{{data.name}}</h4>
         <h5>ID:{{data.id}}</h5>
-        <em
-          id="copeDes"
-          class="icon iconfont icon-ir-copy"
-          title="复制"
-          @click.prevent="copyNode(data)"
-        ></em>
-        <em id="removeDes" class="fa fa-trash-o" title="删除" @click="delNode(data.id)"></em>
+        <em id="copeDes" class="icon iconfont icon-ir-copy" title="复制" @click.stop="copyNode(data)"></em>
+        <em id="removeDes" class="fa fa-trash-o" title="删除" @click.stop="delNode(data.id)"></em>
+
+        <div v-show="data.isSelected" class="resize top"></div>
+        <div v-show="data.isSelected" class="resize left"></div>
+        <div v-show="data.isSelected" class="resize bottom"></div>
+        <div v-show="data.isSelected" class="resize right"></div>
       </div>
     </div>
   </div>
@@ -100,7 +101,8 @@ export default {
       initX: "",
       initY: "",
       distanceX: 0,
-      distancey: 0
+      distancey: 0,
+      selectedStepId: ""
     };
   },
   computed: {
@@ -138,6 +140,19 @@ export default {
   destroyed: function() {},
   methods: {
     //...mapActions([""]),
+    selectCurrentStep(val) {
+      this.stepData = _.map(this.stepData, item => {
+        if (val.id == item.id) {
+          return {
+            ...item,
+            isSelected: true
+          };
+        } else {
+          delete item.isSelected;
+          return item;
+        }
+      });
+    },
     resetJsplumbChart() {
       // document.getElementById("cavans").style = "matrix(1, 0, 0, 1, 0, 0)";
       //this.setZoomJsplumbChart("cavans");
@@ -330,25 +345,30 @@ export default {
     //   this.$emit("handleDrop", { data: data, event: event });
     // },
     delConnections(val, fn) {
-      message(
-        "确定删除当前连线",
-        () => {
-          fn();
-          this.getLinksData();
-        },
-        this
-      );
+      fn();
+      this.getLinksData();
+      // message(
+      //   "确定删除当前连线",
+      //   () => {
+      //     fn();
+      //     this.getLinksData();
+      //   },
+      //   this
+      // );
     },
     delNode(val) {
-      message(
-        "确定删除当前节点",
-        () => {
-          this.stepData = _.filter(_.cloneDeep(this.stepData), item => {
-            return item.id != val;
-          });
-        },
-        this
-      );
+      this.stepData = _.filter(_.cloneDeep(this.stepData), item => {
+        return item.id != val;
+      });
+      // message(
+      //   "确定删除当前节点",
+      //   () => {
+      //     this.stepData = _.filter(_.cloneDeep(this.stepData), item => {
+      //       return item.id != val;
+      //     });
+      //   },
+      //   this
+      // );
     },
     dblClick(val) {
       //this.$emit("nodedblClick", val);
@@ -385,6 +405,11 @@ export default {
       //console.log("mousedown",event);
       // this.addClass(document.body, "jtk-drag-select-defeat");
       // this.addClass(document.getElementById("cavans"), "jtk-surface-panning");
+
+      this.stepData = _.map(this.stepData, item => {
+        delete item.isSelected;
+        return item;
+      });
     },
     mouseup(event) {
       // console.log("mouseup(event) {");
@@ -665,6 +690,36 @@ export default {
       // border-color: transparent transparent #402820 transparent;
       /*为了兼容IE6，所有设置为透明（transparent）的边，需要设置为dashed；有颜色的边设置为solid*/
       // border-style: dashed dashed solid dashed;
+    }
+
+    .resize {
+      width: 8px;
+      height: 8px;
+      background-color: #ddd;
+      border: 1px solid #000;
+      position: absolute;
+      &.left {
+        top: 50%;
+        left: -4px;
+        cursor: ew-resize;
+      }
+      &.right {
+        top: 50%;
+        right: -4px;
+        cursor: ew-resize;
+      }
+      &.top {
+        top: -4px;
+        left: 50%;
+        margin-left: -4px;
+        cursor: ns-resize;
+      }
+      &.bottom {
+        bottom: -4px;
+        left: 50%;
+        margin-left: -4px;
+        cursor: ns-resize;
+      }
     }
   }
 }
