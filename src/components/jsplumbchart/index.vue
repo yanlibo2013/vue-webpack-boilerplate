@@ -18,6 +18,8 @@
         :style="'left:'+data.x+'px;top:'+data.y+'px;position:absolute;margin:0'"
         @dblclick="dblClick(data)"
         @mousedown="selectCurrentStep(data)"
+        @mousemove.ctrl="multSe3lectStep(data)"
+        @mouseup="mouseUpStep"
       >
         <i class="icon iconfont icon-ir-designIconBg designIconBg"></i>
         <i
@@ -26,8 +28,20 @@
         ></i>
         <h4 :title="data.name">{{data.name}}</h4>
         <h5>ID:{{data.id}}</h5>
-        <em id="copeDes" class="icon iconfont icon-ir-copy" title="复制" @click.stop="copyNode(data)"></em>
-        <em id="removeDes" class="fa fa-trash-o" title="删除" @click.stop="delNode(data.id)"></em>
+        <em
+          id="copeDes"
+          class="icon iconfont icon-ir-copy"
+          title="复制"
+          @mousedown="deleCopyStepmouseDown"
+          @click.stop="copyNode(data)"
+        ></em>
+        <em
+          id="removeDes"
+          class="fa fa-trash-o"
+          title="删除"
+          @click.stop="delNode(data.id)"
+          @mousedown="deleCopyStepmouseDown"
+        ></em>
 
         <div v-show="data.isSelected" class="resize top"></div>
         <div v-show="data.isSelected" class="resize left"></div>
@@ -102,7 +116,9 @@ export default {
       initY: "",
       distanceX: 0,
       distancey: 0,
-      selectedStepId: ""
+      selectedStepId: "",
+      mulSelect: false,
+      isDeleCopyStep: false
     };
   },
   computed: {
@@ -140,7 +156,19 @@ export default {
   destroyed: function() {},
   methods: {
     //...mapActions([""]),
+    deleCopyStepmouseDown() {
+      this.isDeleCopyStep = true;
+    },
+    mouseUpStep() {
+      this.mulSelect = false;
+    },
+    multSe3lectStep(val) {
+      this.mulSelect = true;
+    },
     selectCurrentStep(val) {
+      if (this.isDeleCopyStep) {
+        return;
+      }
       this.stepData = _.map(this.stepData, item => {
         if (val.id == item.id) {
           return {
@@ -148,7 +176,10 @@ export default {
             isSelected: true
           };
         } else {
-          delete item.isSelected;
+          if (!this.mulSelect) {
+            delete item.isSelected;
+          }
+
           return item;
         }
       });
@@ -360,6 +391,7 @@ export default {
       this.stepData = _.filter(_.cloneDeep(this.stepData), item => {
         return item.id != val;
       });
+      this.isDeleCopyStep = false;
       // message(
       //   "确定删除当前节点",
       //   () => {
@@ -464,7 +496,9 @@ export default {
       return new RegExp(" " + cls + " ").test(" " + elem.className + " ");
     },
 
-    copyNode(val) {
+    copyNode(item) {
+      let val = _.cloneDeep(item);
+      delete val.isSelected;
       let node = {
         ...val,
         x: val.x + 50,
@@ -472,6 +506,8 @@ export default {
         id: "rtc_" + val.type + "_" + (this.stepData.length + 1)
       };
       this.$emit("handleDrop", node);
+      this.isDeleCopyStep = false;
+      //this.mousedown();
     },
     setNodeStyle(val) {
       let stepStyle = setClass(nodeClass(val.type));
