@@ -9,14 +9,23 @@ export default function(options) {
     Container: options.container
   });
 
+  instance.bind("mouseover", function(c) {
+    options.modifyOverConnectStatus(true);
+  });
+
+  instance.bind("mouseout", function(c) {
+    options.modifyOverConnectStatus(false);
+  });
+
   instance.bind("click", function(c) {
-    console.log(' instance.bind("click", function(c) {');
     // instance.deleteConnection(c); //instance
     options.delConnections(c, () => {
-      console.log(" options.delConnections(c, () => {");
+      options.modifyOverConnectStatus(false);
       //instance.deleteConnection(c); //instance
       instance.detach(c);
     });
+
+    c.preventDefault();
   });
 
   instance.bind("connection", function(c) {

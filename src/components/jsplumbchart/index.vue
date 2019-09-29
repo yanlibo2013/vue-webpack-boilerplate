@@ -100,7 +100,8 @@ export default {
         container: "workplace",
         delConnections: this.delConnections,
         completedConnect: this.completedConnect,
-        jsPlumb: this.data.jsPlumb
+        jsPlumb: this.data.jsPlumb,
+        modifyOverConnectStatus: this.modifyOverConnectStatus
       }),
       stepData: [],
       links: [],
@@ -119,7 +120,8 @@ export default {
       distancey: 0,
       selectedStepId: "",
       mulSelect: false,
-      isDeleCopyStep: false
+      isDeleCopyStep: false,
+      mouserOverConnect: false
     };
   },
   computed: {
@@ -140,6 +142,12 @@ export default {
       if (e.keyCode == 46) {
         this.delAllselected(this.stepData);
       }
+    };
+
+    document.onmousedown = e => {
+      console.log(" document.mousedown = e => {");
+
+      this.mousedownBody(e);
     };
   },
   beforeMount() {},
@@ -388,17 +396,17 @@ export default {
     //   this.$emit("handleDrop", { data: data, event: event });
     // },
     delConnections(val, fn) {
-      console.log(" delConnections(val, fn) {", val, fn);
-      // fn();
-      //this.getLinksData();
-      message(
-        "确定删除当前连线",
-        () => {
-          fn();
-          this.getLinksData();
-        },
-        this
-      );
+      //console.log(" delConnections(val, fn) {", val, fn);
+      fn();
+      this.getLinksData();
+      // message(
+      //   "确定删除当前连线",
+      //   () => {
+      //     fn();
+      //     this.getLinksData();
+      //   },
+      //   this
+      // );
     },
     delNode(val) {
       this.stepData = _.filter(_.cloneDeep(this.stepData), item => {
@@ -442,20 +450,15 @@ export default {
     mousewheelCavans(event) {
       // console.log("mousewheelCavans", event);
     },
-    mousedown(event) {
-      console.log("mousedown(event) {");
-      // console.log('mousedown(event) {');
-      // this.dragging = true;
-      // this.mouseDownX = event.pageX;
-      // this.mouseDownY = event.pageY;
-      //console.log("mousedown",event);
-      // this.addClass(document.body, "jtk-drag-select-defeat");
-      // this.addClass(document.getElementById("cavans"), "jtk-surface-panning");
+    mousedownBody(event) {
+      if (this.mouserOverConnect) {
+        return;
+      }
 
-      // this.stepData = _.map(this.stepData, item => {
-      //   delete item.isSelected;
-      //   return item;
-      // });
+      this.stepData = _.map(this.stepData, item => {
+        delete item.isSelected;
+        return item;
+      });
     },
     mouseup(event) {
       // console.log("mouseup(event) {");
@@ -528,14 +531,19 @@ export default {
       let output = val.outputConfigurations
         ? getOutputConfigurations(val.outputConfigurations, _)
         : [];
-      // if (val == "multioutput") {
-      //   return "designIconBig stepsItem bigrounded " + stepStyle;
+      // if (val.type == "multioutput") {
+      //   console.log('if (val == "multioutput") {');
+      //   return " circle-right " + stepStyle;
       // }
 
       // if (output.length > 5) {
       //   return " stepsItem trapezoid ";
       // }
       return "designIconBig stepsItem " + stepStyle;
+    },
+
+    modifyOverConnectStatus(val) {
+      this.mouserOverConnect = val;
     }
   }
 };
@@ -770,6 +778,17 @@ export default {
         margin-left: -4px;
         cursor: ns-resize;
       }
+    }
+
+    .circle-right {
+      width: 100px;
+      height: 0px;
+      border: 0 solid transparent;
+      border-bottom: 100px solid #669;
+      border-top: 100px solid #669;
+      -moz-border-radius: 0 100px 100px 0;
+      -webkit-border-radius: 0 100px 100px 0;
+      border-radius: 0 100px 100px 0;
     }
   }
 }

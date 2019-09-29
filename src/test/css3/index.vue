@@ -39,7 +39,13 @@
     <h1>八角形</h1>
     <div id="octagon"></div>
     <h1>爱心</h1>
-    <div id="heart"></div>
+    <div id="heart" class="heart"></div>
+
+    <h1>circle-right</h1>
+    <div class="circle-right"></div>
+
+    <h1>oval-pop</h1>
+    <div class="oval-pop"></div>
   </div>
 </template>
 
@@ -339,45 +345,72 @@ export default {
     }
   }
   /*爱心*/
-  #heart {
+  .heart {
+    width: 160px;
+    height: 200px;
     position: relative;
-    width: 100px;
-    height: 90px;
-    &:after {
-      left: 0;
-      transform: rotate(45deg);
-      -webkit-transform: rotate(45deg);
-      -moz-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      -o-transform: rotate(45deg);
-      -webkit-transform-origin: 100% 100%;
-      -moz-transform-origin: 100% 100%;
-      -ms-transform-origin: 100% 100%;
-      -o-transform-origin: 100% 100%;
-      transform-origin: 100% 100%;
-    }
   }
-  #heart:before,
-  #heart:after {
-    position: absolute;
-    content: "";
-    left: 50px;
-    top: 0;
-    width: 50px;
-    height: 80px;
-    background: red;
-    -moz-border-radius: 50px 50px 0 0;
-    border-radius: 50px 50px 0 0;
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
+  .heart:before {
+    content: " ";
+    border: 0 solid transparent;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px 100px 0 0;
+    width: 80px;
+    height: 120px;
+    background: #669;
     -moz-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     -o-transform: rotate(-45deg);
-    -webkit-transform-origin: 0 100%;
-    -moz-transform-origin: 0 100%;
-    -ms-transform-origin: 0 100%;
-    -o-transform-origin: 0 100%;
-    transform-origin: 0 100%;
+    -webkit-transform: rotate(-45deg);
+
+    position: absolute;
+    left: 20px;
+  }
+  .heart:after {
+    content: " ";
+    border: 0 solid transparent;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px 100px 0 0;
+    width: 80px;
+    height: 120px;
+    background: #669;
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    position: absolute;
+    left: 48px;
+    top: 0px;
+  }
+
+  .circle-right {
+    width: 100px;
+    height: 0px;
+    border: 0 solid transparent;
+    border-bottom: 100px solid #669;
+    border-top: 100px solid #669;
+    -moz-border-radius: 0 100px 100px 0;
+    -webkit-border-radius: 0 100px 100px 0;
+    border-radius: 0 100px 100px 0;
+  }
+
+  .oval-pop {
+    // width: 200px;
+    // height: 100px;
+    // background: #669;
+    // -moz-border-radius: 100px / 50px;
+    // -webkit-border-radius: 100px / 50px;
+    // border-radius: 100px / 50px;
+    // margin-bottom: 50px;
+    // position: relative;
+
+    width: 550px;
+    height: 70px;
+    margin: 50px;
+    background: #669;
+    border-radius: 50% / 100% 100% 0 0;
   }
 }
 </style>
