@@ -62,7 +62,7 @@ import { stepData } from "mock/data/jsplumbchart/stepData.js";
 import jsPlumb from "static/jsPlumb/jsPlumb-2.2.3-min";
 // import plumbGather from "jsplumb";
 import jsplumbchartgroup from "@/components/flowchart/ChartGroup/index";
-import { link } from "fs";
+// import { link } from "fs";
 
 export default {
   components: {

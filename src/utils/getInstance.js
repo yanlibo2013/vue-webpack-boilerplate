@@ -13,13 +13,13 @@ export default function(options) {
     console.log(' instance.bind("click", function(c) {');
     // instance.deleteConnection(c); //instance
     options.delConnections(c, () => {
+      console.log(" options.delConnections(c, () => {");
       //instance.deleteConnection(c); //instance
       instance.detach(c);
     });
   });
 
   instance.bind("connection", function(c) {
-    console.log('instance.bind("connection", function(c) {');
     options.completedConnect();
   });
 

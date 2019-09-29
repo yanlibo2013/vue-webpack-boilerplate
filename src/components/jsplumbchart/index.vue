@@ -1,13 +1,14 @@
 <template>
   <div class="jsplumb-chart">
-    <div
+    <!-- <div
       class="cavans jtk-surface jsplumb-droppable"
       id="cavans"
       @mousewheel="mousewheelCavans"
       @mousedown="mousedown"
       @mouseup="mouseup"
       @mousemove="mousemove"
-    >
+    >-->
+    <div class="cavans jtk-surface jsplumb-droppable" id="cavans">
       <div
         v-for="(data,index) in stepData"
         :key="index"
@@ -442,6 +443,7 @@ export default {
       // console.log("mousewheelCavans", event);
     },
     mousedown(event) {
+      console.log("mousedown(event) {");
       // console.log('mousedown(event) {');
       // this.dragging = true;
       // this.mouseDownX = event.pageX;
@@ -450,10 +452,10 @@ export default {
       // this.addClass(document.body, "jtk-drag-select-defeat");
       // this.addClass(document.getElementById("cavans"), "jtk-surface-panning");
 
-      this.stepData = _.map(this.stepData, item => {
-        delete item.isSelected;
-        return item;
-      });
+      // this.stepData = _.map(this.stepData, item => {
+      //   delete item.isSelected;
+      //   return item;
+      // });
     },
     mouseup(event) {
       // console.log("mouseup(event) {");
