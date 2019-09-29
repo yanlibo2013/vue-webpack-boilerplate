@@ -387,7 +387,7 @@ export default {
     //   this.$emit("handleDrop", { data: data, event: event });
     // },
     delConnections(val, fn) {
-      console.log(' delConnections(val, fn) {');
+      console.log(" delConnections(val, fn) {", val, fn);
       // fn();
       //this.getLinksData();
       message(
