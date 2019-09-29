@@ -145,8 +145,6 @@ export default {
     };
 
     document.onmousedown = e => {
-      console.log(" document.mousedown = e => {");
-
       this.mousedownBody(e);
     };
   },
@@ -558,6 +556,7 @@ export default {
   position: absolute;
 
   .cavans {
+    // z-index: 0;
     height: 100%;
     width: 100%;
     // width: 1000000000000000000000000000000px;
