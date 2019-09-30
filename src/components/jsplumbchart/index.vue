@@ -1,5 +1,5 @@
 <template>
-  <div class="jsplumb-chart">
+  <div class="jsplumb-chart" id="jsplumbchart">
     <!-- <div
       class="cavans jtk-surface jsplumb-droppable"
       id="cavans"
@@ -520,7 +520,7 @@ export default {
       };
 
       //元素的鼠标落下事件
-       let divs = document.getElementById("cavans");
+      let cavans = document.getElementById("jsplumbchart");
       //let cavans = document.getElementById("cavans");
       // let divs = document.getElementById("cavans");
       // let divs = document.getElementById("rtc_multioutput_1");
@@ -529,7 +529,7 @@ export default {
         //event的兼容性
         // var ev = ev || event;
 
-        let divs = document.getElementById("rtc_multioutput_1");
+        let divs = document.getElementById("cavans");
 
         //获取鼠标按下的坐标
         var x1 = ev.clientX;
@@ -560,10 +560,20 @@ export default {
           //移动的数值与元素的left，top相加，得出元素的移动的距离
           lt = y + t;
           ls = x + l;
+
+          // top: 38px;
+          // left: 145px;
+          // width: 50px;
+          // height: 50px;
+          // position: relative;
+          // transform: scale(0.993667);
+          // transform-origin: 148% 494%;
           //更改元素的left，top值
           divs.style.top = lt + "px";
           divs.style.left = ls + "px";
-          divs.style.position = "";
+          divs.style.width = "50px";
+          divs.style.height = "50px";
+          divs.style.position = "relative";
           //console.log(lt, ls);
         };
 
@@ -571,17 +581,17 @@ export default {
         document.onmouseup = function(ev) {
           document.onmousemove = null;
 
-          this.stepData = _.map(this.stepData, item => {
-            return {
-              ...item,
-              x: ls,
-              y: lt
-            };
-          });
+          // this.stepData = _.map(this.stepData, item => {
+          //   return {
+          //     ...item,
+          //     x: ls,
+          //     y: lt
+          //   };
+          // });
 
           // divs.style.top = "0px";
           // divs.style.left = "0px";
-          divs.style.position = "";
+          //divs.style.position = "";
         };
       };
     },
@@ -628,14 +638,19 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
+  cursor: -webkit-grab;
 
   .cavans {
     // z-index: 0;
-    height: 100%;
-    width: 100%;
-    // background: #4586f3;
+    // height: 100%;
+    // width: 100%;
+    background: #4586f3;
+    top: 20px;
+    left: 20px;
+    height: 50px;
+    width: 50px;
     position: relative;
-    cursor: -webkit-grab;
+    // cursor: -webkit-grab;
 
     // ////////////////////////node style begin///////////////////
     .designIconBig {
