@@ -8,7 +8,7 @@
       @mouseup="mouseup"
       @mousemove="mousemove"
     >-->
-    <div class="cavans jtk-surface jsplumb-droppable" id="cavans">
+    <div class="cavans jtk-surface jsplumb-droppable" id="cavans" @mousewheel="mousewheelCavans">
       <div
         v-for="(data,index) in stepData"
         :key="index"
@@ -132,22 +132,14 @@ export default {
     // this.initX = canvas.offsetLeft;
     // this.initY = canvas.offsetTop;
     // console.log(this.initX,this.initY);
-    // this.$nextTick(() => {
-    //   //this.setZoomJsplumbChart("cavans");
-    // });
+    this.$nextTick(() => {
+      console.log(" this.$nextTick(() => { mounted");
+      //this.setZoomJsplumbChart("cavans");
+      this.initEvent();
+    });
   },
   beforeCreate() {},
-  created() {
-    document.onkeydown = e => {
-      if (e.keyCode == 46) {
-        this.delAllselected(this.stepData);
-      }
-    };
-
-    document.onmousedown = e => {
-      this.mousedownBody(e);
-    };
-  },
+  created() {},
   beforeMount() {},
   beforeUpdate() {},
   updated(p) {
@@ -446,7 +438,7 @@ export default {
       this.jsplumbInstance.deleteEveryEndpoint("workplace");
     },
     mousewheelCavans(event) {
-      // console.log("mousewheelCavans", event);
+      console.log("mousewheelCavans", event);
     },
     mousedownBody(event) {
       if (this.mouserOverConnect) {
@@ -460,36 +452,9 @@ export default {
     },
     mouseup(event) {
       // console.log("mouseup(event) {");
-      // this.dragging = false;
-      // this.mouseDownX = 0;
-      // this.mouseDownY = 0;
-      // this.mouseMoveX = 0;
-      // this.mouseMoveY = 0;
-      // this.distanceX = 0;
-      // this.distancey = 0;
-      //console.log("mouseup",event);
-      // this.removeClass(document.body, "jtk-drag-select-defeat");
-      // this.removeClass(document.getElementById("cavans"), "jtk-surface-panning");
     },
     mousemove(event) {
-      // console.log('  mousemove(event) {');
-      // if (this.dragging) {
-      //   // console.log(event.x, event.y);
-      //   this.mouseMoveX = event.pageX;
-      //   this.mouseMoveY = event.pageY;
-      //   let dx = this.mouseMoveX - this.mouseDownX;
-      //   let dy = this.mouseMoveY - this.mouseDownY;
-      //   this.distanceX += dx;
-      //   this.distancey += dy;
-      //   // console.log(this.distanceX, this.distancey);
-      //   this.stepData = _.map(_.cloneDeep(this.stepData), item => {
-      //     return {
-      //       ...item,
-      //       x: item.x + this.distanceX,
-      //       y: item.y + this.distancey
-      //     };
-      //   });
-      // }
+      console.log("  mousemove(event) {");
     },
     addClass(ele, cls) {
       if (!this.hasClass(ele, cls)) {
@@ -542,6 +507,114 @@ export default {
 
     modifyOverConnectStatus(val) {
       this.mouserOverConnect = val;
+    },
+    initEvent() {
+      document.onkeydown = e => {
+        if (e.keyCode == 46) {
+          this.delAllselected(this.stepData);
+        }
+      };
+
+      document.onmousedown = e => {
+        this.mousedownBody(e);
+      };
+
+      //元素的鼠标落下事件
+      //let cavans = document.getElementById("cavans");
+      let divs = document.getElementById("cavans");
+      // let divs = document.getElementById("rtc_multioutput_1");
+      cavans.onmousedown = ev => {
+        console.log(' document.getElementById("cavans").onmousedown = ev => {');
+        //event的兼容性
+        // var ev = ev || event;
+
+        //let divs = document.getElementById("rtc_multioutput_1");
+
+        //获取鼠标按下的坐标
+        var x1 = ev.clientX;
+        var y1 = ev.clientY;
+
+        //获取元素的left，top值
+        var l = divs.offsetLeft;
+        var t = divs.offsetTop;
+        var lt = 0;
+        var ls = 0;
+
+        // _.forEach(this.stepData, val => {
+        //   console.log(val);
+        //   console.log(document.getElementById(val.id));
+        // });
+
+        //给可视区域添加鼠标的移动事件
+        document.onmousemove = ev => {
+          //console.log("document.onmousemove = ev => {");
+          //event的兼容性
+          var ev = ev || event;
+          //获取鼠标移动时的坐标
+          var x2 = ev.clientX;
+          var y2 = ev.clientY;
+          //计算出鼠标的移动距离
+          var x = x2 - x1;
+          var y = y2 - y1;
+          //移动的数值与元素的left，top相加，得出元素的移动的距离
+          lt = y + t;
+          ls = x + l;
+          //更改元素的left，top值
+          divs.style.top = lt + "px";
+          divs.style.left = ls + "px";
+          divs.style.position = "";
+          //console.log(lt, ls);
+        };
+
+        //清除
+        document.onmouseup = function(ev) {
+          document.onmousemove = null;
+
+          this.stepData = _.map(this.stepData, item => {
+            return {
+              ...item,
+              x: ls,
+              y: lt
+            };
+          });
+
+          // divs.style.top = "0px";
+          // divs.style.left = "0px";
+          divs.style.position = "";
+        };
+      };
+    },
+    dragAllEelment(x1, y1, elem) {
+      var l = document.getElementById(elem).offsetLeft;
+      var t = document.getElementById(elem).offsetTop;
+
+      console.log("document.onmousemove = ev => {", l, t);
+      //event的兼容性
+      var ev = ev || event;
+      //获取鼠标移动时的坐标
+      var x2 = ev.clientX;
+      var y2 = ev.clientY;
+      //计算出鼠标的移动距离
+      var x = x2 - x1;
+      var y = y2 - y1;
+      //移动的数值与元素的left，top相加，得出元素的移动的距离
+      var lt = y + t;
+      var ls = x + l;
+      //更改元素的left，top值
+      // divs.style.top = lt + "px";
+      // divs.style.left = ls + "px";
+
+      // this.stepData = _.map(this.stepData, item => {
+      //   if (item.id == elem) {
+      //     return {
+      //       ...item,
+      //       x: ls,
+      //       y: lt
+      //     };
+      //   } else {
+      //     return item;
+      //   }
+      // });
     }
   }
 };
@@ -559,8 +632,7 @@ export default {
     // z-index: 0;
     height: 100%;
     width: 100%;
-    // width: 1000000000000000000000000000000px;
-    // height: 1000000000000000000000000000000px;
+    // background: #4586f3;
     position: relative;
     cursor: -webkit-grab;
 

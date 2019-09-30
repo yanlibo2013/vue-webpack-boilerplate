@@ -29,6 +29,7 @@ export default function(options) {
   });
 
   instance.bind("connection", function(c) {
+    options.modifyOverConnectStatus(false);
     options.completedConnect();
   });
 
