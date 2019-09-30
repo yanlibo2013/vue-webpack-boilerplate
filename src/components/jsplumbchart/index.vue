@@ -8,7 +8,7 @@
       @mouseup="mouseup"
       @mousemove="mousemove"
     >-->
-    <div class="cavans jtk-surface jsplumb-droppable" id="cavans" @mousewheel="mousewheelCavans">
+    <div class="cavans jtk-surface jsplumb-droppable" id="cavans">
       <div
         v-for="(data,index) in stepData"
         :key="index"
@@ -520,15 +520,16 @@ export default {
       };
 
       //元素的鼠标落下事件
+       let divs = document.getElementById("cavans");
       //let cavans = document.getElementById("cavans");
-      let divs = document.getElementById("cavans");
+      // let divs = document.getElementById("cavans");
       // let divs = document.getElementById("rtc_multioutput_1");
       cavans.onmousedown = ev => {
         console.log(' document.getElementById("cavans").onmousedown = ev => {');
         //event的兼容性
         // var ev = ev || event;
 
-        //let divs = document.getElementById("rtc_multioutput_1");
+        let divs = document.getElementById("rtc_multioutput_1");
 
         //获取鼠标按下的坐标
         var x1 = ev.clientX;

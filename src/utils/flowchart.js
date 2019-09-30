@@ -428,6 +428,7 @@ export const addEndpointToNode = (
       }
 
       if (nodeClass(drawType) == "multioutput") {
+        return;
         let anchors = addMultioutput(
           getOutputConfigurations(data.outputConfigurations, _).length
         );
