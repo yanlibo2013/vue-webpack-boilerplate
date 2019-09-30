@@ -163,7 +163,7 @@ export default {
       this.flowData = res.steps;
       this.flowType = res.flowType;
       this.links = res.links;
-      // return;
+      return;
 
       this.flowData = [
         {

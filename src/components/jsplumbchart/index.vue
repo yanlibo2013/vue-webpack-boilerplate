@@ -520,24 +520,24 @@ export default {
       };
 
       //元素的鼠标落下事件
-      let cavans = document.getElementById("jsplumbchart");
+      let jsplumbchart = document.getElementById("jsplumbchart");
       //let cavans = document.getElementById("cavans");
       // let divs = document.getElementById("cavans");
       // let divs = document.getElementById("rtc_multioutput_1");
-      cavans.onmousedown = ev => {
+      jsplumbchart.onmousedown = ev => {
         console.log(' document.getElementById("cavans").onmousedown = ev => {');
         //event的兼容性
         // var ev = ev || event;
 
-        let divs = document.getElementById("cavans");
+        let cavans = document.getElementById("cavans");
 
         //获取鼠标按下的坐标
         var x1 = ev.clientX;
         var y1 = ev.clientY;
 
         //获取元素的left，top值
-        var l = divs.offsetLeft;
-        var t = divs.offsetTop;
+        var l = cavans.offsetLeft;
+        var t = cavans.offsetTop;
         var lt = 0;
         var ls = 0;
 
@@ -569,11 +569,11 @@ export default {
           // transform: scale(0.993667);
           // transform-origin: 148% 494%;
           //更改元素的left，top值
-          divs.style.top = lt + "px";
-          divs.style.left = ls + "px";
-          divs.style.width = "50px";
-          divs.style.height = "50px";
-          divs.style.position = "relative";
+          cavans.style.top = lt + "px";
+          cavans.style.left = ls + "px";
+          cavans.style.width = "50px";
+          cavans.style.height = "50px";
+          cavans.style.position = "relative";
           //console.log(lt, ls);
         };
 
