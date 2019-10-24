@@ -36,6 +36,9 @@
           @mousedown="deleCopyStepmouseDown"
         ></em>
 
+        <!-- line split -->
+        <div class="line-split" v-show="data.type=='multioutput'"></div>
+
         <div v-show="data.isSelected" class="resize top"></div>
         <div v-show="data.isSelected" class="resize left"></div>
         <div v-show="data.isSelected" class="resize bottom"></div>
@@ -483,9 +486,9 @@ export default {
     },
     setNodeStyle(val) {
       let stepStyle = setClass(nodeClass(val.type));
-      let output = val.outputConfigurations
-        ? getOutputConfigurations(val.outputConfigurations, _)
-        : [];
+      // let output = val.outputConfigurations
+      //   ? getOutputConfigurations(val.outputConfigurations, _)
+      //   : [];
       // if (val.type == "multioutput") {
       //   console.log('if (val == "multioutput") {');
       //   return " circle-right " + stepStyle;
@@ -869,6 +872,15 @@ export default {
       -webkit-border-radius: 0 100px 100px 0;
       border-radius: 0 100px 100px 0;
     }
+  }
+
+  .line-split {
+    position: absolute;
+    height: 330px;
+    width: 2px;
+    background: #4586f3;
+    right: -2px;
+    top: -120px;
   }
 }
 </style>

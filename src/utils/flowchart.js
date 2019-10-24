@@ -428,7 +428,7 @@ export const addEndpointToNode = (
       }
 
       if (nodeClass(drawType) == "multioutput") {
-        return;
+        //return;
         let anchors = addMultioutput(
           getOutputConfigurations(data.outputConfigurations, _).length
         );
@@ -541,18 +541,40 @@ export const getOutputConfigurations = (val, _) => {
   return result;
 };
 
+// 参数 val output 个数
 export const addMultioutput = val => {
+  //右边多输出 [1,20] 默认或者最小为1，上限20
   // [1, 0, 0, 0]
 
-  if (val == 1) {
-    return [[1, 0.5, 0, 0]];
-  }
-  if (val == 2) {
-    return [[1, 0.3, 0, 0], [1, 0.7, 0, 0]];
-  }
-  let distance = 1 / val;
-  let result = [];
+  let lineheight = 1;
   let y = 0;
+
+  if (
+    val == 20 ||
+    val == 19 ||
+    val == 18 ||
+    val == 17 ||
+    val == 16 ||
+    val == 15
+  ) {
+    lineheight = 4.5;
+    y = -1.5;
+  }
+
+  if(val==14){
+    lineheight = 4;
+    y = -1;
+  }
+
+  // if (val == 1) {
+  //   return [[1, 0.5, 0, 0]];
+  // }
+  // if (val == 2) {
+  //   return [[1, 0.3, 0, 0], [1, 0.7, 0, 0]];
+  // }
+  let distance = lineheight / val;
+  let result = [];
+
   for (let j = 0; j < val; j++) {
     result.push([1, y, 0, 0]);
     y += distance;

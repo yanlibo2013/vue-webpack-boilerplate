@@ -161,9 +161,9 @@ export default {
       let res = _.cloneDeep(flowData);
 
       this.flowData = res.steps;
-      this.flowType = res.flowType;
+      // this.flowType = res.flowType;
       this.links = res.links;
-      return;
+      // return;
 
       this.flowData = [
         {
@@ -205,20 +205,41 @@ export default {
             ],
             output8: [
               { column: "kpi_time", type: "string", alias: "", description: "" }
-            ]
-            // output9: [
+            ],
+            output9: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output10: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output11: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output12: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output13: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output14: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            // output15: [
             //   { column: "kpi_time", type: "string", alias: "", description: "" }
             // ],
-            // output10: [
+            // output16: [
             //   { column: "kpi_time", type: "string", alias: "", description: "" }
             // ],
-            // output11: [
+            // output17: [
             //   { column: "kpi_time", type: "string", alias: "", description: "" }
             // ],
-            // output12: [
+            // output18: [
             //   { column: "kpi_time", type: "string", alias: "", description: "" }
             // ],
-            // output13: [
+            // output19: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output120: [
             //   { column: "kpi_time", type: "string", alias: "", description: "" }
             // ]
           },
@@ -228,6 +249,10 @@ export default {
         ...this.flowData
       ];
       // this.links = [];
+
+      //右边多输出 [1,20] 默认或者最小为1，上限20
+
+
     },
     reset() {
       this.flowData = [];
