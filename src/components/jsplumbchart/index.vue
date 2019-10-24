@@ -1,13 +1,5 @@
 <template>
   <div class="jsplumb-chart" id="jsplumbchart">
-    <!-- <div
-      class="cavans jtk-surface jsplumb-droppable"
-      id="cavans"
-      @mousewheel="mousewheelCavans"
-      @mousedown="mousedown"
-      @mouseup="mouseup"
-      @mousemove="mousemove"
-    >-->
     <div class="cavans jtk-surface jsplumb-droppable" id="cavans">
       <div
         v-for="(data,index) in stepData"
@@ -133,7 +125,7 @@ export default {
     // this.initY = canvas.offsetTop;
     // console.log(this.initX,this.initY);
     this.$nextTick(() => {
-      console.log(" this.$nextTick(() => { mounted");
+      //console.log(" this.$nextTick(() => { mounted");
       //this.setZoomJsplumbChart("cavans");
       this.initEvent();
     });
@@ -519,81 +511,81 @@ export default {
         this.mousedownBody(e);
       };
 
-      //元素的鼠标落下事件
-      let jsplumbchart = document.getElementById("jsplumbchart");
-      //let cavans = document.getElementById("cavans");
-      // let divs = document.getElementById("cavans");
-      // let divs = document.getElementById("rtc_multioutput_1");
-      jsplumbchart.onmousedown = ev => {
-        console.log(' document.getElementById("cavans").onmousedown = ev => {');
-        //event的兼容性
-        // var ev = ev || event;
+      // //元素的鼠标落下事件
+      // let jsplumbchart = document.getElementById("jsplumbchart");
+      // //let cavans = document.getElementById("cavans");
+      // // let divs = document.getElementById("cavans");
+      // // let divs = document.getElementById("rtc_multioutput_1");
+      // jsplumbchart.onmousedown = ev => {
+      //   console.log(' document.getElementById("cavans").onmousedown = ev => {');
+      //   //event的兼容性
+      //   // var ev = ev || event;
 
-        let cavans = document.getElementById("cavans");
+      //   let cavans = document.getElementById("cavans");
 
-        //获取鼠标按下的坐标
-        var x1 = ev.clientX;
-        var y1 = ev.clientY;
+      //   //获取鼠标按下的坐标
+      //   var x1 = ev.clientX;
+      //   var y1 = ev.clientY;
 
-        //获取元素的left，top值
-        var l = cavans.offsetLeft;
-        var t = cavans.offsetTop;
-        var lt = 0;
-        var ls = 0;
+      //   //获取元素的left，top值
+      //   var l = cavans.offsetLeft;
+      //   var t = cavans.offsetTop;
+      //   var lt = 0;
+      //   var ls = 0;
 
-        // _.forEach(this.stepData, val => {
-        //   console.log(val);
-        //   console.log(document.getElementById(val.id));
-        // });
+      //   // _.forEach(this.stepData, val => {
+      //   //   console.log(val);
+      //   //   console.log(document.getElementById(val.id));
+      //   // });
 
-        //给可视区域添加鼠标的移动事件
-        document.onmousemove = ev => {
-          //console.log("document.onmousemove = ev => {");
-          //event的兼容性
-          var ev = ev || event;
-          //获取鼠标移动时的坐标
-          var x2 = ev.clientX;
-          var y2 = ev.clientY;
-          //计算出鼠标的移动距离
-          var x = x2 - x1;
-          var y = y2 - y1;
-          //移动的数值与元素的left，top相加，得出元素的移动的距离
-          lt = y + t;
-          ls = x + l;
+      //   //给可视区域添加鼠标的移动事件
+      //   document.onmousemove = ev => {
+      //     //console.log("document.onmousemove = ev => {");
+      //     //event的兼容性
+      //     var ev = ev || event;
+      //     //获取鼠标移动时的坐标
+      //     var x2 = ev.clientX;
+      //     var y2 = ev.clientY;
+      //     //计算出鼠标的移动距离
+      //     var x = x2 - x1;
+      //     var y = y2 - y1;
+      //     //移动的数值与元素的left，top相加，得出元素的移动的距离
+      //     lt = y + t;
+      //     ls = x + l;
 
-          // top: 38px;
-          // left: 145px;
-          // width: 50px;
-          // height: 50px;
-          // position: relative;
-          // transform: scale(0.993667);
-          // transform-origin: 148% 494%;
-          //更改元素的left，top值
-          cavans.style.top = lt + "px";
-          cavans.style.left = ls + "px";
-          cavans.style.width = "50px";
-          cavans.style.height = "50px";
-          cavans.style.position = "relative";
-          //console.log(lt, ls);
-        };
+      //     // top: 38px;
+      //     // left: 145px;
+      //     // width: 50px;
+      //     // height: 50px;
+      //     // position: relative;
+      //     // transform: scale(0.993667);
+      //     // transform-origin: 148% 494%;
+      //     //更改元素的left，top值
+      //     cavans.style.top = lt + "px";
+      //     cavans.style.left = ls + "px";
+      //     cavans.style.width = "50px";
+      //     cavans.style.height = "50px";
+      //     cavans.style.position = "relative";
+      //     //console.log(lt, ls);
+      //   };
 
-        //清除
-        document.onmouseup = function(ev) {
-          document.onmousemove = null;
+      //   //清除
+      //   document.onmouseup = function(ev) {
+      //     document.onmousemove = null;
 
-          // this.stepData = _.map(this.stepData, item => {
-          //   return {
-          //     ...item,
-          //     x: ls,
-          //     y: lt
-          //   };
-          // });
+      //     // this.stepData = _.map(this.stepData, item => {
+      //     //   return {
+      //     //     ...item,
+      //     //     x: ls,
+      //     //     y: lt
+      //     //   };
+      //     // });
 
-          // divs.style.top = "0px";
-          // divs.style.left = "0px";
-          //divs.style.position = "";
-        };
-      };
+      //     // divs.style.top = "0px";
+      //     // divs.style.left = "0px";
+      //     //divs.style.position = "";
+      //   };
+      // };
     },
     dragAllEelment(x1, y1, elem) {
       var l = document.getElementById(elem).offsetLeft;
@@ -642,13 +634,13 @@ export default {
 
   .cavans {
     // z-index: 0;
-    // height: 100%;
-    // width: 100%;
-    background: #4586f3;
-    top: 20px;
-    left: 20px;
-    height: 50px;
-    width: 50px;
+    height: 100%;
+    width: 100%;
+    // background: #4586f3;
+    // top: 20px;
+    // left: 20px;
+    // height: 50px;
+    // width: 50px;
     position: relative;
     // cursor: -webkit-grab;
 
