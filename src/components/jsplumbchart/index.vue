@@ -37,7 +37,7 @@
         ></em>
 
         <!-- line split -->
-        <div class="line-split" v-show="data.type=='multioutput'"></div>
+        <div class="line-split" v-show="data.type=='multioutput'" :style="setLineSplit(data)"></div>
 
         <div v-show="data.isSelected" class="resize top"></div>
         <div v-show="data.isSelected" class="resize left"></div>
@@ -621,6 +621,31 @@ export default {
       //     return item;
       //   }
       // });
+    },
+    setLineSplit(step) {
+      console.log("setLineSplit(step){", step); //outputConfigurations
+
+      if (step.type == "multioutput") {
+        let outputConfigurations = _.toArray(step.outputConfigurations);
+        console.log("step.outputConfigurations", step.outputConfigurations);
+        console.log("outputConfigurations", outputConfigurations);
+
+        switch (outputConfigurations.length) {
+          case 20:
+          case 19:
+          case 18:
+          case 17:
+          case 16:
+          case 15:
+            return "height: 330px; top: -120px;";
+          case 14:
+            return "height: 290px; top: -110px;";
+          default:
+            "";
+        }
+
+        //if(outputConfigurations.length==)
+      }
     }
   }
 };
@@ -876,11 +901,11 @@ export default {
 
   .line-split {
     position: absolute;
-    height: 330px;
+    // height: 330px;
     width: 2px;
     background: #4586f3;
     right: -2px;
-    top: -120px;
+    // top: -120px;
   }
 }
 </style>

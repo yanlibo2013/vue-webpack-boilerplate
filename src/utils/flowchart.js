@@ -549,21 +549,39 @@ export const addMultioutput = val => {
   let lineheight = 1;
   let y = 0;
 
-  if (
-    val == 20 ||
-    val == 19 ||
-    val == 18 ||
-    val == 17 ||
-    val == 16 ||
-    val == 15
-  ) {
-    lineheight = 4.5;
-    y = -1.5;
-  }
+  // if (
+  //   val == 20 ||
+  //   val == 19 ||
+  //   val == 18 ||
+  //   val == 17 ||
+  //   val == 16 ||
+  //   val == 15
+  // ) {
+  //   lineheight = 4.5;
+  //   y = -1.5;
+  // }
 
-  if(val==14){
-    lineheight = 4;
-    y = -1;
+  // if(val==14){
+  //   lineheight = 4;
+  //   y = -1;
+  // }
+
+  switch (val) {
+    case 20:
+    case 19:
+    case 18:
+    case 17:
+    case 16:
+    case 15:
+      lineheight = 4.5;
+      y = -1.5;
+      break;
+    case 14:
+      lineheight = 4;
+      y = -1;
+      break;
+    default:
+      "";
   }
 
   // if (val == 1) {
