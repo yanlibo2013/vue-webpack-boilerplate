@@ -185,45 +185,50 @@ export default {
             output1: [
               { column: "kpi_time", type: "string", alias: "", description: "" }
             ],
-            output2: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output3: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output4: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output5: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output6: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output7: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output8: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output9: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output10: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output11: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output12: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output13: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
-            output14: [
-              { column: "kpi_time", type: "string", alias: "", description: "" }
-            ],
+            // output2: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output3: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output4: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            //5~6
+            // output5: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output6: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            //7~9
+            // output7: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output8: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output9: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // 10~14
+            //   output10: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output11: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output12: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output13: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+            // output14: [
+            //   { column: "kpi_time", type: "string", alias: "", description: "" }
+            // ],
+
+            // 15~20
             // output15: [
             //   { column: "kpi_time", type: "string", alias: "", description: "" }
             // ],
@@ -251,8 +256,6 @@ export default {
       // this.links = [];
 
       //右边多输出 [1,20] 默认或者最小为1，上限20
-
-
     },
     reset() {
       this.flowData = [];

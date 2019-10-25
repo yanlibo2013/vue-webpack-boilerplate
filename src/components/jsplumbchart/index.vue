@@ -627,8 +627,8 @@ export default {
 
       if (step.type == "multioutput") {
         let outputConfigurations = _.toArray(step.outputConfigurations);
-        console.log("step.outputConfigurations", step.outputConfigurations);
-        console.log("outputConfigurations", outputConfigurations);
+        // console.log("step.outputConfigurations", step.outputConfigurations);
+        // console.log("outputConfigurations", outputConfigurations);
 
         switch (outputConfigurations.length) {
           case 20:
@@ -639,7 +639,18 @@ export default {
           case 15:
             return "height: 330px; top: -120px;";
           case 14:
-            return "height: 290px; top: -110px;";
+          case 13:
+          case 12:
+          case 11:
+          case 10:
+            return "height: 210px; top: -70px;";
+          case 9:
+          case 8:
+          case 7:
+            return "height: 140px; top: -35px;";
+          case 6:
+          case 5:
+            return "height: 120px; top: -25px;";
           default:
             "";
         }
