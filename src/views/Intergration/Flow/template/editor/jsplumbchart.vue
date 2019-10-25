@@ -185,22 +185,22 @@ export default {
             output1: [
               { column: "kpi_time", type: "string", alias: "", description: "" }
             ],
-            // output2: [
-            //   { column: "kpi_time", type: "string", alias: "", description: "" }
-            // ],
-            // output3: [
-            //   { column: "kpi_time", type: "string", alias: "", description: "" }
-            // ],
-            // output4: [
-            //   { column: "kpi_time", type: "string", alias: "", description: "" }
-            // ],
+            output2: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output3: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output4: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
             //5~6
-            // output5: [
-            //   { column: "kpi_time", type: "string", alias: "", description: "" }
-            // ],
-            // output6: [
-            //   { column: "kpi_time", type: "string", alias: "", description: "" }
-            // ],
+            output5: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
+            output6: [
+              { column: "kpi_time", type: "string", alias: "", description: "" }
+            ],
             //7~9
             // output7: [
             //   { column: "kpi_time", type: "string", alias: "", description: "" }

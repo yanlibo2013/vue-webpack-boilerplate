@@ -637,7 +637,7 @@ export default {
           case 17:
           case 16:
           case 15:
-            return "height: 330px; top: -120px;";
+            return "height: 290px; top: -110px;";
           case 14:
           case 13:
           case 12:
@@ -646,8 +646,9 @@ export default {
             return "height: 210px; top: -70px;";
           case 9:
           case 8:
-          case 7:
+            // case 7:
             return "height: 140px; top: -35px;";
+          case 7:
           case 6:
           case 5:
             return "height: 120px; top: -25px;";

@@ -570,29 +570,54 @@ export const addMultioutput = val => {
     case 20:
     case 19:
     case 18:
+      // case 17:
+      // case 16:
+      // case 15:
+      lineheight = 4;
+      y = -1.42;
+      break;
     case 17:
     case 16:
     case 15:
-      lineheight = 4.5;
-      y = -1.46;
+      lineheight = 4;
+      y = -1.4;
       break;
     case 14:
     case 13:
     case 12:
-    case 11:
-    case 10:
+      // case 11:
+      // case 10:
       lineheight = 3;
       y = -0.9;
       break;
+
+    case 11:
+      // case 10:
+      lineheight = 3;
+      y = -0.87;
+      break;
+
+    case 10:
+      lineheight = 3;
+      y = -0.85;
+      break;
     case 9:
     case 8:
-    case 7:
+      // case 7:
       // case 6:
       lineheight = 2;
       y = -0.4;
       break;
 
+    case 7:
+      lineheight = 1.7;
+      y = -0.2;
+      break;
+
     case 5:
+      lineheight = 2;
+      y = -0.33;
+      break;
     case 6:
       lineheight = 2;
       y = -0.35;
