@@ -44,7 +44,9 @@ const webpackConfig = merge(baseWebpackConfig, {
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {
-          warnings: false
+          warnings: false,
+          drop_debugger: true, //自动删除debugger
+          drop_console: true //自动删除console.log
         }
       },
       sourceMap: config.build.productionSourceMap,
@@ -69,21 +71,44 @@ const webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename:
-        process.env.NODE_ENV === "testing" ? "index.html" : config.build.index,
-      template: "index.html",
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: "dependency"
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename:
+    //     process.env.NODE_ENV === "testing" ? "index.html" : config.build.index,
+    //   template: "index.html",
+    //   inject: true,
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true
+    //     // more options:
+    //     // https://github.com/kangax/html-minifier#options-quick-reference
+    //   },
+    //   // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    //   chunksSortMode: "dependency"
+    // }),
+
+    new HtmlWebpackPlugin(
+      Object.assign(
+        {
+          filename:
+            process.env.NODE_ENV === "testing"
+              ? "index.html"
+              : config.build.index,
+          template: "index.html",
+          inject: true,
+          minify: {
+            removeComments: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true
+            // more options:
+            // https://github.com/kangax/html-minifier#options-quick-reference
+          },
+          // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+          chunksSortMode: "dependency"
+        },
+        config.dev.cdn
+      )
+    ),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting

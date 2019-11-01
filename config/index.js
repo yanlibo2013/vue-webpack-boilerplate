@@ -3,18 +3,50 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require("path");
+const csslist = ["https://unpkg.com/element-ui/lib/theme-chalk/index.css"];
+const devJslist = [
+  "https://cdn.bootcss.com/vue/2.6.10/vue.js",
+  "https://cdn.bootcss.com/vue-router/2.7.0/vue-router.min.js",
+  "https://cdn.bootcss.com/axios/0.18.0/axios.min.js",
+  // "https://unpkg.com/element-ui/lib/index.js",
+  "https://cdn.bootcss.com/element-ui/2.12.0/index.js",
+  "https://cdn.bootcss.com/vuex/3.1.1/vuex.js",
+  "https://cdn.bootcss.com/element-ui/2.12.0/locale/zh-CN.min.js",
+  "https://cdn.bootcss.com/element-ui/2.12.0/locale/en.js",
+  "https://cdn.bootcss.com/element-ui/2.12.0/locale/es.js"
+];
+
+const productjslist = [
+  "https://cdn.bootcss.com/vue/2.6.10/vue.min.js",
+  "https://cdn.bootcss.com/vue-router/2.7.0/vue-router.min.js",
+  "https://cdn.bootcss.com/axios/0.18.0/axios.min.js",
+  // "https://unpkg.com/element-ui/lib/index.js",
+  "https://cdn.bootcss.com/element-ui/2.12.0/index.js",
+  "https://cdn.bootcss.com/vuex/3.3.1/vuex.js",
+  "https://cdn.bootcss.com/element-ui/2.12.0/locale/zh-CN.min.js",
+  "https://cdn.bootcss.com/element-ui/2.12.0/locale/en.js",
+  "https://cdn.bootcss.com/element-ui/2.12.0/locale/es.js"
+];
 
 module.exports = {
   dev: {
     // Paths
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
+    //依据参数 baseenv 确定代理环境
     proxyTable: {
       "/mock/": {
         target: "http://localhost:7000",
         changeOrigin: false,
         pathRewrite: {
           "^/mock": ""
+        }
+      },
+      "/api/": {
+        target: "http://localhost:7000",
+        changeOrigin: false,
+        pathRewrite: {
+          "^/api": ""
         }
       }
     },
@@ -47,7 +79,12 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: true,
+    // 直接通过link标签或script标签加载的CDN文件链接
+    cdn: {
+      css: csslist,
+      js: devJslist
+    }
   },
 
   build: {
@@ -57,7 +94,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, "../dist"),
     assetsSubDirectory: "static",
-    assetsPublicPath: "/",
+    assetsPublicPath: "./",
 
     /**
      * Source Maps
@@ -71,13 +108,18 @@ module.exports = {
     // Surge or Netlify already gzip all static assets for you.
     // Before setting to `true`, make sure to:
     // npm install --save-dev compression-webpack-plugin
-    productionGzip: false,
+    productionGzip: true,
     productionGzipExtensions: ["js", "css"],
 
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: process.env.npm_config_report
+    bundleAnalyzerReport: process.env.npm_config_report,
+    // 直接通过link标签或script标签加载的CDN文件链接
+    cdn: {
+      css: csslist,
+      js: productjslist
+    }
   }
 };

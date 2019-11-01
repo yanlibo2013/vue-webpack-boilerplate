@@ -121,19 +121,6 @@
   display: block;
 }
 
-.custom-class-dialog .el-dialog__header {
-  background-color: #4c4c51 !important;
-}
-
-.custom-class-dialog .el-dialog__header .el-dialog__title {
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.custom-class-dialog .el-dialog__close {
-  color: #eeeeee;
-}
-
 #app .main-container {
   min-height: 100%;
   transition: margin-left .28s;

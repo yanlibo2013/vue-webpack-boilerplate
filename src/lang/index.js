@@ -1,27 +1,31 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import Cookies from 'js-cookie'
-import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
-import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang
-import elementEsLocale from 'element-ui/lib/locale/lang/es'// element-ui lang
+// import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
+// import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang
+// import elementEsLocale from 'element-ui/lib/locale/lang/es'// element-ui lang
 import enLocale from './en'
 import zhLocale from './zh'
 import esLocale from './es'
+
+//cdn 方式
+// Vue.locale('en', ELEMENT.lang.en)
+// Vue.locale('zh-cn', ELEMENT.lang.zhCN)
 
 Vue.use(VueI18n)
 
 const messages = {
   en: {
     ...enLocale,
-    ...elementEnLocale
+    ...ELEMENT.lang.en
   },
   zh: {
     ...zhLocale,
-    ...elementZhLocale
+    ...ELEMENT.lang.zhCN
   },
   es: {
     ...esLocale,
-    ...elementEsLocale
+    ...ELEMENT.lang.es
   }
 }
 export function getLanguage() {
@@ -43,7 +47,8 @@ const i18n = new VueI18n({
   // options: en | zh | es
   locale: getLanguage(),
   // set locale messages
-  messages
+  messages,
+  silentTranslationWarn: true
 })
 
 export default i18n

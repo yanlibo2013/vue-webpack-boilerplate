@@ -80,25 +80,6 @@
 //dropdown
 .el-dropdown-menu {
   a {
-    display: block;
-  }
-}
-
-//全局重写
-// .el-dialog__header {
-//   background-color: #4c4c51;
-// }
-
-//自定义dialog样式
-.custom-class-dialog {
-  .el-dialog__header {
-    background-color: #4c4c51 !important;
-    .el-dialog__title {
-      color: #ffffff;
-      font-size: 16px;
-    }
-  }
-  .el-dialog__close {
-    color: #eeeeee;
+    display: block
   }
 }
