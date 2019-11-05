@@ -64,22 +64,11 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
-    // new HtmlWebpackPlugin({
-    //   filename: "index.html",
-    //   template: "index.html",
-    //   inject: true
-    // }),
-
-    new HtmlWebpackPlugin(
-      Object.assign(
-        {
-          filename: "index.html",
-          template: "index.html",
-          inject: true
-        },
-        config.dev.cdn
-      )
-    ),
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: "index.html",
+      inject: true
+    }),
     // copy custom static assets
     new CopyWebpackPlugin([
       {
@@ -107,7 +96,9 @@ module.exports = new Promise((resolve, reject) => {
         new FriendlyErrorsPlugin({
           compilationSuccessInfo: {
             messages: [
-              `Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`
+              `Your application is running here: http://${
+                devWebpackConfig.devServer.host
+              }:${port}`
             ]
           },
           onErrors: config.dev.notifyOnErrors

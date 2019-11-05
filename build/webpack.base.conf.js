@@ -20,13 +20,6 @@ const createLintingRule = () => ({
 });
 
 module.exports = {
-  externals: {
-    "vue-router": "VueRouter",
-    vue: "Vue",
-    axios: "axios",
-    "element-ui": "ELEMENT",
-    vuex: "Vuex"
-  },
   context: path.resolve(__dirname, "../"),
   entry: {
     // app: "./src/main.js"//entry: ["@babel/polyfill", "./app/js"],
@@ -46,6 +39,8 @@ module.exports = {
     alias: {
       vue$: "vue/dist/vue.esm.js",
       "@": resolve("src"),
+      "static": resolve("static"),
+      mock: resolve("mock"),
       jquery: "jquery",
       "jquery-ui": "jquery-ui"
     }
@@ -67,23 +62,13 @@ module.exports = {
           resolve("node_modules/webpack-dev-server/client")
         ]
       },
-      // {
-      //   test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-      //   loader: "url-loader",
-      //   exclude: [resolve("src/icons")],
-      //   options: {
-      //     limit: 10000,
-      //     name: utils.assetsPath("img/[name].[hash:7].[ext]")
-      //   }
-      // },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        exclude: [resolve("src/icons")],
-        loader: [
-          "url-loader?limit=10000&name=" +
-            utils.assetsPath("img/[name].[hash:7].[ext]"),
-          "image-webpack-loader"
-        ]
+        loader: "url-loader",
+        options: {
+          limit: 10000,
+          name: utils.assetsPath("img/[name].[hash:7].[ext]")
+        }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
@@ -99,14 +84,6 @@ module.exports = {
         options: {
           limit: 10000,
           name: utils.assetsPath("fonts/[name].[hash:7].[ext]")
-        }
-      },
-      {
-        test: /\.svg$/,
-        loader: "svg-sprite-loader",
-        include: [resolve("src/icons")],
-        options: {
-          symbolId: "icon-[name]"
         }
       }
       // {

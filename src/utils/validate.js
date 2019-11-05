@@ -2,16 +2,11 @@
  * Created by jiachenpan on 16/11/18.
  */
 
-
 export function isExternal(path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }
 
-export function validUsername(str,self) {
-  self.$message({
-    message: "未授权，请登录",
-    type: "warning"
-  });
+export function validUsername(str) {
   const valid_map = ['admin', 'editor']
   return valid_map.indexOf(str.trim()) >= 0
 }

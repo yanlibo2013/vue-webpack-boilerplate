@@ -1,31 +1,43 @@
 <template>
   <header class="v-header">
-    <h1>NLP服务系统后台管理</h1>
-    <div class="right-menu">
-      <search id="header-search" class="right-menu-item" />
-      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
-        <div class="avatar-wrapper">
-          <img
-            :src="'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'+'?imageView2/1/w/80/h/80'"
-            class="user-avatar"
-          />
-          <i class="el-icon-caret-bottom" />
-        </div>
-        <el-dropdown-menu slot="dropdown">
-          <router-link to="/">
-            <el-dropdown-item>{{ $t('navbar.dashboard') }}</el-dropdown-item>
-          </router-link>
-          <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">{{ $t('navbar.logOut') }}</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
+    <!-- <el-menu
+      :default-active="activeIndex2"
+      class="el-menu-demo"
+      mode="horizontal"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      @select="handleSelect"
+    >
+      <el-submenu index="2">
+        <template slot="title">Module1</template>
+        <el-menu-item index="module1/module1-1">Module1-1</el-menu-item>
+        <el-menu-item index="module1/module1-2">Module1-2</el-menu-item>
+        <el-menu-item index="module1/module1-3">Module1-3</el-menu-item>
+      </el-submenu>
+    </el-menu>-->
+    <el-menu
+      :default-active="activeIndex2"
+      class="el-menu-demo"
+      mode="horizontal"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      @select="handleSelect"
+    >
+      <el-submenu :index="item.path" v-for="(item,index) in menuData" :key="index">
+        <template slot="title">{{item.name}}</template>
+        <el-menu-item
+          :index="sub.path"
+          v-for="(sub,subindex) in item.children"
+          :key="subindex"
+        >{{sub.name}}</el-menu-item>
+      </el-submenu>
+    </el-menu>
   </header>
 </template>
 
 <script>
-import Search from "@/components/HeaderSearch";
 /* eslint-disable */
 export default {
   data: function() {
@@ -61,16 +73,11 @@ export default {
     };
   },
   computed: {},
-  components: {
-    Search
-  },
+  components: {},
   methods: {
     handleSelect(key, keyPath) {
       //console.log(key, keyPath);
       this.$router.push("/layout/" + key);
-    },
-    logout() {
-      this.$router.push(`/login`);
     }
   },
   mounted() {},
@@ -86,53 +93,11 @@ export default {
 
 <style lang="scss">
 .v-header {
-  height: 60px;
-  background: #ffffff;
+  height: 55px;
+  background: #333;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  /* flex布局 */
-  display: flex;
-
-  justify-content: space-between;
-
-  /* 使子项目水平居中 */
-  // justify-content: center;
-
-  /* 使子项目垂直居中 */
-  align-items: center;
-  h1 {
-    color: #333;
-    margin-left: 20px;
-  }
-
-  .right-menu {
-    margin-right: 10px;
-    .user-avatar {
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-    }
-
-    .right-menu-item {
-      display: inline-block;
-      padding: 0 8px;
-      height: 100%;
-      font-size: 18px;
-      color: #5a5e66;
-      vertical-align: text-bottom;
-
-      &.hover-effect {
-        cursor: pointer;
-        transition: background 0.3s;
-
-        &:hover {
-          background: rgba(0, 0, 0, 0.025);
-        }
-      }
-    }
-  }
 }
 </style>

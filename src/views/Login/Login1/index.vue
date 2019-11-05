@@ -14,7 +14,7 @@
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon icon-class="user" />
+          <svg-icon icon-class="user"/>
         </span>
         <el-input
           ref="username"
@@ -29,7 +29,7 @@
       <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
         <el-form-item prop="password">
           <span class="svg-container">
-            <svg-icon icon-class="password" />
+            <svg-icon icon-class="password"/>
           </span>
           <el-input
             :key="passwordType"
@@ -44,7 +44,7 @@
             @keyup.enter.native="handleLogin"
           />
           <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
           </span>
         </el-form-item>
       </el-tooltip>
@@ -76,10 +76,10 @@
 
     <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
       {{ $t('login.thirdpartyTips') }}
-      <br />
-      <br />
-      <br />
-      <social-sign />
+      <br>
+      <br>
+      <br>
+      <social-sign/>
     </el-dialog>
   </div>
 </template>
@@ -91,10 +91,10 @@ import SocialSign from "./socialSignin";
 
 export default {
   name: "Login",
-  components: { SocialSign },
+  components: {  SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value,this)) {
+      if (!validUsername(value)) {
         callback(new Error("Please enter the correct user name"));
       } else {
         callback();
@@ -177,8 +177,7 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          // this.loading = true;
-          this.$router.push({ path: this.redirect || "/dashboard" });
+          this.loading = true;
           // this.$store
           //   .dispatch("user/login", this.loginForm)
           //   .then(() => {
@@ -218,7 +217,7 @@ export default {
 
 <style lang="scss">
 $n: 8; //和items.length 相同
-$t: 0.1s;
+$t: .1s;
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
